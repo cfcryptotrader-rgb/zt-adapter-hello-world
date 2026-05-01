@@ -4,6 +4,14 @@ This is the public starter repository for developers building adapters against t
 
 It is intentionally small: a Node.js Hello World service plus one demo call to the Zero Trust Control Plane.
 
+## Vision
+
+We are building toward a SPIFFE-like identity, policy, and attestation layer for AI agents.
+
+Autonomous systems are starting to discover tools, call APIs, write code, open tickets, deploy infrastructure, and act across organizational boundaries. The next decade of autonomous system security will need portable agent identity, least-privilege policy, verifiable execution context, and audit records that survive framework churn.
+
+This repository is the public on-ramp for contributors who want to help define that layer. Start with the five-minute Hello World path, then help harden the standards, adapters, brokers, trust bundles, and conformance tests that make agent actions safe to delegate.
+
 ## Core Security Docs
 
 Start here if you need to understand the security model before writing code:

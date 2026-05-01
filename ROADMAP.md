@@ -4,6 +4,8 @@ This repository is the public adapter starting point for Zero Trust V2.
 
 Product thesis: Zero Trust V2 is trying to become the SPIFFE-like identity and policy layer for AI agents. That means the roadmap must move beyond demo authorization into portable agent identity, verifiable workload attestation, federated trust bundles, and conformance tests that adapter authors can implement consistently.
 
+Contributor vision: this project is for people who want to help define the next decade of autonomous system security. The work is not just another SDK wrapper; it is the identity, policy, and evidence substrate that lets humans safely delegate actions to agents across tools, runtimes, clouds, and organizations.
+
 ## Phase 1: Hello World Adapter
 
 Status: current

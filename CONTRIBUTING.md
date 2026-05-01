@@ -2,6 +2,8 @@
 
 This repo is designed for junior developers and first-time adapter authors.
 
+The broader mission is to help define the next decade of autonomous system security. If you care about portable agent identity, policy-before-execution, signed audit evidence, secure tool use, or federated trust between agent runtimes, this project is the place to turn those ideas into runnable examples and tests.
+
 ## Local workflow
 
 1. Create a branch.
