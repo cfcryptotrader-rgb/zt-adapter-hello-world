@@ -163,6 +163,30 @@ http://127.0.0.1:8080/demo/allow
 - npm
 - Optional: `jq` for prettier terminal output
 
+## Deploy To Vercel
+
+This repo is Vercel-ready. The browser homepage is served from `/`, and JSON demo endpoints remain available under the same paths.
+
+1. Import the GitHub repo into Vercel:
+
+```text
+https://github.com/oscarmackjr-twg/zt-adapter-hello-world
+```
+
+2. Use the default Vercel Node.js settings. No build command is required.
+
+3. Optional environment variables:
+
+```text
+ZT_CONTROL_PLANE_URL=https://your-control-plane.example.com
+ZT_ACTOR=hello-world-agent
+ZT_TOKEN=optional-bearer-token
+```
+
+Without `ZT_CONTROL_PLANE_URL`, the homepage and `/health` still render, while `/demo/deny` and `/demo/allow` return a clear `503` explaining that a control plane is not configured.
+
+Vercel routing is defined in [vercel.json](./vercel.json), with the serverless entry point in [api/index.js](./api/index.js).
+
 ## Real zt-infra
 
 The five-minute flow uses `npm run zt:mock`.

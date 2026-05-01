@@ -28,10 +28,10 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/REPLACE_ME/zt-adapter-hello-world.git"
+    "url": "https://github.com/oscarmackjr-twg/zt-adapter-hello-world.git"
   },
   "bugs": {
-    "url": "https://github.com/REPLACE_ME/zt-adapter-hello-world/issues"
+    "url": "https://github.com/oscarmackjr-twg/zt-adapter-hello-world/issues"
   },
-  "homepage": "https://github.com/REPLACE_ME/zt-adapter-hello-world#readme"
+  "homepage": "https://github.com/oscarmackjr-twg/zt-adapter-hello-world#readme"
 }
