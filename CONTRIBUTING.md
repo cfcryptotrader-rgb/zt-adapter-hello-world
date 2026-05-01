@@ -15,6 +15,7 @@ This repo is designed for junior developers and first-time adapter authors.
 - Do not commit `.env` files or API keys.
 - Keep examples readable before clever.
 - Sensitive actions must call the Zero Trust Control Plane first.
+- New adapter surfaces must document how they set `actor`, what resource string they protect, and the least-privilege policy needed for the safe path.
 
 ## Adding Execution Brokers
 
@@ -38,6 +39,7 @@ Every broker contribution must:
 5. include tests for both deny and allow paths;
 6. avoid requiring cloud credentials in CI;
 7. document any required runtime permissions.
+8. include a least-privilege policy example that maps actor, action, and resource.
 
 ### Suggested structure
 
@@ -60,3 +62,4 @@ brokers/
 - Does it clearly separate policy decision from execution?
 - Does it keep dangerous examples mocked by default?
 - Can a junior developer run the example locally?
+- Does it document identity mapping and deny-by-default policy behavior?

@@ -4,6 +4,16 @@ This is the public starter repository for developers building adapters against t
 
 It is intentionally small: a Node.js Hello World service plus one demo call to the Zero Trust Control Plane.
 
+## Core Security Docs
+
+Start here if you need to understand the security model before writing code:
+
+- [Identity & Policy Spec](./IDENTITY_AND_POLICY.md): how transient agents get unique IDs and how least-privilege ABAC policies are shaped.
+- [Threat Model](./THREAT_MODEL.md): what this system protects against and what remains the application developer's responsibility.
+- [Adapter Contract](./ADAPTER_CONTRACT.md): the minimum request, response, and fail-closed behavior expected from adapters.
+- [Security Policy](./SECURITY.md): supported versions and private vulnerability reporting.
+- [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
+
 ## Who this is for
 
 Use this repo if you are:
@@ -229,6 +239,8 @@ See [SDK_REVIEW.md](./SDK_REVIEW.md) for notes on how this differs from the draf
 
 See [ADAPTER_CONTRACT.md](./ADAPTER_CONTRACT.md).
 
+For identity provisioning, ABAC examples, and audit record semantics, see [IDENTITY_AND_POLICY.md](./IDENTITY_AND_POLICY.md).
+
 ## Execution Brokers
 
 Execution Brokers run approved work after the control plane returns `allow`.
@@ -279,5 +291,7 @@ asciinema rec --overwrite -c "npm run demo:record" recordings/agent-blocked-then
 Do not commit secrets. Keep `.env` local.
 
 Report vulnerabilities privately. See [SECURITY.md](./SECURITY.md).
+
+For design-level security boundaries, see [THREAT_MODEL.md](./THREAT_MODEL.md).
 
 This adapter is a learning repo, not a production agent runtime.

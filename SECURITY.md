@@ -30,6 +30,10 @@ We aim to acknowledge reports within 2 business days and provide a remediation p
 
 ## Scope
 
+Primary scope:
+
+- ZT-Infra protects against unauthorized tool calls.
+
 In scope:
 
 - bypasses of policy enforcement before execution;
@@ -40,9 +44,12 @@ In scope:
 
 Out of scope:
 
+- ZT-Infra does not prevent LLM prompt injection. Prompt injection prevention is the application's responsibility.
 - vulnerabilities in local developer machines;
 - attacks requiring committed secrets that are not part of this repository;
 - denial-of-service against the mock control plane used only for onboarding.
+
+For the full design-level threat model, see [THREAT_MODEL.md](./THREAT_MODEL.md).
 
 ## Safe Harbor
 
