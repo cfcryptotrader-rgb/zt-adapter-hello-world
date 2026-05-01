@@ -1,0 +1,22 @@
+{
+  "name": "zt-adapter-hello-world",
+  "version": "0.1.0",
+  "private": false,
+  "type": "module",
+  "description": "Hello World adapter for testing Zero Trust infrastructure integrations.",
+  "scripts": {
+    "start": "node src/server.js",
+    "demo:deny": "node src/demo-deny.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "keywords": [
+    "zero-trust",
+    "agent",
+    "adapter",
+    "hello-world"
+  ],
+  "license": "MIT"
+}
