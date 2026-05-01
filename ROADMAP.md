@@ -2,6 +2,8 @@
 
 This repository is the public adapter starting point for Zero Trust V2.
 
+Product thesis: Zero Trust V2 is trying to become the SPIFFE-like identity and policy layer for AI agents. That means the roadmap must move beyond demo authorization into portable agent identity, verifiable workload attestation, federated trust bundles, and conformance tests that adapter authors can implement consistently.
+
 ## Phase 1: Hello World Adapter
 
 Status: current
@@ -22,12 +24,85 @@ Planned:
 - Workload identity mapping to `actor`.
 - Certificate rotation examples.
 - Signed adapter metadata.
+- Agent ID profile that defines canonical AI agent identifiers, such as `ztid://tenant/workload/agent/session` and `spiffe://tenant.example/agent/session`.
+- Agent registration API that binds transient agent IDs to workload identity, runtime metadata, owner, policy namespace, and expiration.
+- Short-lived agent credentials with automatic rotation and explicit TTLs.
+- Server-side actor binding so clients cannot spoof `actor` in `POST /actions`.
+- Revocation flow for compromised, expired, or completed agent sessions.
 
 Why it matters:
 
 Adapters should not rely only on bearer tokens or network location. Workload identity lets the control plane reason about which service, broker, or agent is requesting execution.
 
-## Phase 3: Execution Brokers
+Current gaps:
+
+- `actor` is documented, but no canonical AI-agent identity profile exists yet.
+- The public mock allows `POST /agents` registration without proof of workload identity.
+- There is no agent credential issuance flow equivalent to SPIFFE SVID issuance.
+- There is no trust bundle format for distributing control-plane roots or accepted issuers.
+- There is no revocation story for transient agents that finish a task or become compromised.
+
+Exit criteria:
+
+- an adapter can request a short-lived agent identity;
+- the control plane can bind `actor` to authenticated workload identity;
+- a verifier can validate the agent identity issuer, expiration, and trust domain;
+- a denied spoofed-actor request is covered by tests.
+
+## Phase 3: Agent Attestation
+
+Planned:
+
+- Runtime attestation envelope for agent launch context, model/provider, tool manifest, policy namespace, sandbox type, code digest, and broker identity.
+- Signed agent metadata document that travels with every audit event.
+- Optional TPM, Nitro Enclave, container image digest, or CI provenance hooks where available.
+- Attestation verification endpoint for adapters and auditors.
+- Tamper-evident binding between `actor`, attestation hash, policy decision, and audit record.
+
+Why it matters:
+
+SPIFFE identifies workloads. AI agents also need explainable runtime context: which model, which tool manifest, which sandbox, which broker, which policy, and which code produced the action.
+
+Current gaps:
+
+- Audit records identify actor/action/decision, but do not yet prove the runtime context of the agent.
+- The Hello World mock does not bind an agent to a code digest, model identity, tool manifest, or sandbox.
+- There is no reusable attestation schema that LangGraph, OpenAI Responses, MCP, and A2A adapters can share.
+
+Exit criteria:
+
+- all demo adapters can attach the same attestation envelope;
+- audit records include an attestation hash;
+- tests prove an action is denied when required attestation fields are missing or stale.
+
+## Phase 4: Trust Bundles And Federation
+
+Planned:
+
+- Trust domain model for organizations, teams, brokers, and external agents.
+- Trust bundle document containing accepted issuers, public keys, policy namespaces, and expiration metadata.
+- Trust bundle discovery endpoint.
+- Federation example where one organization accepts a constrained external agent from another trust domain.
+- Cross-domain deny examples for untrusted MCP and A2A calls.
+
+Why it matters:
+
+The SPIFFE analogy only becomes real when identities can cross boundaries safely. Agents will call tools across teams, vendors, SaaS providers, and customer environments.
+
+Current gaps:
+
+- There is no trust domain abstraction.
+- There is no signed bundle format for distributing accepted issuers or verification roots.
+- External A2A and MCP identities are treated as policy strings, not federated principals.
+- There is no documented trust negotiation or downgrade path.
+
+Exit criteria:
+
+- a verifier can load a trust bundle and validate an agent identity from another trust domain;
+- external agents are denied by default until a trust bundle and policy allow them;
+- federation behavior is covered by local tests without cloud credentials.
+
+## Phase 5: Execution Brokers
 
 Planned:
 
@@ -35,10 +110,40 @@ Planned:
 - Kubernetes Job Execution Broker.
 - Container sandbox broker example.
 - Broker conformance test suite.
+- Broker identity profile so each broker has its own workload identity distinct from the agent identity.
+- Broker attestation checks before running approved work.
+- Policy rules that constrain which broker types may execute which action families.
+- Broker isolation evidence attached to the audit record.
 
 Execution Brokers are responsible for running approved actions after policy allows execution.
 
-## Phase 4: Evidence Integrations
+## Phase 6: Policy And Conformance
+
+Planned:
+
+- ABAC policy schema versioning.
+- Policy decision conformance tests shared across LangGraph, OpenAI Responses, MCP, A2A, and custom SDKs.
+- Golden audit record fixtures.
+- Negative tests for spoofed actor, expired credential, missing attestation, untrusted issuer, and overbroad action.
+- Compatibility matrix for supported adapter protocols.
+
+Why it matters:
+
+SPIFFE succeeded because identity behavior is portable. This project needs the same portability for agent policy decisions and audit evidence.
+
+Current gaps:
+
+- The docs show ABAC examples, but there is no versioned policy schema.
+- There is no official conformance suite for third-party adapter authors.
+- Audit fields are documented, but not published as a machine-readable schema.
+
+Exit criteria:
+
+- public adapter contributors can run one command to prove conformance;
+- the same deny/allow fixture works across every supported adapter surface;
+- audit schema validation is part of CI.
+
+## Phase 7: Evidence Integrations
 
 Planned:
 
@@ -46,6 +151,9 @@ Planned:
 - SIEM-friendly JSON event format.
 - GitHub Actions evidence bundle.
 - DAAL/blockchain attestation sample integration.
+- Trust-bundle and agent-attestation evidence export.
+- Compliance mapping from identity, policy, and audit controls to SOC 2 evidence.
+- Verifier CLI that checks identity signature, trust bundle, hash chain, and optional DAAL transaction.
 
 ## Non-Goals
 
