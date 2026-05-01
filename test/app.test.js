@@ -27,6 +27,7 @@ test("root endpoint returns hello message", async () => {
   assert.equal(response.statusCode, 200);
   assert.equal(body.ok, true);
   assert.match(body.message, /Zero Trust adapter/);
+  assert.deepEqual(body.next, ["/health", "/demo/deny", "/demo/allow"]);
 });
 
 test("health endpoint returns service status", async () => {

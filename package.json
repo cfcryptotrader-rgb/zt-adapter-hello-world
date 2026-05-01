@@ -10,7 +10,9 @@
   },
   "scripts": {
     "start": "node src/server.js",
+    "zt:mock": "node src/mock-control-plane.js",
     "demo:deny": "node src/demo-deny.js",
+    "demo:allow": "node src/demo-allow.js",
     "test": "node --test"
   },
   "engines": {

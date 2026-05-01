@@ -10,6 +10,7 @@ An adapter should:
 - call the Zero Trust Control Plane before a sensitive action;
 - fail closed if the control plane is unreachable;
 - surface `decision`, `reason`, and `audit` fields in demo output;
+- demonstrate both deny-before-execute and allow-before-execute paths;
 - avoid committing secrets.
 
 ## Control Plane request

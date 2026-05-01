@@ -7,7 +7,8 @@ This repo is designed for junior developers and first-time adapter authors.
 1. Create a branch.
 2. Run `npm test`.
 3. Keep examples small and dependency-light.
-4. Open a pull request with a short description and test output.
+4. Make sure the five-minute quickstart still works.
+5. Open a pull request with a short description and test output.
 
 ## Rules
 

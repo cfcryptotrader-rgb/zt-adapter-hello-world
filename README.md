@@ -12,35 +12,121 @@ Use this repo if you are:
 - an integration partner testing the public adapter contract;
 - an end-user adapter author who needs a safe starting point.
 
-## What you will build
+## Five-Minute Secure Hello World
 
-You will run a small app with:
+This quickstart shows the full security loop:
 
-- `GET /` hello response;
-- `GET /health` service health;
-- `GET /demo/deny` example policy check against the Zero Trust Control Plane.
+1. spin up a local Zero Trust control plane;
+2. register a mock agent;
+3. attempt an unauthorized execution and fail;
+4. apply a policy;
+5. execute a safe Hello World action successfully.
 
-The demo action is intentionally dangerous:
+The local control plane is a mock for onboarding. It uses the same `/actions` request/response shape as the MVP, but its signatures are marked `MOCK_ECDSA_SHA_256`. For real infrastructure, point `ZT_CONTROL_PLANE_URL` at a deployed ZT-Infra control plane.
 
-```text
-aws.ec2.terminate_instances
-```
-
-The expected result is `deny`.
-
-## Requirements
-
-- Node.js 20 or newer
-- npm
-- Optional: access to a running Zero Trust Control Plane at `http://127.0.0.1:3000`
-
-## Quick Start
+### 1. Install
 
 ```bash
 git clone https://github.com/REPLACE_ME/zt-adapter-hello-world.git
 cd zt-adapter-hello-world
 npm ci
 npm test
+```
+
+### 2. Start local zt-infra mock
+
+Terminal 1:
+
+```bash
+npm run zt:mock
+```
+
+Verify:
+
+```bash
+curl -sS http://127.0.0.1:3000/health | jq .
+```
+
+### 3. Register a mock agent
+
+Terminal 2:
+
+```bash
+curl -sS -X POST http://127.0.0.1:3000/agents \
+  -H 'content-type: application/json' \
+  -d '{"actor":"hello-world-agent"}' | jq .
+```
+
+Expected:
+
+```json
+{
+  "ok": true,
+  "actor": "hello-world-agent",
+  "registered": true
+}
+```
+
+### 4. Attempt unauthorized execution
+
+This action is intentionally dangerous and should fail:
+
+```bash
+npm run demo:deny
+```
+
+Expected:
+
+```json
+{
+  "ok": false,
+  "status": 403,
+  "decision": "deny",
+  "reason": "Mock policy blocks infrastructure termination.",
+  "audit": {
+    "kms_signature": {
+      "algorithm": "MOCK_ECDSA_SHA_256"
+    }
+  }
+}
+```
+
+### 5. Apply policy and execute successfully
+
+Allow only the safe Hello World action:
+
+```bash
+curl -sS -X POST http://127.0.0.1:3000/policies/allow \
+  -H 'content-type: application/json' \
+  -d '{"action":"hello-world.say_hello","reason":"Quickstart policy allows hello world."}' | jq .
+```
+
+Then execute:
+
+```bash
+npm run demo:allow
+```
+
+Expected:
+
+```json
+{
+  "ok": true,
+  "status": 200,
+  "decision": "allow",
+  "executionSkipped": false,
+  "result": {
+    "message": "Hello from a policy-approved adapter action."
+  }
+}
+```
+
+### 6. Run the web adapter
+
+Terminal 3:
+
+```bash
+cp .env.example .env
 npm start
 ```
 
@@ -49,36 +135,45 @@ Open:
 ```text
 http://127.0.0.1:8080
 http://127.0.0.1:8080/health
+http://127.0.0.1:8080/demo/deny
+http://127.0.0.1:8080/demo/allow
 ```
 
-## Connect to the Control Plane
+## Requirements
 
-Copy the example environment file:
+- Node.js 20 or newer
+- npm
+- Optional: `jq` for prettier terminal output
 
-```bash
-cp .env.example .env
-```
+## Real zt-infra
 
-Set:
+The five-minute flow uses `npm run zt:mock`.
+
+To use the real MVP control plane:
+
+1. deploy ZT-Infra from the private infrastructure repo;
+2. confirm `zt-provisioner` is reachable through SSM or Tailscale;
+3. set:
 
 ```bash
 ZT_CONTROL_PLANE_URL=http://127.0.0.1:3000
 ZT_ACTOR=hello-world-agent
 ```
 
-Run the denial demo:
+The real control plane signs audit records with AWS KMS and writes to the configured audit sink.
 
-```bash
-npm run demo:deny
+## Demo Endpoints
+
+The adapter app exposes:
+
+```text
+GET /            hello response
+GET /health      service health
+GET /demo/deny   unauthorized action, expected deny
+GET /demo/allow  safe action, expected allow after policy is applied
 ```
 
-Or call the app endpoint:
-
-```bash
-curl -sS http://127.0.0.1:8080/demo/deny | jq .
-```
-
-Expected shape:
+Denied response shape:
 
 ```json
 {
