@@ -45,7 +45,7 @@ The local control plane is a mock for onboarding. It uses the same `/actions` re
 ### 1. Install
 
 ```bash
-git clone https://github.com/REPLACE_ME/zt-adapter-hello-world.git
+git clone https://github.com/oscarmackjr-twg/zt-adapter-hello-world.git
 cd zt-adapter-hello-world
 npm ci
 npm test
