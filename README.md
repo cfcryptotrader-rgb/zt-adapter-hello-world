@@ -260,6 +260,20 @@ v0.1.0
 
 Use releases when linking from public websites or tutorials.
 
+## Terminal Demo Recording
+
+The repository includes an asciinema recording of the five-minute flow:
+
+```text
+recordings/agent-blocked-then-authorized.cast
+```
+
+To regenerate it:
+
+```bash
+asciinema rec --overwrite -c "npm run demo:record" recordings/agent-blocked-then-authorized.cast
+```
+
 ## Security
 
 Do not commit secrets. Keep `.env` local.

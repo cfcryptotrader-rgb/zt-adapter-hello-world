@@ -13,6 +13,7 @@
     "zt:mock": "node src/mock-control-plane.js",
     "demo:deny": "node src/demo-deny.js",
     "demo:allow": "node src/demo-allow.js",
+    "demo:record": "bash scripts/record-demo.sh",
     "test": "node --test"
   },
   "engines": {
