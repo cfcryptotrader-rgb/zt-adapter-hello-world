@@ -4,6 +4,10 @@
   "private": false,
   "type": "module",
   "description": "Hello World adapter for testing Zero Trust infrastructure integrations.",
+  "main": "src/zero-trust-client.js",
+  "exports": {
+    ".": "./src/zero-trust-client.js"
+  },
   "scripts": {
     "start": "node src/server.js",
     "demo:deny": "node src/demo-deny.js",

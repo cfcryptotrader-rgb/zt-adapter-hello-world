@@ -14,6 +14,12 @@ An adapter should:
 
 ## Control Plane request
 
+Current MVP endpoint:
+
+```text
+POST /actions
+```
+
 ```json
 {
   "actor": "hello-world-agent",

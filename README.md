@@ -96,6 +96,40 @@ Expected shape:
 }
 ```
 
+## SDK-Style Usage
+
+This repo includes a tiny public client inspired by the first-customer SDK draft, adapted to the current MVP `/actions` API.
+
+```js
+import { ZeroTrustClient } from "./src/zero-trust-client.js";
+
+const zt = new ZeroTrustClient({
+  baseUrl: "http://127.0.0.1:3000",
+  actor: "hello-world-agent",
+});
+
+const decision = await zt.guardedCall({
+  action: "aws.ec2.terminate_instances",
+  resource: "i-demo",
+  fn: async () => {
+    return "this only runs if policy allows";
+  },
+});
+
+console.log(decision);
+```
+
+Helper methods are included for common adapter surfaces:
+
+```js
+await zt.langGraph({ action, nodeName });
+await zt.openAIResponses({ action, responseId });
+await zt.mcpToolCall({ toolName, resource });
+await zt.a2aTask({ externalAgent, resource });
+```
+
+See [SDK_REVIEW.md](./SDK_REVIEW.md) for notes on how this differs from the draft first-customer SDK.
+
 ## Adapter Contract
 
 See [ADAPTER_CONTRACT.md](./ADAPTER_CONTRACT.md).
