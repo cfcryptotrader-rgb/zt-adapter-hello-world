@@ -229,6 +229,27 @@ See [SDK_REVIEW.md](./SDK_REVIEW.md) for notes on how this differs from the draf
 
 See [ADAPTER_CONTRACT.md](./ADAPTER_CONTRACT.md).
 
+## Execution Brokers
+
+Execution Brokers run approved work after the control plane returns `allow`.
+
+Examples planned for this public repo:
+
+- AWS Lambda Execution Broker
+- Kubernetes Job Execution Broker
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) for the broker contract.
+
+## Roadmap
+
+See [ROADMAP.md](./ROADMAP.md).
+
+Phase 2 focuses on secure service identity:
+
+- mTLS
+- SPIFFE/SPIRE integration
+- workload identity mapping to `actor`
+
 ## Stable Releases
 
 Stable versions are published as GitHub releases and tags:
@@ -242,5 +263,7 @@ Use releases when linking from public websites or tutorials.
 ## Security
 
 Do not commit secrets. Keep `.env` local.
+
+Report vulnerabilities privately. See [SECURITY.md](./SECURITY.md).
 
 This adapter is a learning repo, not a production agent runtime.
