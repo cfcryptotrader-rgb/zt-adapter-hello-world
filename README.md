@@ -4,6 +4,8 @@ This is the public starter repository for developers building adapters against t
 
 It is intentionally small: a Node.js Hello World service plus one demo call to the Zero Trust Control Plane.
 
+**Tagline:** Open-source identity, policy, and audit evidence for autonomous AI agents.
+
 ## Vision
 
 We are building toward a SPIFFE-like identity, policy, and attestation layer for AI agents.
@@ -24,7 +26,10 @@ Start here if you need to understand the security model before writing code:
 - [Security Policy](./SECURITY.md): supported versions and private vulnerability reporting.
 - [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
 - [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
+- [Launch Checklist](./LAUNCH_CHECKLIST.md): status of review feedback, completed work, and open launch items.
 - [Launch Brief](./LAUNCH_BRIEF.md): public narrative, audience, suggested launch message, and social-proof policy.
+- [Social Kit](./SOCIAL_KIT.md): launch-ready copy for Hacker News, LinkedIn, X, and approved public claims.
+- [SDK API](./SDK_API.md): `ZeroTrustClient` constructor, decision methods, helper methods, and fail-closed behavior.
 - [Engineering Spec](./ENGINEERING_SPEC.md): required code and infrastructure changes that should be implemented deliberately.
 - [Docker Local Broker](./brokers/docker-local/README.md): first public Execution Broker example.
 - [Authorization Gateway Terraform](./infra/terraform/examples/authorization-gateway/README.md): IAM-authorized public IaC example.
@@ -48,6 +53,42 @@ This quickstart shows the full security loop:
 5. execute a safe Hello World action successfully.
 
 The local control plane is a mock for onboarding. It uses the same `/actions` request/response shape as the MVP, but its signatures are marked `MOCK_ECDSA_SHA_256`. For real infrastructure, point `ZT_CONTROL_PLANE_URL` at a deployed ZT-Infra control plane.
+
+### Option A: Docker Compose
+
+Use this path if you want the fewest local prerequisites:
+
+```bash
+git clone https://github.com/oscarmackjr-twg/zt-adapter-hello-world.git
+cd zt-adapter-hello-world
+docker compose up
+```
+
+Docker Desktop or another Docker daemon must be running before you start the stack.
+
+In another terminal:
+
+```bash
+curl -sS http://127.0.0.1:8080/health
+curl -sS http://127.0.0.1:8080/demo/deny
+curl -sS -X POST http://127.0.0.1:3000/policies/allow \
+  -H 'content-type: application/json' \
+  -d '{"action":"hello-world.say_hello","reason":"Quickstart policy allows hello world."}'
+curl -sS http://127.0.0.1:8080/demo/allow
+```
+
+Expected result:
+
+- `/demo/deny` returns `decision: "deny"` and skips execution.
+- `/demo/allow` returns `decision: "allow"` after the policy is applied.
+
+Stop the stack:
+
+```bash
+docker compose down
+```
+
+### Option B: Local Node.js
 
 ### 1. Install
 
@@ -168,11 +209,14 @@ http://127.0.0.1:8080/demo/allow
 
 - Node.js 20 or newer
 - npm
+- Optional: Docker Compose v2 for the containerized quickstart
 - Optional: `jq` for prettier terminal output
 
 ## Deploy To Vercel
 
 This repo is Vercel-ready. The browser homepage is served from `/`, and JSON demo endpoints remain available under the same paths.
+
+The homepage includes a Buttondown-powered "Join the Alpha" form. It posts directly to Buttondown and does not store email addresses in this app.
 
 1. Import the GitHub repo into Vercel:
 
@@ -341,6 +385,10 @@ v0.1.0
 ```
 
 Use releases when linking from public websites or tutorials.
+
+## License
+
+This repository is licensed under Apache-2.0. The project uses Apache-2.0 instead of MIT for the public adapter because infrastructure and security adopters usually expect explicit patent grant language.
 
 ## Terminal Demo Recording
 

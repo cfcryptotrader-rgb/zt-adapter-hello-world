@@ -1,7 +1,39 @@
-import fs from "node:fs/promises";
-import path from "node:path";
+import fs from "node:fs";
 
 import { checkAction } from "./adapter.js";
+
+const bundledFiles = new Map([
+  ["ADAPTER_CONTRACT.md", fs.readFileSync(new URL("../ADAPTER_CONTRACT.md", import.meta.url), "utf8")],
+  ["ARCHITECTURE.md", fs.readFileSync(new URL("../ARCHITECTURE.md", import.meta.url), "utf8")],
+  ["CASE_STUDIES.md", fs.readFileSync(new URL("../CASE_STUDIES.md", import.meta.url), "utf8")],
+  ["CHANGELOG.md", fs.readFileSync(new URL("../CHANGELOG.md", import.meta.url), "utf8")],
+  ["CONTRIBUTING.md", fs.readFileSync(new URL("../CONTRIBUTING.md", import.meta.url), "utf8")],
+  ["ENGINEERING_SPEC.md", fs.readFileSync(new URL("../ENGINEERING_SPEC.md", import.meta.url), "utf8")],
+  ["GOVERNANCE.md", fs.readFileSync(new URL("../GOVERNANCE.md", import.meta.url), "utf8")],
+  ["IDENTITY_AND_POLICY.md", fs.readFileSync(new URL("../IDENTITY_AND_POLICY.md", import.meta.url), "utf8")],
+  ["LAUNCH_BRIEF.md", fs.readFileSync(new URL("../LAUNCH_BRIEF.md", import.meta.url), "utf8")],
+  ["LAUNCH_CHECKLIST.md", fs.readFileSync(new URL("../LAUNCH_CHECKLIST.md", import.meta.url), "utf8")],
+  ["README.md", fs.readFileSync(new URL("../README.md", import.meta.url), "utf8")],
+  ["ROADMAP.md", fs.readFileSync(new URL("../ROADMAP.md", import.meta.url), "utf8")],
+  ["SDK_API.md", fs.readFileSync(new URL("../SDK_API.md", import.meta.url), "utf8")],
+  ["SDK_REVIEW.md", fs.readFileSync(new URL("../SDK_REVIEW.md", import.meta.url), "utf8")],
+  ["SECURITY.md", fs.readFileSync(new URL("../SECURITY.md", import.meta.url), "utf8")],
+  ["SOCIAL_KIT.md", fs.readFileSync(new URL("../SOCIAL_KIT.md", import.meta.url), "utf8")],
+  ["THREAT_MODEL.md", fs.readFileSync(new URL("../THREAT_MODEL.md", import.meta.url), "utf8")],
+  [
+    "WHY_TRADITIONAL_IAM_FAILS.md",
+    fs.readFileSync(new URL("../WHY_TRADITIONAL_IAM_FAILS.md", import.meta.url), "utf8"),
+  ],
+  ["public/architecture.svg", fs.readFileSync(new URL("../public/architecture.svg", import.meta.url), "utf8")],
+]);
+
+function readBundledFile(file) {
+  const contents = bundledFiles.get(file);
+  if (contents === undefined) {
+    throw new Error(`Bundled file is not registered: ${file}`);
+  }
+  return contents;
+}
 
 const docs = [
   {
@@ -71,10 +103,22 @@ const docs = [
     summary: "Launch readiness, stakeholder communication, and rules of engagement.",
   },
   {
+    slug: "launch-checklist",
+    title: "Launch Checklist",
+    file: "LAUNCH_CHECKLIST.md",
+    summary: "Reviewer checklist with completed, partial, open, and blocked launch items.",
+  },
+  {
     slug: "launch-brief",
     title: "Launch Brief",
     file: "LAUNCH_BRIEF.md",
     summary: "Public launch narrative, audience, suggested message, and social-proof policy.",
+  },
+  {
+    slug: "social-kit",
+    title: "Social Kit",
+    file: "SOCIAL_KIT.md",
+    summary: "Approved launch copy, platform-specific posts, claims to use, and claims to avoid.",
   },
   {
     slug: "engineering-spec",
@@ -87,6 +131,12 @@ const docs = [
     title: "SDK Review",
     file: "SDK_REVIEW.md",
     summary: "How the public client differs from the first-customer draft SDK.",
+  },
+  {
+    slug: "sdk-api",
+    title: "SDK API",
+    file: "SDK_API.md",
+    summary: "ZeroTrustClient constructor, decision methods, fail-closed behavior, and testing patterns.",
   },
   {
     slug: "changelog",
@@ -111,7 +161,7 @@ export async function routeRequest(request, response) {
   }
 
   if (request.method === "GET" && url.pathname === "/quickstart") {
-    const markdown = await fs.readFile(path.join(process.cwd(), "README.md"), "utf8");
+    const markdown = readBundledFile("README.md");
     return html(response, 200, docsShell("Quickstart", markdownToHtml(markdown)));
   }
 
@@ -120,7 +170,7 @@ export async function routeRequest(request, response) {
   }
 
   if (request.method === "GET" && url.pathname === "/architecture.svg") {
-    const svg = await fs.readFile(path.join(process.cwd(), "public", "architecture.svg"), "utf8");
+    const svg = readBundledFile("public/architecture.svg");
     response.writeHead(200, {
       "content-type": "image/svg+xml; charset=utf-8",
       "cache-control": "public, max-age=300",
@@ -142,7 +192,7 @@ export async function routeRequest(request, response) {
     if (doc.slug === "architecture") {
       return html(response, 200, docsShell(doc.title, architecturePageContent()));
     }
-    const markdown = await fs.readFile(path.join(process.cwd(), doc.file), "utf8");
+    const markdown = readBundledFile(doc.file);
     return html(response, 200, docsShell(doc.title, markdownToHtml(markdown)));
   }
 
@@ -238,6 +288,19 @@ function landingPage() {
         The first proof is deliberately simple: an agent attempts a dangerous action,
         policy blocks it before execution, and the adapter returns a verifiable audit-shaped response.
       </p>
+      <section class="vulnerability-hook" aria-label="Vulnerability example">
+        <div class="hook-label">The failure mode</div>
+        <h2>A broad API key can turn one bad instruction into real damage</h2>
+        <p>
+          An agent starts with a legitimate task and a powerful cloud, repository, or SaaS token.
+          A prompt, plugin, or tool instruction pushes it toward a dangerous call: delete a database,
+          terminate infrastructure, export private data, or create an unauthorized pull request.
+        </p>
+        <p>
+          ZT-Infra does not claim to prevent prompt injection. It puts policy in front of the resulting
+          tool call: deny the action, skip execution, and return audit evidence.
+        </p>
+      </section>
       <section class="status-banner" aria-label="Current versus planned">
         <div>
           <strong>Current:</strong> public Hello World adapter, local mock control plane, deny-before-execute demo,
@@ -307,6 +370,30 @@ function landingPage() {
         <p>
           ZT-Infra makes that decision point explicit and keeps the public starter small enough to verify.
         </p>
+      </section>
+      <section class="signup" aria-label="Join the alpha">
+        <div>
+          <h2>Join the alpha</h2>
+          <p>
+            Get occasional updates on the adapter SDK, execution brokers, identity work,
+            and audit verification. No app account or API key is required.
+          </p>
+        </div>
+        <form
+          action="https://buttondown.com/api/emails/embed-subscribe/oscarmackjr"
+          method="post"
+          class="embeddable-buttondown-form"
+        >
+          <label for="bd-email">Email</label>
+          <div class="signup-row">
+            <input type="email" name="email" id="bd-email" placeholder="you@example.com" required>
+            <input type="hidden" value="1" name="embed">
+            <button type="submit">Get updates</button>
+          </div>
+          <p class="fine-print">
+            Powered by <a href="https://buttondown.com/refer/oscarmackjr" target="_blank" rel="noreferrer">Buttondown</a>.
+          </p>
+        </form>
       </section>
       <section class="grid" aria-label="Documentation">
         ${docs
@@ -585,6 +672,21 @@ function sharedStyles() {
     .callout {
       margin-top: 32px;
     }
+    .vulnerability-hook {
+      margin-top: 28px;
+      padding: 22px;
+      border: 1px solid #efb8b8;
+      border-left: 5px solid var(--danger);
+      border-radius: 8px;
+      background: #fff7f6;
+    }
+    .hook-label {
+      color: var(--danger);
+      font-weight: 800;
+      text-transform: uppercase;
+      font-size: 0.78rem;
+      margin-bottom: 10px;
+    }
     .lede { font-size: 1.08rem; }
     .status-banner {
       display: grid;
@@ -658,9 +760,63 @@ function sharedStyles() {
     .flow-arrow.deny::after {
       border-left-color: var(--danger);
     }
+    .signup {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 420px);
+      gap: 22px;
+      align-items: center;
+      margin-top: 32px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .signup form {
+      display: grid;
+      gap: 10px;
+    }
+    .signup label {
+      font-weight: 700;
+      color: var(--ink);
+    }
+    .signup-row {
+      display: flex;
+      gap: 10px;
+    }
+    .signup input[type="email"] {
+      min-width: 0;
+      flex: 1;
+      min-height: 42px;
+      padding: 0 12px;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      font: inherit;
+    }
+    .signup button {
+      min-height: 42px;
+      padding: 0 14px;
+      border: 1px solid var(--accent);
+      border-radius: 6px;
+      background: var(--accent);
+      color: #ffffff;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .fine-print {
+      margin: 0;
+      font-size: 0.88rem;
+    }
     @media (max-width: 820px) {
       .flow-track {
         grid-template-columns: 1fr;
+      }
+      .signup {
+        grid-template-columns: 1fr;
+      }
+      .signup-row {
+        flex-direction: column;
       }
       .flow-arrow {
         width: 2px;

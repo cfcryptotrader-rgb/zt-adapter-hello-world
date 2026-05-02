@@ -1,0 +1,40 @@
+services:
+  mock-control-plane:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm ci && node src/mock-control-plane.js"
+    environment:
+      HOST: 0.0.0.0
+      MOCK_CONTROL_PLANE_PORT: 3000
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - mock-control-plane-node-modules:/app/node_modules
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://127.0.0.1:3000/health"]
+      interval: 5s
+      timeout: 3s
+      retries: 12
+
+  web-adapter:
+    image: node:20-alpine
+    working_dir: /app
+    command: sh -c "npm ci && node src/server.js"
+    depends_on:
+      mock-control-plane:
+        condition: service_healthy
+    environment:
+      HOST: 0.0.0.0
+      PORT: 8080
+      ZT_CONTROL_PLANE_URL: http://mock-control-plane:3000
+      ZT_ACTOR: hello-world-agent
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+      - web-adapter-node-modules:/app/node_modules
+
+volumes:
+  mock-control-plane-node-modules:
+  web-adapter-node-modules:

@@ -30,7 +30,7 @@
     "adapter",
     "hello-world"
   ],
-  "license": "MIT",
+  "license": "Apache-2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/oscarmackjr-twg/zt-adapter-hello-world.git"

@@ -43,6 +43,12 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /Current:/);
   assert.match(response.body, /Planned:/);
   assert.match(response.body, /Code to architecture/);
+  assert.match(response.body, /broad API key/);
+  assert.match(response.body, /delete a database/);
+  assert.match(response.body, /does not claim to prevent prompt injection/);
+  assert.match(response.body, /Join the alpha/);
+  assert.match(response.body, /buttondown\.com\/api\/emails\/embed-subscribe\/oscarmackjr/);
+  assert.match(response.body, /Get updates/);
 });
 
 test("quickstart page renders readme content", async () => {
@@ -52,6 +58,8 @@ test("quickstart page renders readme content", async () => {
 
   assert.equal(response.statusCode, 200);
   assert.match(response.body, /Five-Minute Secure Hello World/);
+  assert.match(response.body, /Docker Compose/);
+  assert.match(response.body, /docker compose up/);
   assert.match(response.body, /Deploy To Vercel/);
 });
 
@@ -77,6 +85,9 @@ test("docs index lists repository documents", async () => {
   assert.match(response.body, /Architecture/);
   assert.match(response.body, /Day 1 Use Cases/);
   assert.match(response.body, /Why IAM Fails Agents/);
+  assert.match(response.body, /Launch Checklist/);
+  assert.match(response.body, /Social Kit/);
+  assert.match(response.body, /SDK API/);
   assert.match(response.body, /Threat Model/);
 });
 
@@ -88,6 +99,37 @@ test("docs page renders markdown content", async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.body, /Five-Minute Secure Hello World/);
   assert.match(response.body, /Deploy To Vercel/);
+});
+
+test("all docs routes render markdown content", async () => {
+  const slugs = [
+    "identity-policy",
+    "threat-model",
+    "case-studies",
+    "why-iam-fails",
+    "adapter-contract",
+    "roadmap",
+    "contributing",
+    "security",
+    "governance",
+    "launch-checklist",
+    "launch-brief",
+    "social-kit",
+    "engineering-spec",
+    "sdk-review",
+    "sdk-api",
+    "changelog",
+  ];
+
+  for (const slug of slugs) {
+    const response = fakeResponse();
+
+    await routeRequest({ method: "GET", url: `/docs/${slug}`, headers: { accept: "text/html" } }, response);
+
+    assert.equal(response.statusCode, 200, slug);
+    assert.doesNotMatch(response.body, /ENOENT/, slug);
+    assert.match(response.body, /<main>/, slug);
+  }
 });
 
 test("architecture doc renders reusable diagram", async () => {
@@ -124,6 +166,57 @@ test("case studies and IAM whitepaper render", async () => {
   assert.equal(iam.statusCode, 200);
   assert.match(caseStudies.body, /Finance Agent In A Docker Sandbox/);
   assert.match(iam.body, /Traditional IAM Is Not Enough/);
+});
+
+test("social kit and SDK API docs render", async () => {
+  const social = fakeResponse();
+  const sdk = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/social-kit", headers: { accept: "text/html" } }, social);
+  await routeRequest({ method: "GET", url: "/docs/sdk-api", headers: { accept: "text/html" } }, sdk);
+
+  assert.equal(social.statusCode, 200);
+  assert.equal(sdk.statusCode, 200);
+  assert.match(social.body, /Show HN/);
+  assert.match(social.body, /Claims To Avoid/);
+  assert.match(sdk.body, /ZeroTrustClient/);
+  assert.match(sdk.body, /Fail-Closed Rule/);
+});
+
+test("roadmap and governance clarify launch status", async () => {
+  const roadmap = fakeResponse();
+  const governance = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/roadmap", headers: { accept: "text/html" } }, roadmap);
+  await routeRequest({ method: "GET", url: "/docs/governance", headers: { accept: "text/html" } }, governance);
+
+  assert.equal(roadmap.statusCode, 200);
+  assert.equal(governance.statusCode, 200);
+  assert.match(roadmap.body, /90-Day Launch Status/);
+  assert.match(roadmap.body, /Nono is not part of the public adapter MVP/);
+  assert.match(governance.body, /Nono is excluded from the public adapter MVP/);
+});
+
+test("contributing page documents coding standards", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/contributing", headers: { accept: "text/html" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /Coding Standards/);
+  assert.match(response.body, /Fail closed/);
+  assert.match(response.body, /Pull Request Standards/);
+});
+
+test("launch checklist renders review status", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/launch-checklist", headers: { accept: "text/html" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /Governance And Continuity/);
+  assert.match(response.body, /Good First Issue backlog/);
+  assert.match(response.body, /Docker daemon was not running/);
 });
 
 test("architecture svg is served for media reuse", async () => {

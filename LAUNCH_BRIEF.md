@@ -8,6 +8,10 @@ Agents are moving from chat into action. They discover tools, call APIs, write c
 
 ZT-Infra is building toward a SPIFFE-like trust layer for autonomous agents: portable identity, policy before execution, and audit evidence that security teams can verify.
 
+One-sentence pitch:
+
+Open-source identity, policy, and audit evidence for autonomous AI agents.
+
 ## Who It Is For
 
 - Developers building adapters for agent frameworks and tool protocols.
@@ -46,8 +50,28 @@ Current reusable assets:
 - architecture page: `/docs/architecture`;
 - architecture SVG: `/architecture.svg`;
 - asciinema terminal recording: `recordings/agent-blocked-then-authorized.cast`.
+- alpha signup: homepage "Join the Alpha" form powered by Buttondown.
 
 Planned asset:
 
 - Code-to-Architecture animation showing a request moving from adapter code to policy decision to signed audit evidence. See [ENGINEERING_SPEC.md](./ENGINEERING_SPEC.md).
 
+## Social Kit
+
+### Hacker News
+
+Show HN: ZT-Infra, an open-source policy-before-execution layer for AI agents
+
+I built a small public adapter that demonstrates one security loop: an agent attempts a risky action, a control plane denies it before execution, and the adapter returns an audit-shaped response. The repo includes a Docker Compose quickstart, local mock control plane, Docker broker example, Terraform gateway skeleton, and audit verifier CLI. It is early, and I am looking for feedback from people building agent tools, MCP servers, execution brokers, and security controls.
+
+### LinkedIn
+
+Autonomous agents are moving from chat into action: opening tickets, calling APIs, touching cloud infrastructure, and using tools across organizations. ZT-Infra is an early open-source effort to define an identity, policy, and audit evidence layer for those actions. The public quickstart shows the core control point in five minutes: an agent asks to act, policy decides before execution, and the result leaves verifiable evidence.
+
+### X
+
+Agents need more than broad API keys.
+
+ZT-Infra is building open-source identity, policy, and audit evidence for autonomous AI agents.
+
+Quickstart: agent asks to act -> policy denies before execution -> audit-shaped evidence returned.

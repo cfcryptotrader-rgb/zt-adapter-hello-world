@@ -7,10 +7,38 @@ The broader mission is to help define the next decade of autonomous system secur
 ## Local workflow
 
 1. Create a branch.
-2. Run `npm test`.
-3. Keep examples small and dependency-light.
-4. Make sure the five-minute quickstart still works.
-5. Open a pull request with a short description and test output.
+2. Install dependencies with `npm ci`.
+3. Run `npm test`.
+4. Run `npm audit --omit=dev`.
+5. Keep examples small and dependency-light.
+6. Make sure the five-minute quickstart still works.
+7. Open a pull request with a short description and test output.
+
+## Development Environment
+
+Required:
+
+- Node.js 20 or newer.
+- npm.
+
+Optional:
+
+- Docker Compose v2 for the containerized quickstart.
+- `jq` for formatted JSON in terminal examples.
+
+Fast local check:
+
+```bash
+npm ci
+npm test
+npm audit --omit=dev
+```
+
+Containerized quickstart:
+
+```bash
+docker compose up
+```
 
 ## Rules
 
@@ -18,6 +46,28 @@ The broader mission is to help define the next decade of autonomous system secur
 - Keep examples readable before clever.
 - Sensitive actions must call the Zero Trust Control Plane first.
 - New adapter surfaces must document how they set `actor`, what resource string they protect, and the least-privilege policy needed for the safe path.
+
+## Coding Standards
+
+- Use modern Node.js ESM syntax.
+- Keep source files dependency-light; prefer built-in Node.js APIs unless a dependency removes meaningful complexity.
+- Keep protected actions behind `ZeroTrustClient.guardedCall(...)` or an equivalent policy-before-execution check.
+- Fail closed when the control plane is unavailable or returns `deny`.
+- Do not log secrets, bearer tokens, private keys, or raw environment dumps.
+- Preserve the current response shape: `decision`, `reason`, `audit`, and `executionSkipped` where execution is involved.
+- Add tests for both deny and allow behavior when adding adapters, brokers, or policy examples.
+- Keep examples runnable without cloud credentials in CI.
+- Use clear names over abstraction; this repo is a teaching surface for new adapter authors.
+
+## Pull Request Standards
+
+Every PR should include:
+
+- what changed;
+- why it matters;
+- commands run and pass/fail results;
+- screenshots or terminal output for website or CLI changes when useful;
+- any remaining risk or follow-up issue.
 
 ## Adding Execution Brokers
 

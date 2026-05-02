@@ -10,12 +10,34 @@ Contributor vision: this project is for people who want to help define the next 
 
 Status: current
 
-- Local mock Zero Trust control plane.
-- Agent registration.
-- Deny-before-execute demo.
-- Allow-before-execute demo.
-- Tiny JavaScript client.
-- CI tests.
+| Item | Status | Notes |
+| --- | --- | --- |
+| Local mock Zero Trust control plane | Done | `npm run zt:mock` and Docker Compose path. |
+| Agent registration | Done | `POST /agents` in the mock control plane. |
+| Deny-before-execute demo | Done | `npm run demo:deny` and `/demo/deny`. |
+| Allow-before-execute demo | Done | `npm run demo:allow` after policy allow. |
+| Tiny JavaScript client SDK | Done | `ZeroTrustClient` with `guardedCall`. |
+| Docker Compose quickstart | Done | `docker compose up` runs mock control plane and web adapter. |
+| Docker Local Execution Broker | Done | First public broker example under `brokers/docker-local`. |
+| Audit verification CLI | Done | `zt-audit verify audit.json`. |
+| Public Authorization Gateway IaC skeleton | Done | IAM-authorized Lambda Function URL Terraform example. |
+| CodeQL, Dependabot, dependency review | Done | GitHub workflows and repository settings. |
+| Good First Issue backlog | Done | Three labeled onboarding issues. |
+| GitHub Project board | In Progress | Requires `gh auth refresh -s project,read:project`. |
+| Newsletter / alpha capture | In Progress | Provider selection needed. |
+| DAAL public testnet proof | In Progress | Hook planned; full contract-as-a-service example not yet public. |
+| Production identity binding | In Progress | Phase 2 mTLS/SPIFFE work. |
+
+## 90-Day Launch Status
+
+| Workstream | Done | In Progress | Next |
+| --- | --- | --- | --- |
+| Developer onboarding | README quickstart, Docker Compose, docs site, Good First Issues | Improve CLI help and fixtures through public issues | Add SDK API reference |
+| Policy enforcement | Mock `/actions`, deny/allow demos, guarded SDK call | Versioned policy schema | Conformance suite across adapter surfaces |
+| Execution | Docker Local Broker | Cloud broker design | AWS Lambda and Kubernetes Job brokers |
+| Evidence | Audit-shaped responses, hash verifier CLI | KMS signature verification docs | DAAL testnet proof and verifier integration |
+| Infrastructure | Public IAM-authorized gateway skeleton | Full one-command gateway + broker | Hardened production modules |
+| Governance | SECURITY, CONTRIBUTING, branch protection, CodeQL, Dependabot | Project board pending auth scope | Contributor milestones and release cadence |
 
 ## Phase 2: Secure Service Identity
 
@@ -162,3 +184,9 @@ Planned:
 - This repo will not contain production secrets.
 - This repo will not become the full private infrastructure control plane.
 - This repo will keep examples small enough for new adapter authors to understand.
+
+## Nono Status
+
+Nono is not part of the public adapter MVP.
+
+Earlier planning used "Nono" as a possible narrative or assistant persona. For launch clarity, the public repository will not introduce Nono until there is a concrete product role, API responsibility, or demo workflow. Contributors should focus on agent identity, policy decisions, execution brokers, and audit evidence.

@@ -61,3 +61,9 @@ Each communication should include:
 - Website includes a Current vs Planned banner.
 - Public broker and public IaC examples are documented.
 - Branch protection is enabled for `main`.
+
+## Nono Status
+
+Nono is excluded from the public adapter MVP.
+
+The name may return later as a demo persona, support agent, or narrative layer, but it is not a current subsystem, API, broker, policy model, or contributor workstream. New contributors should not create Nono-specific code or documentation unless an issue explicitly adds that scope.
