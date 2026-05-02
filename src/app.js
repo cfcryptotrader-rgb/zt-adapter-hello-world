@@ -109,6 +109,9 @@ export async function routeRequest(request, response) {
     if (!doc) {
       return html(response, 404, docsShell("Not found", "<p>That documentation page does not exist.</p>"));
     }
+    if (doc.slug === "architecture") {
+      return html(response, 200, docsShell(doc.title, architecturePageContent()));
+    }
     const markdown = await fs.readFile(path.join(process.cwd(), doc.file), "utf8");
     return html(response, 200, docsShell(doc.title, markdownToHtml(markdown)));
   }
@@ -291,6 +294,41 @@ function docsIndexPage() {
         .join("")}
     </section>`,
   );
+}
+
+function architecturePageContent() {
+  return `<h1>ZT-Infra Architecture</h1>
+    <p class="lede">
+      This public architecture diagram shows how the developer site, Hello World quickstart,
+      adapters, control plane, private AWS MVP, and evidence systems fit together.
+    </p>
+    <p><img src="/architecture.svg" alt="ZT-Infra current architecture"></p>
+    <h2>What This Shows</h2>
+    <ul>
+      <li><strong>Agent interfaces:</strong> LangGraph, OpenAI, MCP, A2A, and custom adapters normalize requests into one control-plane contract.</li>
+      <li><strong>Public developer path:</strong> <code>zt-infra.org</code> and this repo provide the public quickstart, local mock control plane, and adapter onboarding path.</li>
+      <li><strong>Adapter layer:</strong> SDK wrappers and protocol gateways call policy before execution.</li>
+      <li><strong>Control plane:</strong> the current implemented endpoint is <code>POST /actions</code>.</li>
+      <li><strong>Private AWS MVP runtime:</strong> the full infrastructure repo runs <code>zt-provisioner</code>, Tailscale access, SSM fallback, Nginx, and verification.</li>
+      <li><strong>Evidence systems:</strong> audit records can be hash-chained, KMS-signed, written to CloudWatch, and optionally anchored through DAAL.</li>
+    </ul>
+    <h2>Current Versus Future</h2>
+    <h3>Current</h3>
+    <ul>
+      <li>public developer site and Hello World quickstart;</li>
+      <li>local mock control plane for onboarding;</li>
+      <li><code>POST /actions</code> policy decision contract;</li>
+      <li>signed audit record shape;</li>
+      <li>framework wrappers for LangGraph, OpenAI, MCP, and A2A in the full MVP.</li>
+    </ul>
+    <h3>Future</h3>
+    <ul>
+      <li>canonical transient agent identity;</li>
+      <li>workload-bound credentials;</li>
+      <li>signed runtime attestation;</li>
+      <li>trust bundles and federation;</li>
+      <li>richer identity and authorization APIs.</li>
+    </ul>`;
 }
 
 function docsShell(title, content) {
