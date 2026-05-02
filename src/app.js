@@ -25,6 +25,10 @@ const bundledFiles = new Map([
     fs.readFileSync(new URL("../WHY_TRADITIONAL_IAM_FAILS.md", import.meta.url), "utf8"),
   ],
   ["public/architecture.svg", fs.readFileSync(new URL("../public/architecture.svg", import.meta.url), "utf8")],
+  [
+    "public/agent-blocked-then-authorized.cast",
+    fs.readFileSync(new URL("../public/agent-blocked-then-authorized.cast", import.meta.url), "utf8"),
+  ],
 ]);
 
 function readBundledFile(file) {
@@ -176,6 +180,16 @@ export async function routeRequest(request, response) {
       "cache-control": "public, max-age=300",
     });
     response.end(svg);
+    return undefined;
+  }
+
+  if (request.method === "GET" && url.pathname === "/agent-blocked-then-authorized.cast") {
+    const cast = readBundledFile("public/agent-blocked-then-authorized.cast");
+    response.writeHead(200, {
+      "content-type": "application/x-asciicast; charset=utf-8",
+      "cache-control": "public, max-age=300",
+    });
+    response.end(cast);
     return undefined;
   }
 
@@ -423,6 +437,24 @@ function demoPage() {
     "Demo",
     `<h1>Demo Flow</h1>
     <p class="lede">The hosted demo separates the human-readable story from the JSON endpoints used by scripts and tests.</p>
+    <section class="demo-player" aria-label="Terminal recording">
+      <div class="demo-player-header">
+        <div>
+          <h2>Agent blocked, then authorized</h2>
+          <p>
+            This terminal recording shows the local quickstart path: a dangerous action is denied before execution,
+            then an allowed action runs and returns audit-shaped evidence.
+          </p>
+        </div>
+        <a class="button" href="/agent-blocked-then-authorized.cast">Open cast file</a>
+      </div>
+      <div id="asciinema-demo" class="asciinema-demo">
+        <p>
+          Loading terminal recording. If the player does not load,
+          <a href="/agent-blocked-then-authorized.cast">open the cast file</a>.
+        </p>
+      </div>
+    </section>
     <section class="grid" aria-label="Demo steps">
       <div class="card">
         <h2>1. Agent asks to act</h2>
@@ -445,7 +477,20 @@ function demoPage() {
     <p>
       On Vercel, the JSON demo endpoints need <code>ZT_CONTROL_PLANE_URL</code> to point at a reachable control plane.
       Without that setting, they return a clear configuration error while the website and docs remain viewable.
-    </p>`,
+    </p>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/asciinema-player@3.15.1/dist/bundle/asciinema-player.css">
+    <script src="https://cdn.jsdelivr.net/npm/asciinema-player@3.15.1/dist/bundle/asciinema-player.min.js"></script>
+    <script>
+      if (globalThis.AsciinemaPlayer) {
+        AsciinemaPlayer.create("/agent-blocked-then-authorized.cast", document.getElementById("asciinema-demo"), {
+          autoPlay: false,
+          fit: "width",
+          idleTimeLimit: 1.5,
+          preload: true,
+          theme: "asciinema"
+        });
+      }
+    </script>`,
   );
 }
 
@@ -808,12 +853,45 @@ function sharedStyles() {
       margin: 0;
       font-size: 0.88rem;
     }
+    .demo-player {
+      margin: 24px 0 28px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .demo-player-header {
+      display: flex;
+      gap: 16px;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 18px;
+    }
+    .demo-player-header p {
+      margin-bottom: 0;
+    }
+    .asciinema-demo {
+      min-height: 280px;
+      overflow: hidden;
+      border-radius: 8px;
+      background: #151a23;
+    }
+    .asciinema-demo p {
+      padding: 18px;
+      color: #f4f7fb;
+    }
+    .asciinema-demo a {
+      color: #8ed7e6;
+    }
     @media (max-width: 820px) {
       .flow-track {
         grid-template-columns: 1fr;
       }
       .signup {
         grid-template-columns: 1fr;
+      }
+      .demo-player-header {
+        flex-direction: column;
       }
       .signup-row {
         flex-direction: column;

@@ -398,6 +398,12 @@ The repository includes an asciinema recording of the five-minute flow:
 recordings/agent-blocked-then-authorized.cast
 ```
 
+The website embeds the same recording on `/demo` and serves the public player source from:
+
+```text
+public/agent-blocked-then-authorized.cast
+```
+
 To regenerate it:
 
 ```bash
