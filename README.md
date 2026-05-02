@@ -6,6 +6,12 @@ It is intentionally small: a Node.js Hello World service plus one demo call to t
 
 **Tagline:** Open-source identity, policy, and audit evidence for autonomous AI agents.
 
+## Launch Trust Signals
+
+- **License:** Apache-2.0, chosen for enterprise-friendly infrastructure adoption and explicit patent grant language.
+- **Community:** Discord channel created: `Zero Trust Infrastructure`. Public invite link is pending.
+- **Explorer verification:** DAAL smart contract explorer verification is tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Public verification claims remain pending until a testnet contract address and verified explorer link are published.
+
 ## Vision
 
 We are building toward a SPIFFE-like identity, policy, and attestation layer for AI agents.
@@ -25,6 +31,8 @@ Start here if you need to understand the security model before writing code:
 - [Adapter Contract](./ADAPTER_CONTRACT.md): the minimum request, response, and fail-closed behavior expected from adapters.
 - [Security Policy](./SECURITY.md): supported versions and private vulnerability reporting.
 - [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
+- [Explorer Verification](./EXPLORER_VERIFICATION.md): DAAL contract explorer verification status and claim boundaries.
+- [Community](./COMMUNITY.md): Discord channel status, expectations, and feedback paths.
 - [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
 - [Launch Checklist](./LAUNCH_CHECKLIST.md): status of review feedback, completed work, and open launch items.
 - [Launch Brief](./LAUNCH_BRIEF.md): public narrative, audience, suggested launch message, and social-proof policy.
@@ -389,6 +397,8 @@ Use releases when linking from public websites or tutorials.
 ## License
 
 This repository is licensed under Apache-2.0. The project uses Apache-2.0 instead of MIT for the public adapter because infrastructure and security adopters usually expect explicit patent grant language.
+
+See [LICENSE](./LICENSE) and [NOTICE](./NOTICE).
 
 ## Terminal Demo Recording
 

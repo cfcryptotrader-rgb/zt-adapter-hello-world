@@ -25,7 +25,8 @@ Status: current
 | Good First Issue backlog | Done | Three labeled onboarding issues. |
 | GitHub Project board | In Progress | Requires `gh auth refresh -s project,read:project`. |
 | Newsletter / alpha capture | In Progress | Provider selection needed. |
-| DAAL public testnet proof | In Progress | Hook planned; full contract-as-a-service example not yet public. |
+| Community hub | In Progress | Discord channel `Zero Trust Infrastructure` exists; public invite link pending. |
+| DAAL public testnet proof | In Progress | Hook planned; full contract-as-a-service example not yet public. Explorer verification requirements are documented in `EXPLORER_VERIFICATION.md`. |
 | Production identity binding | In Progress | Phase 2 mTLS/SPIFFE work. |
 
 ## 90-Day Launch Status
@@ -175,6 +176,8 @@ Planned:
 - SIEM-friendly JSON event format.
 - GitHub Actions evidence bundle.
 - DAAL/blockchain attestation sample integration.
+- Verified DAAL contract source on Base Sepolia or Polygon Amoy explorer.
+- Example `ActionLogged` transaction linked from public docs.
 - Trust-bundle and agent-attestation evidence export.
 - Compliance mapping from identity, policy, and audit controls to SOC 2 evidence.
 - Verifier CLI that checks identity signature, trust bundle, hash chain, and optional DAAL transaction.

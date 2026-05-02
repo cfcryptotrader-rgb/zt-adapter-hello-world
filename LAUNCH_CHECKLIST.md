@@ -11,6 +11,7 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | 90-day roadmap status | Done | [ROADMAP.md](./ROADMAP.md) includes Phase 1 status and a 90-Day Launch Status table. |
 | GitHub Project board | Blocked | `gh project create` requires `project,read:project` token scopes. Run `gh auth refresh -s project,read:project`, then create the board. |
 | Nono role/status | Done | [ROADMAP.md](./ROADMAP.md) and [GOVERNANCE.md](./GOVERNANCE.md) state that Nono is excluded from the public adapter MVP. |
+| Community hub | Partial | Discord channel `Zero Trust Infrastructure` has been created. Public invite link is pending and should be added to [COMMUNITY.md](./COMMUNITY.md) before broad launch. |
 
 ## Narrative And Conversion
 
@@ -27,8 +28,8 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | Item | Status | Solution / Reference |
 | --- | --- | --- |
 | Five-minute quickstart | Done | [README.md](./README.md) includes Node and Docker Compose paths. `docker compose config` passes. Full Compose runtime needs Docker daemon running. |
-| Decentralized audit integration proof | Partial | `zt-audit verify` exists for local audit-shaped records. Public DAAL testnet proof remains planned. |
-| Apache-2.0 license | Done | [LICENSE](./LICENSE), [NOTICE](./NOTICE), `package.json`, and `package-lock.json` now use Apache-2.0. |
+| Decentralized audit integration proof | Partial | `zt-audit verify` exists for local audit-shaped records. Public DAAL testnet proof remains planned. [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md) now defines the explorer verification acceptance criteria and claim boundaries. |
+| Apache-2.0 license | Done | [LICENSE](./LICENSE), [NOTICE](./NOTICE), `package.json`, and `package-lock.json` now use Apache-2.0. README and homepage surface the license prominently. |
 | SECURITY.md | Done | [SECURITY.md](./SECURITY.md) exists and GitHub private vulnerability reporting is enabled. |
 | Repo cleanup | Done | Public repo excludes `.env`, `.terraform`, Terraform state, logs, and dependencies. |
 | Secret scanning | Done | GitHub secret scanning and push protection are enabled. Local tracked-file scan found no obvious secrets. |
@@ -40,7 +41,7 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 
 | Check | Result |
 | --- | --- |
-| `npm test` | 25 tests passed |
+| `npm test` | 29 tests passed |
 | `npm audit --omit=dev` | 0 vulnerabilities |
 | `docker compose config` | Passed |
 | `docker compose up -d` | Blocked locally because Docker daemon was not running |

@@ -42,6 +42,9 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /Hello World is the proof path/);
   assert.match(response.body, /Current:/);
   assert.match(response.body, /Planned:/);
+  assert.match(response.body, /Apache-2\.0/);
+  assert.match(response.body, /Explorer verification/);
+  assert.match(response.body, /Zero Trust Infrastructure/);
   assert.match(response.body, /Code to architecture/);
   assert.match(response.body, /broad API key/);
   assert.match(response.body, /delete a database/);
@@ -89,6 +92,8 @@ test("docs index lists repository documents", async () => {
   assert.match(response.body, /Day 1 Use Cases/);
   assert.match(response.body, /Why IAM Fails Agents/);
   assert.match(response.body, /Launch Checklist/);
+  assert.match(response.body, /Explorer Verification/);
+  assert.match(response.body, /Community/);
   assert.match(response.body, /Social Kit/);
   assert.match(response.body, /SDK API/);
   assert.match(response.body, /Threat Model/);
@@ -112,7 +117,9 @@ test("all docs routes render markdown content", async () => {
     "why-iam-fails",
     "adapter-contract",
     "roadmap",
+    "explorer-verification",
     "contributing",
+    "community",
     "security",
     "governance",
     "launch-checklist",
@@ -198,6 +205,25 @@ test("roadmap and governance clarify launch status", async () => {
   assert.match(roadmap.body, /90-Day Launch Status/);
   assert.match(roadmap.body, /Nono is not part of the public adapter MVP/);
   assert.match(governance.body, /Nono is excluded from the public adapter MVP/);
+});
+
+test("community and explorer verification docs render", async () => {
+  const community = fakeResponse();
+  const explorer = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/community", headers: { accept: "text/html" } }, community);
+  await routeRequest({
+    method: "GET",
+    url: "/docs/explorer-verification",
+    headers: { accept: "text/html" },
+  }, explorer);
+
+  assert.equal(community.statusCode, 200);
+  assert.equal(explorer.statusCode, 200);
+  assert.match(community.body, /Zero Trust Infrastructure/);
+  assert.match(explorer.body, /Explorer verification/);
+  assert.match(explorer.body, /Pending/);
+  assert.match(explorer.body, /Base Sepolia/);
 });
 
 test("contributing page documents coding standards", async () => {

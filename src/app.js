@@ -7,8 +7,10 @@ const bundledFiles = new Map([
   ["ARCHITECTURE.md", fs.readFileSync(new URL("../ARCHITECTURE.md", import.meta.url), "utf8")],
   ["CASE_STUDIES.md", fs.readFileSync(new URL("../CASE_STUDIES.md", import.meta.url), "utf8")],
   ["CHANGELOG.md", fs.readFileSync(new URL("../CHANGELOG.md", import.meta.url), "utf8")],
+  ["COMMUNITY.md", fs.readFileSync(new URL("../COMMUNITY.md", import.meta.url), "utf8")],
   ["CONTRIBUTING.md", fs.readFileSync(new URL("../CONTRIBUTING.md", import.meta.url), "utf8")],
   ["ENGINEERING_SPEC.md", fs.readFileSync(new URL("../ENGINEERING_SPEC.md", import.meta.url), "utf8")],
+  ["EXPLORER_VERIFICATION.md", fs.readFileSync(new URL("../EXPLORER_VERIFICATION.md", import.meta.url), "utf8")],
   ["GOVERNANCE.md", fs.readFileSync(new URL("../GOVERNANCE.md", import.meta.url), "utf8")],
   ["IDENTITY_AND_POLICY.md", fs.readFileSync(new URL("../IDENTITY_AND_POLICY.md", import.meta.url), "utf8")],
   ["LAUNCH_BRIEF.md", fs.readFileSync(new URL("../LAUNCH_BRIEF.md", import.meta.url), "utf8")],
@@ -89,10 +91,22 @@ const docs = [
     summary: "SPIFFE-for-AI-agents roadmap and future contribution areas.",
   },
   {
+    slug: "explorer-verification",
+    title: "Explorer Verification",
+    file: "EXPLORER_VERIFICATION.md",
+    summary: "DAAL smart contract explorer verification status, acceptance criteria, and claim boundaries.",
+  },
+  {
     slug: "contributing",
     title: "Contributing",
     file: "CONTRIBUTING.md",
     summary: "How to add adapters, brokers, tests, and examples.",
+  },
+  {
+    slug: "community",
+    title: "Community",
+    file: "COMMUNITY.md",
+    summary: "Discord channel status, community expectations, and feedback paths.",
   },
   {
     slug: "security",
@@ -302,6 +316,20 @@ function landingPage() {
         The first proof is deliberately simple: an agent attempts a dangerous action,
         policy blocks it before execution, and the adapter returns a verifiable audit-shaped response.
       </p>
+      <section class="trust-strip" aria-label="Launch trust signals">
+        <div>
+          <strong>License</strong>
+          <span>Apache-2.0 for enterprise-friendly adoption.</span>
+        </div>
+        <div>
+          <strong>Explorer verification</strong>
+          <span>DAAL testnet contract verification is tracked before public claims.</span>
+        </div>
+        <div>
+          <strong>Community</strong>
+          <span>Discord channel: Zero Trust Infrastructure.</span>
+        </div>
+      </section>
       <section class="vulnerability-hook" aria-label="Vulnerability example">
         <div class="hook-label">The failure mode</div>
         <h2>A broad API key can turn one bad instruction into real damage</h2>
@@ -329,6 +357,8 @@ function landingPage() {
         <a class="button primary" href="/quickstart">Start the quickstart</a>
         <a class="button" href="/docs/case-studies">Use cases</a>
         <a class="button" href="/docs/why-iam-fails">Why IAM fails agents</a>
+        <a class="button" href="/docs/explorer-verification">Explorer verification</a>
+        <a class="button" href="/docs/community">Community</a>
         <a class="button" href="/docs/architecture">Architecture</a>
         <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>
         <a class="button" href="/demo">View demo flow</a>
@@ -746,6 +776,26 @@ function sharedStyles() {
     }
     .status-banner strong {
       color: var(--ink);
+    }
+    .trust-strip {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .trust-strip div {
+      display: grid;
+      gap: 6px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #ffffff;
+    }
+    .trust-strip strong {
+      color: var(--ink);
+    }
+    .trust-strip span {
+      color: var(--muted);
     }
     .flow {
       margin-top: 30px;

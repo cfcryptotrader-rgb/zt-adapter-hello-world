@@ -70,6 +70,7 @@ https://www.zt-infra.org
 - The quickstart can show deny-before-execute and allow-before-execute.
 - The full MVP is building toward signed, hash-chained audit evidence.
 - The roadmap includes mTLS, SPIFFE/SPIRE, attestation, brokers, and conformance tests.
+- The public adapter is Apache-2.0 licensed.
 
 ## Claims To Avoid
 
@@ -78,6 +79,7 @@ https://www.zt-infra.org
 - Do not claim prompt-injection prevention.
 - Do not claim every adapter framework version is certified.
 - Do not claim DAAL/blockchain audit proof is complete until the public testnet verifier exists.
+- Do not claim smart contracts are verified on an explorer until `EXPLORER_VERIFICATION.md` includes a real contract address and verified source link.
 - Do not imply the local mock signatures are production cryptographic proof.
 
 ## Audience-Specific Angles
@@ -100,4 +102,3 @@ Platform teams:
 - "Can this work across LangGraph, OpenAI, MCP, A2A, and custom tools?"
 - "Can brokers enforce the same decision contract?"
 - "Can identity move toward SPIFFE/SPIRE?"
-
