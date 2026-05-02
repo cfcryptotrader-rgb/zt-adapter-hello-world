@@ -194,6 +194,6 @@ Planned:
 
 ## Nono Status
 
-Nono is not part of the public adapter MVP.
+Nono is part of the public adapter MVP as an optional Execution Broker.
 
-Earlier planning used "Nono" as a possible narrative or assistant persona. For launch clarity, the public repository will not introduce Nono until there is a concrete product role, API responsibility, or demo workflow. Contributors should focus on agent identity, policy decisions, execution brokers, and audit evidence.
+Earlier planning used "Nono" as a possible narrative or assistant persona. The current role is now concrete: the public repository includes a Nono CLI broker that converts approved Zero Trust actions into least-privilege `nono run` capability flags. Contributors should keep the integration focused on policy-before-execution, sandbox spawn safety, and audit evidence.

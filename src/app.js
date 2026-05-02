@@ -39,6 +39,10 @@ const bundledFiles = new Map([
     "public/agent-blocked-then-authorized.cast",
     fs.readFileSync(new URL("../public/agent-blocked-then-authorized.cast", import.meta.url), "utf8"),
   ],
+  [
+    "public/nono-sandbox-demo.cast",
+    fs.readFileSync(new URL("../public/nono-sandbox-demo.cast", import.meta.url), "utf8"),
+  ],
 ]);
 
 function readBundledFile(file) {
@@ -257,6 +261,16 @@ export async function routeRequest(request, response) {
 
   if (request.method === "GET" && url.pathname === "/agent-blocked-then-authorized.cast") {
     const cast = readBundledFile("public/agent-blocked-then-authorized.cast");
+    response.writeHead(200, {
+      "content-type": "application/x-asciicast; charset=utf-8",
+      "cache-control": "public, max-age=300",
+    });
+    response.end(cast);
+    return undefined;
+  }
+
+  if (request.method === "GET" && url.pathname === "/nono-sandbox-demo.cast") {
+    const cast = readBundledFile("public/nono-sandbox-demo.cast");
     response.writeHead(200, {
       "content-type": "application/x-asciicast; charset=utf-8",
       "cache-control": "public, max-age=300",
@@ -633,6 +647,24 @@ function demoPage() {
         </p>
       </div>
     </section>
+    <section class="demo-player" aria-label="Nono terminal recording">
+      <div class="demo-player-header">
+        <div>
+          <h2>Nono sandbox broker</h2>
+          <p>
+            This terminal recording shows the Nono Execution Broker: the control plane denies a sandbox spawn,
+            then policy allows the same action and the broker invokes <code>/usr/local/bin/nono</code> with network blocked.
+          </p>
+        </div>
+        <a class="button" href="/nono-sandbox-demo.cast">Open cast file</a>
+      </div>
+      <div id="asciinema-nono-demo" class="asciinema-demo">
+        <p>
+          Loading Nono terminal recording. If the player does not load,
+          <a href="/nono-sandbox-demo.cast">open the cast file</a>.
+        </p>
+      </div>
+    </section>
     <section class="grid" aria-label="Demo steps">
       <div class="card">
         <h2>1. Agent asks to act</h2>
@@ -661,6 +693,13 @@ function demoPage() {
     <script>
       if (globalThis.AsciinemaPlayer) {
         AsciinemaPlayer.create("/agent-blocked-then-authorized.cast", document.getElementById("asciinema-demo"), {
+          autoPlay: false,
+          fit: "width",
+          idleTimeLimit: 1.5,
+          preload: true,
+          theme: "asciinema"
+        });
+        AsciinemaPlayer.create("/nono-sandbox-demo.cast", document.getElementById("asciinema-nono-demo"), {
           autoPlay: false,
           fit: "width",
           idleTimeLimit: 1.5,

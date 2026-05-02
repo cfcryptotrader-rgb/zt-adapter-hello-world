@@ -10,7 +10,7 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | Good First Issue backlog | Done | GitHub issues [#4](https://github.com/oscarmackjr-twg/zt-adapter-hello-world/issues/4), [#5](https://github.com/oscarmackjr-twg/zt-adapter-hello-world/issues/5), and [#6](https://github.com/oscarmackjr-twg/zt-adapter-hello-world/issues/6). |
 | 90-day roadmap status | Done | [ROADMAP.md](./ROADMAP.md) includes Phase 1 status and a 90-Day Launch Status table. |
 | GitHub Project board | Blocked | `gh project create` requires `project,read:project` token scopes. Run `gh auth refresh -s project,read:project`, then create the board. |
-| Nono role/status | Done | [ROADMAP.md](./ROADMAP.md) and [GOVERNANCE.md](./GOVERNANCE.md) state that Nono is excluded from the public adapter MVP. |
+| Nono role/status | Done | [ROADMAP.md](./ROADMAP.md), [GOVERNANCE.md](./GOVERNANCE.md), and [brokers/nono-cli/README.md](./brokers/nono-cli/README.md) state that Nono is an optional Execution Broker, not the identity or policy layer. |
 | Community hub | Done | Discord channel `Zero Trust Infrastructure` is linked from [COMMUNITY.md](./COMMUNITY.md), README, and the homepage: https://discord.gg/cDS8MPX6G. |
 | Defined Phase 1 ready criteria | Done | [PHASE1_READY.md](./PHASE1_READY.md) separates ready, experimental, planned, and non-claimable capabilities. |
 | Risk register | Done | [RISK_REGISTER.md](./RISK_REGISTER.md) documents performance, policy bypass, microVM isolation, secret exposure, DAAL, and ownership risks. |

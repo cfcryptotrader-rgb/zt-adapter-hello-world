@@ -419,16 +419,24 @@ The repository includes an asciinema recording of the five-minute flow:
 recordings/agent-blocked-then-authorized.cast
 ```
 
-The website embeds the same recording on `/demo` and serves the public player source from:
+It also includes a Nono Execution Broker recording:
+
+```text
+recordings/nono-sandbox-demo.cast
+```
+
+The website embeds both recordings on `/demo` and serves the public player sources from:
 
 ```text
 public/agent-blocked-then-authorized.cast
+public/nono-sandbox-demo.cast
 ```
 
-To regenerate it:
+To regenerate them:
 
 ```bash
 asciinema rec --overwrite -c "npm run demo:record" recordings/agent-blocked-then-authorized.cast
+asciinema rec --overwrite -c "npm run demo:record:nono" recordings/nono-sandbox-demo.cast
 ```
 
 ## Security

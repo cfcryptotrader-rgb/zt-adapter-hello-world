@@ -132,8 +132,12 @@ test("demo page explains json endpoints", async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.body, /Demo Flow/);
   assert.match(response.body, /Agent blocked, then authorized/);
+  assert.match(response.body, /Nono sandbox broker/);
   assert.match(response.body, /AsciinemaPlayer\.create/);
   assert.match(response.body, /agent-blocked-then-authorized\.cast/);
+  assert.match(response.body, /nono-sandbox-demo\.cast/);
+  assert.match(response.body, /\/usr\/local\/bin\/nono/);
+  assert.match(response.body, /network blocked/);
   assert.match(response.body, /Open deny JSON/);
   assert.match(response.body, /ZT_CONTROL_PLANE_URL/);
 });
@@ -289,9 +293,9 @@ test("roadmap and governance clarify launch status", async () => {
   assert.equal(governance.statusCode, 200);
   assert.match(roadmap.body, /90-Day Launch Status/);
   assert.match(roadmap.body, /Phase 1 ready criteria/);
-  assert.match(roadmap.body, /Nono is not part of the public adapter MVP/);
+  assert.match(roadmap.body, /Nono is part of the public adapter MVP as an optional Execution Broker/);
   assert.match(governance.body, /Core Maintenance Team/);
-  assert.match(governance.body, /Nono is excluded from the public adapter MVP/);
+  assert.match(governance.body, /Nono is included as an optional public Execution Broker integration/);
 });
 
 test("phase ready, risk, incident, ROI, and security artifact docs render", async () => {
@@ -377,16 +381,26 @@ test("architecture svg is served for media reuse", async () => {
 
 test("asciinema cast is served for embedded demo", async () => {
   const response = fakeResponse();
+  const nono = fakeResponse();
 
   await routeRequest({
     method: "GET",
     url: "/agent-blocked-then-authorized.cast",
     headers: { accept: "application/x-asciicast" },
   }, response);
+  await routeRequest({
+    method: "GET",
+    url: "/nono-sandbox-demo.cast",
+    headers: { accept: "application/x-asciicast" },
+  }, nono);
 
   assert.equal(response.statusCode, 200);
   assert.match(response.headers["content-type"], /application\/x-asciicast/);
   assert.match(response.body, /"version"/);
+  assert.equal(nono.statusCode, 200);
+  assert.match(nono.headers["content-type"], /application\/x-asciicast/);
+  assert.match(nono.body, /Zero Trust Nono Execution Broker demo/);
+  assert.match(nono.body, /broker\.nono\.spawn_agent/);
 });
 
 test("health endpoint returns service status", async () => {

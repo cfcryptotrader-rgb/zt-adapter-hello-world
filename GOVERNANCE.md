@@ -78,6 +78,6 @@ Each communication should include:
 
 ## Nono Status
 
-Nono is excluded from the public adapter MVP.
+Nono is included as an optional public Execution Broker integration.
 
-The name may return later as a demo persona, support agent, or narrative layer, but it is not a current subsystem, API, broker, policy model, or contributor workstream. New contributors should not create Nono-specific code or documentation unless an issue explicitly adds that scope.
+The Nono integration is not the identity system or policy model. It is a sandbox execution target that runs only after the Zero Trust Control Plane returns `allow`. New contributors should keep Nono work scoped to broker behavior, capability mapping, demo evidence, and tests unless an issue explicitly expands that scope.
