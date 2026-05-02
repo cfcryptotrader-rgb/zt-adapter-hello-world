@@ -26,6 +26,8 @@ Start here if you need to understand the security model before writing code:
 - [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
 - [Launch Brief](./LAUNCH_BRIEF.md): public narrative, audience, suggested launch message, and social-proof policy.
 - [Engineering Spec](./ENGINEERING_SPEC.md): required code and infrastructure changes that should be implemented deliberately.
+- [Docker Local Broker](./brokers/docker-local/README.md): first public Execution Broker example.
+- [Authorization Gateway Terraform](./infra/terraform/examples/authorization-gateway/README.md): IAM-authorized public IaC example.
 
 ## Who this is for
 
@@ -284,12 +286,41 @@ Execution Brokers run approved work after the control plane returns `allow`.
 
 Examples planned for this public repo:
 
+- Docker Local Execution Broker: [brokers/docker-local](./brokers/docker-local)
 - AWS Lambda Execution Broker
 - Kubernetes Job Execution Broker
 
 The current engineering spec for broker IaC and repository hardening is in [ENGINEERING_SPEC.md](./ENGINEERING_SPEC.md).
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the broker contract.
+
+## Audit Verification CLI
+
+The repo includes a small verifier for audit-shaped decision responses:
+
+```bash
+npx zt-audit verify audit.json
+```
+
+or from a local checkout:
+
+```bash
+node bin/zt-audit.js verify audit.json
+```
+
+The verifier checks required actor/action/decision fields, hash-chain fields, signature metadata, and canonical hash consistency for the public demo record format. Production KMS signature verification is planned work.
+
+## Public IaC Example
+
+The public Terraform example deploys an IAM-authorized Lambda Authorization Gateway skeleton:
+
+```bash
+cd infra/terraform/examples/authorization-gateway
+terraform init
+terraform apply
+```
+
+The function URL requires AWS IAM/SigV4 authorization. It is not an anonymous public endpoint.
 
 ## Roadmap
 

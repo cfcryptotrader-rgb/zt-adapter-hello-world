@@ -238,6 +238,16 @@ function landingPage() {
         The first proof is deliberately simple: an agent attempts a dangerous action,
         policy blocks it before execution, and the adapter returns a verifiable audit-shaped response.
       </p>
+      <section class="status-banner" aria-label="Current versus planned">
+        <div>
+          <strong>Current:</strong> public Hello World adapter, local mock control plane, deny-before-execute demo,
+          architecture docs, Docker broker example, verifier CLI, and IAM-authorized Terraform gateway example.
+        </div>
+        <div>
+          <strong>Planned:</strong> production mTLS/SPIFFE identity binding, KMS-backed public audit verification,
+          hardened cloud brokers, and DAAL testnet anchoring.
+        </div>
+      </section>
       <div class="button-row">
         <a class="button primary" href="/quickstart">Start the quickstart</a>
         <a class="button" href="/docs/case-studies">Use cases</a>
@@ -259,6 +269,34 @@ function landingPage() {
           <h2>Signed evidence</h2>
           <p>Every decision can produce hash-chained audit evidence with KMS-backed signatures in the full MVP.</p>
         </div>
+      </section>
+      <section class="flow" aria-label="Code to architecture flow">
+        <h2>Code to architecture</h2>
+        <div class="flow-track">
+          <div class="flow-step">
+            <span class="step-label">Adapter code</span>
+            <code>guardedCall(...)</code>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-label">Control plane</span>
+            <code>POST /actions</code>
+          </div>
+          <div class="flow-arrow deny" aria-hidden="true"></div>
+          <div class="flow-step danger-step">
+            <span class="step-label">Decision</span>
+            <code>deny</code>
+          </div>
+          <div class="flow-arrow" aria-hidden="true"></div>
+          <div class="flow-step">
+            <span class="step-label">Evidence</span>
+            <code>audit.current_hash</code>
+          </div>
+        </div>
+        <p>
+          The protected function is skipped unless policy returns <code>allow</code>.
+          The same flow maps to brokers, MCP tools, OpenAI adapters, LangGraph nodes, and A2A task handlers.
+        </p>
       </section>
       <section class="doc callout">
         <h2>Day 1 security question</h2>
@@ -548,6 +586,101 @@ function sharedStyles() {
       margin-top: 32px;
     }
     .lede { font-size: 1.08rem; }
+    .status-banner {
+      display: grid;
+      gap: 10px;
+      padding: 16px 18px;
+      margin: 24px 0;
+      border: 1px solid #b8d4db;
+      border-left: 5px solid var(--accent);
+      border-radius: 8px;
+      background: #eef8fa;
+      color: var(--muted);
+    }
+    .status-banner strong {
+      color: var(--ink);
+    }
+    .flow {
+      margin-top: 30px;
+      padding: 22px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+    }
+    .flow-track {
+      display: grid;
+      grid-template-columns: minmax(150px, 1fr) 42px minmax(150px, 1fr) 42px minmax(150px, 1fr) 42px minmax(150px, 1fr);
+      gap: 10px;
+      align-items: center;
+      margin: 18px 0;
+    }
+    .flow-step {
+      min-height: 94px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 10px;
+      padding: 14px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fbfcfe;
+    }
+    .flow-step code {
+      width: fit-content;
+    }
+    .danger-step {
+      border-color: #efb8b8;
+      background: #fff7f6;
+    }
+    .step-label {
+      color: var(--muted);
+      font-size: 0.82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+    .flow-arrow {
+      height: 2px;
+      background: var(--accent);
+      position: relative;
+    }
+    .flow-arrow::after {
+      content: "";
+      position: absolute;
+      right: -1px;
+      top: -5px;
+      border-left: 9px solid var(--accent);
+      border-top: 6px solid transparent;
+      border-bottom: 6px solid transparent;
+    }
+    .flow-arrow.deny {
+      background: var(--danger);
+    }
+    .flow-arrow.deny::after {
+      border-left-color: var(--danger);
+    }
+    @media (max-width: 820px) {
+      .flow-track {
+        grid-template-columns: 1fr;
+      }
+      .flow-arrow {
+        width: 2px;
+        height: 28px;
+        justify-self: center;
+      }
+      .flow-arrow::after {
+        right: -5px;
+        top: auto;
+        bottom: -1px;
+        border-top: 9px solid var(--accent);
+        border-left: 6px solid transparent;
+        border-right: 6px solid transparent;
+        border-bottom: 0;
+      }
+      .flow-arrow.deny::after {
+        border-top-color: var(--danger);
+        border-left-color: transparent;
+      }
+    }
   `;
 }
 

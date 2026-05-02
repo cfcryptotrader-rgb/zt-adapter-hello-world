@@ -4,6 +4,8 @@ This spec captures code and infrastructure changes requested by the launch revie
 
 ## 1. One-Command Authorization Gateway And Broker IaC
 
+Status: partially implemented.
+
 Goal: give a developer a one-command path to deploy an Authorization Gateway and one sample Execution Broker.
 
 Proposed shape:
@@ -31,11 +33,15 @@ Requirements:
 
 Acceptance criteria:
 
-- `make deploy-demo-gateway` or equivalent deploys a minimal gateway and broker;
-- `make destroy-demo-gateway` cleans it up;
+- `terraform apply` in `infra/terraform/examples/authorization-gateway` deploys a minimal IAM-authorized gateway skeleton;
+- Docker Local Broker demonstrates deny-before-execute without cloud credentials;
+- future `make deploy-demo-gateway` or equivalent deploys a minimal gateway and cloud broker together;
+- `terraform destroy` cleans it up;
 - CI validates Terraform formatting and static policy checks.
 
 ## 2. Automated Security Scans In CI
+
+Status: partially implemented.
 
 Goal: make the public repo demonstrate the security discipline it advocates.
 
@@ -74,6 +80,8 @@ Acceptance criteria:
 - failed ledger submission does not block policy enforcement.
 
 ## 4. Code-To-Architecture Animation
+
+Status: implemented as a static, accessible homepage flow.
 
 Goal: make the homepage visually explain how code maps to the architecture.
 
@@ -117,4 +125,3 @@ Acceptance criteria:
 - private vulnerability reporting path works;
 - secret scan returns no active findings;
 - source tree contains no unused experimental scripts or notebooks.
-

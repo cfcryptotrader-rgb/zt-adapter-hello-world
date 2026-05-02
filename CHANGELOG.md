@@ -13,3 +13,7 @@
 - Adds launch-review documentation: Day 1 use cases, IAM whitepaper, launch brief, governance checklist, and engineering change spec.
 - Promotes use cases and IAM narrative on the homepage.
 - Adds `npm audit --omit=dev` to CI.
+- Adds the first public Execution Broker: `brokers/docker-local`.
+- Adds a public IAM-authorized Terraform Authorization Gateway example.
+- Adds `zt-audit verify audit.json` for local audit-shaped response verification.
+- Adds CodeQL, dependency review, Dependabot configuration, homepage Code-to-Architecture flow, and Current vs Planned banner.

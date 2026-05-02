@@ -40,6 +40,9 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /Identity, policy, and audit evidence for autonomous agents/);
   assert.match(response.body, /Start the quickstart/);
   assert.match(response.body, /Hello World is the proof path/);
+  assert.match(response.body, /Current:/);
+  assert.match(response.body, /Planned:/);
+  assert.match(response.body, /Code to architecture/);
 });
 
 test("quickstart page renders readme content", async () => {
@@ -106,6 +109,8 @@ test("website exposes launch review documentation", async () => {
   assert.match(response.body, /Use cases/);
   assert.match(response.body, /Why IAM fails agents/);
   assert.match(response.body, /Day 1 security question/);
+  assert.match(response.body, /guardedCall/);
+  assert.match(response.body, /POST \/actions/);
 });
 
 test("case studies and IAM whitepaper render", async () => {

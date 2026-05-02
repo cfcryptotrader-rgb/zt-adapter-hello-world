@@ -18,15 +18,18 @@ What the current public repo does well:
 - demonstrates deny-before-execute and allow-before-execute in minutes;
 - keeps the local control plane small and understandable;
 - documents identity, policy, threat model, roadmap, and adapter contract;
+- includes a Docker Local Execution Broker example;
+- includes an IAM-authorized Terraform Authorization Gateway example;
+- includes a local audit verifier CLI;
 - includes CI tests for adapter behavior;
 - avoids committed secrets in the public seed.
 
 Known gaps:
 
-- production Authorization Gateway IaC is in the private infrastructure repo, not this public starter;
-- execution brokers are documented but not implemented as public examples yet;
+- production-grade Authorization Gateway IaC remains in the private infrastructure repo; the public Terraform example is a skeleton;
+- cloud execution brokers are documented but not implemented as public examples yet;
 - GitHub branch protection and private vulnerability reporting must be enabled in repository settings;
-- security scanning should be expanded beyond test and npm audit;
+- GitHub Advanced Security features must be verified in repository settings;
 - social proof must wait for approved quotes or named references.
 
 ## Stakeholder Communication Plan
@@ -55,5 +58,6 @@ Each communication should include:
 - `CONTRIBUTING.md` explains brokers and policy templates.
 - `ROADMAP.md` clearly names Phase 2 identity goals.
 - Website links expose use cases, IAM whitepaper, roadmap, and threat model.
+- Website includes a Current vs Planned banner.
+- Public broker and public IaC examples are documented.
 - Branch protection is enabled for `main`.
-
