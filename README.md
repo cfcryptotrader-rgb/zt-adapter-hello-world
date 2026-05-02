@@ -18,9 +18,14 @@ Start here if you need to understand the security model before writing code:
 
 - [Identity & Policy Spec](./IDENTITY_AND_POLICY.md): how transient agents get unique IDs and how least-privilege ABAC policies are shaped.
 - [Threat Model](./THREAT_MODEL.md): what this system protects against and what remains the application developer's responsibility.
+- [Day 1 Use Cases](./CASE_STUDIES.md): concrete examples for finance, cloud operations, MCP, and A2A agents.
+- [Why Traditional IAM Is Not Enough](./WHY_TRADITIONAL_IAM_FAILS.md): short whitepaper on why human-centric IAM needs an agent action control point.
 - [Adapter Contract](./ADAPTER_CONTRACT.md): the minimum request, response, and fail-closed behavior expected from adapters.
 - [Security Policy](./SECURITY.md): supported versions and private vulnerability reporting.
 - [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
+- [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
+- [Launch Brief](./LAUNCH_BRIEF.md): public narrative, audience, suggested launch message, and social-proof policy.
+- [Engineering Spec](./ENGINEERING_SPEC.md): required code and infrastructure changes that should be implemented deliberately.
 
 ## Who this is for
 
@@ -281,6 +286,8 @@ Examples planned for this public repo:
 
 - AWS Lambda Execution Broker
 - Kubernetes Job Execution Broker
+
+The current engineering spec for broker IaC and repository hardening is in [ENGINEERING_SPEC.md](./ENGINEERING_SPEC.md).
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the broker contract.
 

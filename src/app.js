@@ -29,6 +29,18 @@ const docs = [
     summary: "What this MVP protects, what it does not protect, and residual risks.",
   },
   {
+    slug: "case-studies",
+    title: "Day 1 Use Cases",
+    file: "CASE_STUDIES.md",
+    summary: "Concrete first-day examples for finance, cloud operations, MCP, and A2A agents.",
+  },
+  {
+    slug: "why-iam-fails",
+    title: "Why IAM Fails Agents",
+    file: "WHY_TRADITIONAL_IAM_FAILS.md",
+    summary: "Short whitepaper on why human-centric IAM is not enough for autonomous agents.",
+  },
+  {
     slug: "adapter-contract",
     title: "Adapter Contract",
     file: "ADAPTER_CONTRACT.md",
@@ -51,6 +63,24 @@ const docs = [
     title: "Security",
     file: "SECURITY.md",
     summary: "Supported versions and private vulnerability reporting.",
+  },
+  {
+    slug: "governance",
+    title: "Governance",
+    file: "GOVERNANCE.md",
+    summary: "Launch readiness, stakeholder communication, and rules of engagement.",
+  },
+  {
+    slug: "launch-brief",
+    title: "Launch Brief",
+    file: "LAUNCH_BRIEF.md",
+    summary: "Public launch narrative, audience, suggested message, and social-proof policy.",
+  },
+  {
+    slug: "engineering-spec",
+    title: "Engineering Spec",
+    file: "ENGINEERING_SPEC.md",
+    summary: "Specs for IaC, security scans, DAAL, animation, and repository protection work.",
   },
   {
     slug: "sdk-review",
@@ -204,11 +234,16 @@ function landingPage() {
         portable agent identity, least-privilege policy, pre-execution enforcement,
         and signed evidence that security teams can verify.
       </p>
+      <p>
+        The first proof is deliberately simple: an agent attempts a dangerous action,
+        policy blocks it before execution, and the adapter returns a verifiable audit-shaped response.
+      </p>
       <div class="button-row">
         <a class="button primary" href="/quickstart">Start the quickstart</a>
+        <a class="button" href="/docs/case-studies">Use cases</a>
+        <a class="button" href="/docs/why-iam-fails">Why IAM fails agents</a>
         <a class="button" href="/docs/architecture">Architecture</a>
         <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>
-        <a class="button" href="/docs/threat-model">Threat model</a>
         <a class="button" href="/demo">View demo flow</a>
       </div>
       <section class="grid" aria-label="Product pillars">
@@ -225,9 +260,19 @@ function landingPage() {
           <p>Every decision can produce hash-chained audit evidence with KMS-backed signatures in the full MVP.</p>
         </div>
       </section>
+      <section class="doc callout">
+        <h2>Day 1 security question</h2>
+        <p>
+          When an autonomous agent asks to terminate infrastructure, create a pull request, export finance data,
+          or accept an external task, who decides before the tool runs and where is the evidence?
+        </p>
+        <p>
+          ZT-Infra makes that decision point explicit and keeps the public starter small enough to verify.
+        </p>
+      </section>
       <section class="grid" aria-label="Documentation">
         ${docs
-          .slice(0, 6)
+          .slice(0, 9)
           .map(
             (doc) => `<a class="card doc-link" href="/docs/${escapeHtml(doc.slug)}">
           <h2>${escapeHtml(doc.title)}</h2>

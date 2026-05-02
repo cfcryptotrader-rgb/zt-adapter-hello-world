@@ -72,6 +72,8 @@ test("docs index lists repository documents", async () => {
   assert.match(response.body, /Documentation/);
   assert.match(response.body, /Identity &amp; Policy/);
   assert.match(response.body, /Architecture/);
+  assert.match(response.body, /Day 1 Use Cases/);
+  assert.match(response.body, /Why IAM Fails Agents/);
   assert.match(response.body, /Threat Model/);
 });
 
@@ -93,6 +95,30 @@ test("architecture doc renders reusable diagram", async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.body, /ZT-Infra Architecture/);
   assert.match(response.body, /src="\/architecture\.svg"/);
+});
+
+test("website exposes launch review documentation", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/", headers: { accept: "text/html" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /Use cases/);
+  assert.match(response.body, /Why IAM fails agents/);
+  assert.match(response.body, /Day 1 security question/);
+});
+
+test("case studies and IAM whitepaper render", async () => {
+  const caseStudies = fakeResponse();
+  const iam = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/case-studies", headers: { accept: "text/html" } }, caseStudies);
+  await routeRequest({ method: "GET", url: "/docs/why-iam-fails", headers: { accept: "text/html" } }, iam);
+
+  assert.equal(caseStudies.statusCode, 200);
+  assert.equal(iam.statusCode, 200);
+  assert.match(caseStudies.body, /Finance Agent In A Docker Sandbox/);
+  assert.match(iam.body, /Traditional IAM Is Not Enough/);
 });
 
 test("architecture svg is served for media reuse", async () => {

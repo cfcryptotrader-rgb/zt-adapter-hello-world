@@ -43,6 +43,18 @@ Every broker contribution must:
 7. document any required runtime permissions.
 8. include a least-privilege policy example that maps actor, action, and resource.
 
+## Adding Policy Templates
+
+Policy template contributions should be small, explicit, and deny-by-default.
+
+Each template must include:
+
+1. a realistic protected action, such as `mcp.github.create_pull_request`;
+2. a deny example;
+3. an allow example with the narrowest practical actor, action, resource, and context;
+4. a short explanation of what human approval or workload identity is required;
+5. tests or fixtures that prove the deny and allow behavior.
+
 ### Suggested structure
 
 ```text

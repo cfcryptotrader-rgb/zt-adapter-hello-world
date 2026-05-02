@@ -15,8 +15,10 @@ Please do not open a public GitHub issue for suspected vulnerabilities.
 Report privately by emailing:
 
 ```text
-security@zerotrustv2.example
+security@zt-infra.org
 ```
+
+If GitHub private vulnerability reporting is enabled for the repository, you may also use the private advisory flow instead of email.
 
 Include:
 

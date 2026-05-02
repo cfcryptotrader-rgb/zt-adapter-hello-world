@@ -10,3 +10,6 @@
 - Makes the contributor-facing vision prominent: defining the next decade of autonomous system security.
 - Adds Vercel deployment support with a browser-friendly homepage.
 - Adds a reusable architecture diagram and public `/docs/architecture` page.
+- Adds launch-review documentation: Day 1 use cases, IAM whitepaper, launch brief, governance checklist, and engineering change spec.
+- Promotes use cases and IAM narrative on the homepage.
+- Adds `npm audit --omit=dev` to CI.

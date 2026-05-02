@@ -1,0 +1,53 @@
+# Launch Brief
+
+Use this brief for public website copy, social posts, partner notes, and early adopter outreach.
+
+## Why It Matters
+
+Agents are moving from chat into action. They discover tools, call APIs, write code, open tickets, and operate across cloud and SaaS boundaries. Existing IAM can authenticate applications and humans, but it does not give teams a portable way to identify a transient agent, check exact action policy, and preserve signed evidence for each attempted action.
+
+ZT-Infra is building toward a SPIFFE-like trust layer for autonomous agents: portable identity, policy before execution, and audit evidence that security teams can verify.
+
+## Who It Is For
+
+- Developers building adapters for agent frameworks and tool protocols.
+- Security engineers who need a clear control point before agent tool execution.
+- Platform teams that want agent actions to follow the same rigor as production workload actions.
+- Early contributors interested in identity, policy, attestation, MCP, A2A, and execution brokers.
+
+## Current Public Proof
+
+The public Hello World repository demonstrates the smallest useful loop:
+
+1. start a local mock control plane;
+2. register a mock agent;
+3. attempt an unauthorized action;
+4. receive `deny`;
+5. skip execution;
+6. apply narrow policy;
+7. execute the safe action.
+
+## Suggested Launch Message
+
+ZT-Infra is an early open-source control-plane MVP for autonomous agent actions. The first public adapter shows a five-minute proof: an agent attempts a dangerous action, policy blocks it before execution, and the decision returns a consistent audit envelope. We are building toward a SPIFFE-like identity and attestation layer for AI agents, and we are looking for contributors who want to help define the next decade of autonomous system security.
+
+## Social Proof Policy
+
+Do not fabricate quotes, logos, or customer claims. Until named references are approved, use one of these accurate phrases:
+
+- "Alpha feedback is being collected from early reviewers."
+- "Design-partner conversations are in progress."
+- "Public examples are intentionally small so contributors can validate the security loop themselves."
+
+## Visual Assets
+
+Current reusable assets:
+
+- architecture page: `/docs/architecture`;
+- architecture SVG: `/architecture.svg`;
+- asciinema terminal recording: `recordings/agent-blocked-then-authorized.cast`.
+
+Planned asset:
+
+- Code-to-Architecture animation showing a request moving from adapter code to policy decision to signed audit evidence. See [ENGINEERING_SPEC.md](./ENGINEERING_SPEC.md).
+
