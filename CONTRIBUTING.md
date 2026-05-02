@@ -10,9 +10,11 @@ The broader mission is to help define the next decade of autonomous system secur
 2. Install dependencies with `npm ci`.
 3. Run `npm test`.
 4. Run `npm audit --omit=dev`.
-5. Keep examples small and dependency-light.
-6. Make sure the five-minute quickstart still works.
-7. Open a pull request with a short description and test output.
+5. Run `npm run security:secrets`.
+6. Generate an SBOM with `npm run sbom` for release-sensitive changes.
+7. Keep examples small and dependency-light.
+8. Make sure the five-minute quickstart still works.
+9. Open a pull request with a short description and test output.
 
 ## Development Environment
 
@@ -32,6 +34,7 @@ Fast local check:
 npm ci
 npm test
 npm audit --omit=dev
+npm run security:secrets
 ```
 
 Containerized quickstart:
@@ -68,6 +71,18 @@ Every PR should include:
 - commands run and pass/fail results;
 - screenshots or terminal output for website or CLI changes when useful;
 - any remaining risk or follow-up issue.
+
+## Review Structure
+
+PR review order:
+
+1. correctness and tests;
+2. fail-closed security behavior;
+3. documentation and quickstart impact;
+4. dependency, secret-scan, and SBOM impact;
+5. maintainer approval and squash merge.
+
+Security-sensitive PRs should reference [RISK_REGISTER.md](./RISK_REGISTER.md) or [INCIDENT_RESPONSE.md](./INCIDENT_RESPONSE.md) when they change broker execution, policy semantics, audit verification, or secret handling.
 
 ## Adding Execution Brokers
 

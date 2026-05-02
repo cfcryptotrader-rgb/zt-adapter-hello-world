@@ -4,6 +4,8 @@ Traditional IAM is necessary, but it was designed around relatively stable human
 
 ZT-Infra does not replace IAM. It adds a policy and evidence layer at the moment an agent attempts to act.
 
+ZT-Infra uses Zero Trust architecture as an influence: authorize each resource access explicitly, avoid implicit trust from network location, and keep policy close to the resource or action being protected. NIST SP 800-207 is the reference point for this architectural framing; ZT-Infra is not claiming NIST certification.
+
 ## The Gap
 
 Human-centric OAuth and role-based access control usually answer:
@@ -50,4 +52,3 @@ The control plane can deny that action even if the surrounding application has c
 ZT-Infra does not prevent prompt injection by itself. It does not make unsafe application logic safe. It does not remove the need for IAM, sandboxing, secrets management, endpoint security, or human approval workflows.
 
 The point is narrower and more testable: when an agent attempts a protected action, policy should decide before execution, and the decision should leave verifiable evidence.
-

@@ -12,6 +12,9 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | GitHub Project board | Blocked | `gh project create` requires `project,read:project` token scopes. Run `gh auth refresh -s project,read:project`, then create the board. |
 | Nono role/status | Done | [ROADMAP.md](./ROADMAP.md) and [GOVERNANCE.md](./GOVERNANCE.md) state that Nono is excluded from the public adapter MVP. |
 | Community hub | Done | Discord channel `Zero Trust Infrastructure` is linked from [COMMUNITY.md](./COMMUNITY.md), README, and the homepage: https://discord.gg/cDS8MPX6G. |
+| Defined Phase 1 ready criteria | Done | [PHASE1_READY.md](./PHASE1_READY.md) separates ready, experimental, planned, and non-claimable capabilities. |
+| Risk register | Done | [RISK_REGISTER.md](./RISK_REGISTER.md) documents performance, policy bypass, microVM isolation, secret exposure, DAAL, and ownership risks. |
+| Role clarification | Done | [GOVERNANCE.md](./GOVERNANCE.md) lists alpha maintenance roles and current owners. |
 
 ## Narrative And Conversion
 
@@ -22,6 +25,9 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | One-sentence pitch | Done | README and [LAUNCH_BRIEF.md](./LAUNCH_BRIEF.md): "Open-source identity, policy, and audit evidence for autonomous AI agents." |
 | Social kit | Done | [SOCIAL_KIT.md](./SOCIAL_KIT.md) includes Hacker News, LinkedIn, X, approved claims, and claims to avoid. [LAUNCH_BRIEF.md](./LAUNCH_BRIEF.md) keeps the narrative brief. |
 | Branding sync | Partial | Website and README share narrative and architecture assets. A reusable wordmark/logo remains planned. |
+| ROI metrics | Done | [ROI_METRICS.md](./ROI_METRICS.md) explains cost avoidance, operational metrics, and business value. |
+| Engagement strategy | Done | [ENGAGEMENT_STRATEGY.md](./ENGAGEMENT_STRATEGY.md) documents GitHub Traffic, Discord, Buttondown, Vercel, and future npm measurement loops. |
+| Authority positioning | Done | [ENGAGEMENT_STRATEGY.md](./ENGAGEMENT_STRATEGY.md) positions the project alongside Zero Trust principles and NIST SP 800-207 as influence, not certification. |
 
 ## Technical Trust And Security
 
@@ -36,13 +42,19 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | SDK documentation | Done | README, [SDK_REVIEW.md](./SDK_REVIEW.md), and [SDK_API.md](./SDK_API.md) document usage, API shape, helper methods, and fail-closed behavior. |
 | Branch protection | Done | `main` requires PR review, required `test`, stale review dismissal, admin enforcement, conversation resolution, no force pushes, and no deletions. |
 | Automated scans | Done | CI includes tests, npm audit, dependency review, CodeQL, and Dependabot. |
+| SBOM generation | Done | CI uploads a CycloneDX SBOM artifact and `npm run sbom` works locally. |
+| Local secret scan | Done | `npm run security:secrets` scans tracked files for common cloud, AI, wallet, and private key patterns. |
+| Incident response plan | Done | [INCIDENT_RESPONSE.md](./INCIDENT_RESPONSE.md) defines severity, war-room roles, freeze actions, and recovery criteria. |
+| Release notes | Done | [CHANGELOG.md](./CHANGELOG.md) exists and is exposed through `/docs/changelog`. |
 
 ## Latest Validation
 
 | Check | Result |
 | --- | --- |
-| `npm test` | 29 tests passed |
+| `npm test` | 31 tests passed |
 | `npm audit --omit=dev` | 0 vulnerabilities |
+| `npm run security:secrets` | Passed; added to CI. |
+| `npm run sbom` | Passed; produces ignored `sbom.cdx.json` and CI artifact. |
 | `docker compose config` | Passed |
 | `docker compose up -d` | Blocked locally because Docker daemon was not running |
 | `git diff --check` | Passed |

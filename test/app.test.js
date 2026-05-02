@@ -46,6 +46,7 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /Explorer verification/);
   assert.match(response.body, /Zero Trust Infrastructure/);
   assert.match(response.body, /https:\/\/discord\.gg\/cDS8MPX6G/);
+  assert.match(response.body, /Phase 1 Ready/);
   assert.match(response.body, /Code to architecture/);
   assert.match(response.body, /broad API key/);
   assert.match(response.body, /delete a database/);
@@ -113,8 +114,10 @@ test("docs page renders markdown content", async () => {
 test("all docs routes render markdown content", async () => {
   const slugs = [
     "identity-policy",
+    "phase1-ready",
     "threat-model",
     "case-studies",
+    "roi-metrics",
     "why-iam-fails",
     "adapter-contract",
     "roadmap",
@@ -122,10 +125,14 @@ test("all docs routes render markdown content", async () => {
     "contributing",
     "community",
     "security",
+    "security-artifacts",
+    "risk-register",
+    "incident-response",
     "governance",
     "launch-checklist",
     "launch-brief",
     "social-kit",
+    "engagement-strategy",
     "engineering-spec",
     "sdk-review",
     "sdk-api",
@@ -176,7 +183,10 @@ test("case studies and IAM whitepaper render", async () => {
   assert.equal(caseStudies.statusCode, 200);
   assert.equal(iam.statusCode, 200);
   assert.match(caseStudies.body, /Finance Agent In A Docker Sandbox/);
+  assert.match(caseStudies.body, /Healthcare Data Processing Agent/);
+  assert.match(caseStudies.body, /Customer Support Agent With SaaS Admin Tools/);
   assert.match(iam.body, /Traditional IAM Is Not Enough/);
+  assert.match(iam.body, /NIST SP 800-207/);
 });
 
 test("social kit and SDK API docs render", async () => {
@@ -204,8 +214,39 @@ test("roadmap and governance clarify launch status", async () => {
   assert.equal(roadmap.statusCode, 200);
   assert.equal(governance.statusCode, 200);
   assert.match(roadmap.body, /90-Day Launch Status/);
+  assert.match(roadmap.body, /Phase 1 ready criteria/);
   assert.match(roadmap.body, /Nono is not part of the public adapter MVP/);
+  assert.match(governance.body, /Core Maintenance Team/);
   assert.match(governance.body, /Nono is excluded from the public adapter MVP/);
+});
+
+test("phase ready, risk, incident, ROI, and security artifact docs render", async () => {
+  const phase = fakeResponse();
+  const risk = fakeResponse();
+  const incident = fakeResponse();
+  const roi = fakeResponse();
+  const artifacts = fakeResponse();
+  const engagement = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/phase1-ready", headers: { accept: "text/html" } }, phase);
+  await routeRequest({ method: "GET", url: "/docs/risk-register", headers: { accept: "text/html" } }, risk);
+  await routeRequest({ method: "GET", url: "/docs/incident-response", headers: { accept: "text/html" } }, incident);
+  await routeRequest({ method: "GET", url: "/docs/roi-metrics", headers: { accept: "text/html" } }, roi);
+  await routeRequest({ method: "GET", url: "/docs/security-artifacts", headers: { accept: "text/html" } }, artifacts);
+  await routeRequest({ method: "GET", url: "/docs/engagement-strategy", headers: { accept: "text/html" } }, engagement);
+
+  assert.equal(phase.statusCode, 200);
+  assert.equal(risk.statusCode, 200);
+  assert.equal(incident.statusCode, 200);
+  assert.equal(roi.statusCode, 200);
+  assert.equal(artifacts.statusCode, 200);
+  assert.equal(engagement.statusCode, 200);
+  assert.match(phase.body, /Phase 1 MVP Definition/);
+  assert.match(risk.body, /MicroVM or sandbox isolation leak/);
+  assert.match(incident.body, /War Room/);
+  assert.match(roi.body, /Cost Avoidance/);
+  assert.match(artifacts.body, /SBOM generation/);
+  assert.match(engagement.body, /GitHub Traffic/);
 });
 
 test("community and explorer verification docs render", async () => {

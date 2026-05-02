@@ -25,12 +25,18 @@ This repository is the public on-ramp for contributors who want to help define t
 Start here if you need to understand the security model before writing code:
 
 - [Identity & Policy Spec](./IDENTITY_AND_POLICY.md): how transient agents get unique IDs and how least-privilege ABAC policies are shaped.
+- [Phase 1 Ready Criteria](./PHASE1_READY.md): explicit MVP completion criteria and current versus planned claims.
 - [Threat Model](./THREAT_MODEL.md): what this system protects against and what remains the application developer's responsibility.
+- [Risk Register](./RISK_REGISTER.md): launch and architecture risks, controls, and mitigations.
+- [Incident Response](./INCIDENT_RESPONSE.md): maintainer playbook for vulnerability, secret, package, or demo incidents.
 - [Day 1 Use Cases](./CASE_STUDIES.md): concrete examples for finance, cloud operations, MCP, and A2A agents.
+- [ROI Metrics](./ROI_METRICS.md): cost-avoidance story and measurable operational value.
 - [Why Traditional IAM Is Not Enough](./WHY_TRADITIONAL_IAM_FAILS.md): short whitepaper on why human-centric IAM needs an agent action control point.
 - [Adapter Contract](./ADAPTER_CONTRACT.md): the minimum request, response, and fail-closed behavior expected from adapters.
 - [Security Policy](./SECURITY.md): supported versions and private vulnerability reporting.
+- [Security Artifacts](./SECURITY_ARTIFACTS.md): SAST, dependency review, secret scan, SBOM, and audit verification evidence.
 - [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
+- [Engagement Strategy](./ENGAGEMENT_STRATEGY.md): launch channels, package-manager plan, and measurement loops.
 - [Explorer Verification](./EXPLORER_VERIFICATION.md): DAAL contract explorer verification status and claim boundaries.
 - [Community](./COMMUNITY.md): Discord channel status, expectations, and feedback paths.
 - [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
@@ -105,6 +111,8 @@ git clone https://github.com/oscarmackjr-twg/zt-adapter-hello-world.git
 cd zt-adapter-hello-world
 npm ci
 npm test
+npm run security:secrets
+npm run sbom
 ```
 
 ### 2. Start local zt-infra mock
@@ -427,5 +435,6 @@ Do not commit secrets. Keep `.env` local.
 Report vulnerabilities privately. See [SECURITY.md](./SECURITY.md).
 
 For design-level security boundaries, see [THREAT_MODEL.md](./THREAT_MODEL.md).
+For launch risks and incident handling, see [RISK_REGISTER.md](./RISK_REGISTER.md) and [INCIDENT_RESPONSE.md](./INCIDENT_RESPONSE.md).
 
 This adapter is a learning repo, not a production agent runtime.

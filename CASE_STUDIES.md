@@ -98,3 +98,50 @@ Why this matters:
 
 Autonomous systems will cross organizational boundaries. The default posture should be reject until identity, trust domain, resource, and action policy all match.
 
+## 5. Healthcare Data Processing Agent
+
+Scenario: a healthcare operations agent summarizes appointment backlog and can request patient data exports.
+
+Protected action:
+
+```json
+{
+  "actor": "healthcare-agent-demo",
+  "action": "healthcare.patient.export_phi",
+  "resource": "clinic-demo"
+}
+```
+
+Policy:
+
+- deny protected health information export in the public demo;
+- allow only de-identified aggregate counts for onboarding examples;
+- require a trusted workload identity, approved purpose, and auditable ticket before any PHI-related action in production.
+
+Why this matters:
+
+The agent may be useful for operational reporting, but the action boundary must distinguish aggregate support work from sensitive patient data movement. ZT-Infra makes that distinction explicit before the tool runs.
+
+## 6. Customer Support Agent With SaaS Admin Tools
+
+Scenario: a support agent investigates account access issues and can call SaaS administration APIs.
+
+Protected action:
+
+```json
+{
+  "actor": "support-agent-demo",
+  "action": "saas.user.disable_account",
+  "resource": "customer-demo"
+}
+```
+
+Policy:
+
+- allow read-only account lookup;
+- deny account disable, role escalation, billing changes, and data export by default;
+- require approval context and a scoped broker for state-changing support actions.
+
+Why this matters:
+
+Many early agent deployments will start with broad SaaS tokens because they are easy to integrate. The demo shows why the adapter layer should constrain each tool call instead of trusting the token's full capability set.

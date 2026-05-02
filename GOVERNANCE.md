@@ -24,6 +24,8 @@ What the current public repo does well:
 - includes CI tests for adapter behavior;
 - avoids committed secrets in the public seed.
 
+Phase 1 readiness is defined in [PHASE1_READY.md](./PHASE1_READY.md). Any launch claim should use that document as the source of truth for production-ready, experimental, and planned capabilities.
+
 Known gaps:
 
 - production-grade Authorization Gateway IaC remains in the private infrastructure repo; the public Terraform example is a skeleton;
@@ -31,6 +33,18 @@ Known gaps:
 - GitHub branch protection and private vulnerability reporting must be enabled in repository settings;
 - GitHub Advanced Security features must be verified in repository settings;
 - social proof must wait for approved quotes or named references.
+
+## Core Maintenance Team
+
+| Role | Current Owner |
+| --- | --- |
+| Project lead | Oscar Mack |
+| Engineering review | TWG Global partners / delegated maintainers |
+| Security review | Security reporter, TWG Global partner, or invited reviewer depending on issue |
+| Community triage | Project lead during alpha |
+| Release owner | Project lead until additional maintainers are named |
+
+This is intentionally lightweight for alpha. Add named maintainers only after they accept responsibility for review, security triage, or release ownership.
 
 ## Stakeholder Communication Plan
 

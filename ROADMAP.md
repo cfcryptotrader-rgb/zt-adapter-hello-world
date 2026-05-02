@@ -24,10 +24,14 @@ Status: current
 | CodeQL, Dependabot, dependency review | Done | GitHub workflows and repository settings. |
 | Good First Issue backlog | Done | Three labeled onboarding issues. |
 | GitHub Project board | In Progress | Requires `gh auth refresh -s project,read:project`. |
-| Newsletter / alpha capture | In Progress | Provider selection needed. |
-| Community hub | In Progress | Discord channel `Zero Trust Infrastructure` exists; public invite link pending. |
+| Newsletter / alpha capture | Done | Homepage includes Buttondown alpha signup. |
+| Community hub | Done | Discord channel `Zero Trust Infrastructure` is linked from README, homepage, and COMMUNITY.md. |
 | DAAL public testnet proof | In Progress | Hook planned; full contract-as-a-service example not yet public. Explorer verification requirements are documented in `EXPLORER_VERIFICATION.md`. |
 | Production identity binding | In Progress | Phase 2 mTLS/SPIFFE work. |
+| Phase 1 ready criteria | Done | `PHASE1_READY.md` defines current, experimental, and non-claimable capabilities. |
+| Risk register | Done | `RISK_REGISTER.md` tracks launch and architecture risks. |
+| Incident response playbook | Done | `INCIDENT_RESPONSE.md` defines freeze and recovery steps. |
+| SBOM and secret-scan CI | Done | CI runs local secret scan and uploads a CycloneDX SBOM artifact. |
 
 ## 90-Day Launch Status
 

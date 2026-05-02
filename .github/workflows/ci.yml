@@ -18,6 +18,7 @@ jobs:
       - run: npm ci
       - run: npm test
       - run: npm audit --omit=dev
+      - run: npm run security:secrets
 
   dependency-review:
     if: github.event_name == 'pull_request'
@@ -25,3 +26,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: actions/dependency-review-action@v4
+
+  sbom:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      - run: npm ci
+      - run: npm run sbom
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cyclonedx-sbom
+          path: sbom.cdx.json

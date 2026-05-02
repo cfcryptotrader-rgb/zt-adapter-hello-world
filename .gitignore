@@ -3,6 +3,7 @@ node_modules/
 .DS_Store
 coverage/
 npm-debug.log*
+sbom.cdx.json
 .terraform/
 **/.terraform/
 *.tfstate

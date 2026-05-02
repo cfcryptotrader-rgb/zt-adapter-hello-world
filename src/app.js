@@ -13,13 +13,19 @@ const bundledFiles = new Map([
   ["EXPLORER_VERIFICATION.md", fs.readFileSync(new URL("../EXPLORER_VERIFICATION.md", import.meta.url), "utf8")],
   ["GOVERNANCE.md", fs.readFileSync(new URL("../GOVERNANCE.md", import.meta.url), "utf8")],
   ["IDENTITY_AND_POLICY.md", fs.readFileSync(new URL("../IDENTITY_AND_POLICY.md", import.meta.url), "utf8")],
+  ["INCIDENT_RESPONSE.md", fs.readFileSync(new URL("../INCIDENT_RESPONSE.md", import.meta.url), "utf8")],
+  ["ENGAGEMENT_STRATEGY.md", fs.readFileSync(new URL("../ENGAGEMENT_STRATEGY.md", import.meta.url), "utf8")],
   ["LAUNCH_BRIEF.md", fs.readFileSync(new URL("../LAUNCH_BRIEF.md", import.meta.url), "utf8")],
   ["LAUNCH_CHECKLIST.md", fs.readFileSync(new URL("../LAUNCH_CHECKLIST.md", import.meta.url), "utf8")],
+  ["PHASE1_READY.md", fs.readFileSync(new URL("../PHASE1_READY.md", import.meta.url), "utf8")],
   ["README.md", fs.readFileSync(new URL("../README.md", import.meta.url), "utf8")],
+  ["RISK_REGISTER.md", fs.readFileSync(new URL("../RISK_REGISTER.md", import.meta.url), "utf8")],
   ["ROADMAP.md", fs.readFileSync(new URL("../ROADMAP.md", import.meta.url), "utf8")],
+  ["ROI_METRICS.md", fs.readFileSync(new URL("../ROI_METRICS.md", import.meta.url), "utf8")],
   ["SDK_API.md", fs.readFileSync(new URL("../SDK_API.md", import.meta.url), "utf8")],
   ["SDK_REVIEW.md", fs.readFileSync(new URL("../SDK_REVIEW.md", import.meta.url), "utf8")],
   ["SECURITY.md", fs.readFileSync(new URL("../SECURITY.md", import.meta.url), "utf8")],
+  ["SECURITY_ARTIFACTS.md", fs.readFileSync(new URL("../SECURITY_ARTIFACTS.md", import.meta.url), "utf8")],
   ["SOCIAL_KIT.md", fs.readFileSync(new URL("../SOCIAL_KIT.md", import.meta.url), "utf8")],
   ["THREAT_MODEL.md", fs.readFileSync(new URL("../THREAT_MODEL.md", import.meta.url), "utf8")],
   [
@@ -55,6 +61,12 @@ const docs = [
     summary: "Agent identity provisioning and least-privilege ABAC examples.",
   },
   {
+    slug: "phase1-ready",
+    title: "Phase 1 Ready Criteria",
+    file: "PHASE1_READY.md",
+    summary: "Explicit MVP completion criteria and current versus planned claims.",
+  },
+  {
     slug: "architecture",
     title: "Architecture",
     file: "ARCHITECTURE.md",
@@ -71,6 +83,12 @@ const docs = [
     title: "Day 1 Use Cases",
     file: "CASE_STUDIES.md",
     summary: "Concrete first-day examples for finance, cloud operations, MCP, and A2A agents.",
+  },
+  {
+    slug: "roi-metrics",
+    title: "ROI Metrics",
+    file: "ROI_METRICS.md",
+    summary: "Cost avoidance and operational metrics for agent security programs.",
   },
   {
     slug: "why-iam-fails",
@@ -115,6 +133,24 @@ const docs = [
     summary: "Supported versions and private vulnerability reporting.",
   },
   {
+    slug: "security-artifacts",
+    title: "Security Artifacts",
+    file: "SECURITY_ARTIFACTS.md",
+    summary: "SAST, dependency review, secret scan, SBOM, and verification evidence.",
+  },
+  {
+    slug: "risk-register",
+    title: "Risk Register",
+    file: "RISK_REGISTER.md",
+    summary: "Launch and architecture risks, controls, and mitigations.",
+  },
+  {
+    slug: "incident-response",
+    title: "Incident Response",
+    file: "INCIDENT_RESPONSE.md",
+    summary: "Severity, war-room roles, freeze actions, and recovery criteria.",
+  },
+  {
     slug: "governance",
     title: "Governance",
     file: "GOVERNANCE.md",
@@ -137,6 +173,12 @@ const docs = [
     title: "Social Kit",
     file: "SOCIAL_KIT.md",
     summary: "Approved launch copy, platform-specific posts, claims to use, and claims to avoid.",
+  },
+  {
+    slug: "engagement-strategy",
+    title: "Engagement Strategy",
+    file: "ENGAGEMENT_STRATEGY.md",
+    summary: "Developer hub, Discord, newsletter, Vercel, and package-manager measurement loops.",
   },
   {
     slug: "engineering-spec",
@@ -359,6 +401,7 @@ function landingPage() {
         <a class="button" href="/docs/why-iam-fails">Why IAM fails agents</a>
         <a class="button" href="/docs/explorer-verification">Explorer verification</a>
         <a class="button" href="/docs/community">Community</a>
+        <a class="button" href="/docs/phase1-ready">Phase 1 Ready</a>
         <a class="button" href="/docs/architecture">Architecture</a>
         <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>
         <a class="button" href="/demo">View demo flow</a>
