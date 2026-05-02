@@ -46,6 +46,7 @@ Start here if you need to understand the security model before writing code:
 - [SDK API](./SDK_API.md): `ZeroTrustClient` constructor, decision methods, helper methods, and fail-closed behavior.
 - [Engineering Spec](./ENGINEERING_SPEC.md): required code and infrastructure changes that should be implemented deliberately.
 - [Docker Local Broker](./brokers/docker-local/README.md): first public Execution Broker example.
+- [Nono CLI Broker](./brokers/nono-cli/README.md): wraps `/usr/local/bin/nono` to spawn policy-approved sandboxed agents.
 - [Authorization Gateway Terraform](./infra/terraform/examples/authorization-gateway/README.md): IAM-authorized public IaC example.
 
 ## Who this is for
@@ -347,6 +348,7 @@ Execution Brokers run approved work after the control plane returns `allow`.
 Examples planned for this public repo:
 
 - Docker Local Execution Broker: [brokers/docker-local](./brokers/docker-local)
+- Nono CLI Execution Broker: [brokers/nono-cli](./brokers/nono-cli)
 - AWS Lambda Execution Broker
 - Kubernetes Job Execution Broker
 

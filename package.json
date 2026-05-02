@@ -7,7 +7,8 @@
   "main": "src/zero-trust-client.js",
   "exports": {
     ".": "./src/zero-trust-client.js",
-    "./brokers/docker-local": "./brokers/docker-local/index.js"
+    "./brokers/docker-local": "./brokers/docker-local/index.js",
+    "./brokers/nono-cli": "./brokers/nono-cli/index.js"
   },
   "bin": {
     "zt-audit": "./bin/zt-audit.js"
