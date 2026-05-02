@@ -71,6 +71,7 @@ test("docs index lists repository documents", async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.body, /Documentation/);
   assert.match(response.body, /Identity &amp; Policy/);
+  assert.match(response.body, /Architecture/);
   assert.match(response.body, /Threat Model/);
 });
 
@@ -82,6 +83,26 @@ test("docs page renders markdown content", async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.body, /Five-Minute Secure Hello World/);
   assert.match(response.body, /Deploy To Vercel/);
+});
+
+test("architecture doc renders reusable diagram", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/architecture", headers: { accept: "text/html" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /ZT-Infra Architecture/);
+  assert.match(response.body, /src="\/architecture\.svg"/);
+});
+
+test("architecture svg is served for media reuse", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/architecture.svg", headers: { accept: "image/svg+xml" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.headers["content-type"], /image\/svg\+xml/);
+  assert.match(response.body, /ZT-Infra current architecture/);
 });
 
 test("health endpoint returns service status", async () => {

@@ -9,3 +9,4 @@
 - Expands the roadmap around the "SPIFFE for AI agents" thesis, including identity issuance, attestation, trust bundles, federation, and conformance gaps.
 - Makes the contributor-facing vision prominent: defining the next decade of autonomous system security.
 - Adds Vercel deployment support with a browser-friendly homepage.
+- Adds a reusable architecture diagram and public `/docs/architecture` page.

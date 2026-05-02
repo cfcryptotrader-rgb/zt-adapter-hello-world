@@ -17,6 +17,12 @@ const docs = [
     summary: "Agent identity provisioning and least-privilege ABAC examples.",
   },
   {
+    slug: "architecture",
+    title: "Architecture",
+    file: "ARCHITECTURE.md",
+    summary: "System diagram for the website, adapters, control plane, AWS runtime, and evidence path.",
+  },
+  {
     slug: "threat-model",
     title: "Threat Model",
     file: "THREAT_MODEL.md",
@@ -81,6 +87,16 @@ export async function routeRequest(request, response) {
 
   if (request.method === "GET" && url.pathname === "/demo") {
     return html(response, 200, demoPage());
+  }
+
+  if (request.method === "GET" && url.pathname === "/architecture.svg") {
+    const svg = await fs.readFile(path.join(process.cwd(), "public", "architecture.svg"), "utf8");
+    response.writeHead(200, {
+      "content-type": "image/svg+xml; charset=utf-8",
+      "cache-control": "public, max-age=300",
+    });
+    response.end(svg);
+    return undefined;
   }
 
   if (request.method === "GET" && url.pathname === "/docs") {
@@ -187,6 +203,7 @@ function landingPage() {
       </p>
       <div class="button-row">
         <a class="button primary" href="/quickstart">Start the quickstart</a>
+        <a class="button" href="/docs/architecture">Architecture</a>
         <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>
         <a class="button" href="/docs/threat-model">Threat model</a>
         <a class="button" href="/demo">View demo flow</a>
@@ -339,6 +356,15 @@ function sharedStyles() {
     h3 { margin: 28px 0 10px; }
     p { color: var(--muted); margin: 0 0 18px; }
     a { color: var(--accent); }
+    img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 22px 0;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: white;
+    }
     ul, ol { color: var(--muted); padding-left: 1.4rem; }
     li { margin: 6px 0; }
     table {
@@ -563,6 +589,9 @@ function splitTableRow(row) {
 
 function inlineMarkdown(value) {
   let htmlValue = escapeHtml(value);
+  htmlValue = htmlValue.replace(/!\[([^\]]*)\]\(([^)]+)\)/g, (_match, alt, src) => {
+    return `<img src="${escapeHtml(mapMarkdownHref(String(src)))}" alt="${escapeHtml(alt)}">`;
+  });
   htmlValue = htmlValue.replace(/`([^`]+)`/g, "<code>$1</code>");
   htmlValue = htmlValue.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
   htmlValue = htmlValue.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_match, text, href) => {
