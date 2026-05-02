@@ -69,9 +69,18 @@ export async function routeRequest(request, response) {
     }
     return json(response, 200, {
       ok: true,
-      message: "Hello from a Zero Trust adapter.",
-      next: ["/docs", "/health", "/demo/deny", "/demo/allow"],
+      message: "ZT-Infra developer site",
+      next: ["/quickstart", "/docs", "/demo", "/health", "/demo/deny", "/demo/allow"],
     });
+  }
+
+  if (request.method === "GET" && url.pathname === "/quickstart") {
+    const markdown = await fs.readFile(path.join(process.cwd(), "README.md"), "utf8");
+    return html(response, 200, docsShell("Quickstart", markdownToHtml(markdown)));
+  }
+
+  if (request.method === "GET" && url.pathname === "/demo") {
+    return html(response, 200, demoPage());
   }
 
   if (request.method === "GET" && url.pathname === "/docs") {
@@ -157,122 +166,43 @@ function landingPage() {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Zero Trust Hello World Adapter</title>
-    <style>
-      :root {
-        color-scheme: light;
-        --bg: #f7f8fb;
-        --panel: #ffffff;
-        --ink: #18202f;
-        --muted: #596477;
-        --line: #d9dee8;
-        --accent: #126f83;
-        --danger: #a92828;
-      }
-      * { box-sizing: border-box; }
-      body {
-        margin: 0;
-        font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-        background: var(--bg);
-        color: var(--ink);
-        line-height: 1.5;
-      }
-      main {
-        max-width: 960px;
-        margin: 0 auto;
-        padding: 48px 20px 64px;
-      }
-      h1 {
-        margin: 0 0 12px;
-        font-size: clamp(2rem, 6vw, 4rem);
-        line-height: 1;
-        letter-spacing: 0;
-      }
-      h2 {
-        margin: 0 0 12px;
-        font-size: 1.1rem;
-      }
-      p { color: var(--muted); margin: 0 0 18px; }
-      .eyebrow {
-        color: var(--accent);
-        font-weight: 700;
-        text-transform: uppercase;
-        font-size: 0.78rem;
-        margin-bottom: 16px;
-      }
-      .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-        gap: 16px;
-        margin-top: 28px;
-      }
-      .card {
-        background: var(--panel);
-        border: 1px solid var(--line);
-        border-radius: 8px;
-        padding: 18px;
-      }
-      .button-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 12px;
-        margin: 28px 0;
-      }
-      a.button {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        min-height: 42px;
-        padding: 0 16px;
-        border: 1px solid var(--line);
-        border-radius: 6px;
-        color: var(--ink);
-        text-decoration: none;
-        background: var(--panel);
-        font-weight: 650;
-      }
-      a.button.primary {
-        border-color: var(--accent);
-        background: var(--accent);
-        color: white;
-      }
-      code {
-        background: #eef1f6;
-        border: 1px solid var(--line);
-        border-radius: 4px;
-        padding: 2px 5px;
-        font-size: 0.92em;
-      }
-      .danger { color: var(--danger); font-weight: 700; }
-    </style>
+    <title>ZT-Infra | Agent Identity, Policy, and Audit</title>
+    <style>${sharedStyles()}</style>
   </head>
   <body>
     <main>
-      <div class="eyebrow">Zero Trust V2 public adapter</div>
-      <h1>Hello World for governed agent actions</h1>
+      <nav class="top-nav" aria-label="Primary">
+        <a href="/">Home</a>
+        <a href="/quickstart">Quickstart</a>
+        <a href="/docs">Docs</a>
+        <a href="/demo">Demo</a>
+        <a href="https://github.com/oscarmackjr-twg/zt-adapter-hello-world">GitHub</a>
+      </nav>
+      <div class="eyebrow">ZT-Infra</div>
+      <h1>Identity, policy, and audit evidence for autonomous agents</h1>
       <p>
-        This deployable demo shows the adapter surface for policy-before-execution:
-        an agent asks the Zero Trust control plane before a sensitive action runs.
+        ZT-Infra is building toward a SPIFFE-like trust layer for AI agents:
+        portable agent identity, least-privilege policy, pre-execution enforcement,
+        and signed evidence that security teams can verify.
       </p>
       <div class="button-row">
-        <a class="button primary" href="/docs">Read the docs</a>
-        <a class="button" href="/docs/readme">Quickstart</a>
-        <a class="button" href="/demo/deny">Unauthorized action</a>
-        <a class="button" href="/demo/allow">Allowed action</a>
-        <a class="button" href="/health">Health JSON</a>
+        <a class="button primary" href="/quickstart">Start the quickstart</a>
+        <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>
+        <a class="button" href="/docs/threat-model">Threat model</a>
+        <a class="button" href="/demo">View demo flow</a>
       </div>
-      <section class="grid" aria-label="Demo flow">
+      <section class="grid" aria-label="Product pillars">
         <div class="card">
-          <h2>1. Agent requests action</h2>
-          <p><code>aws.ec2.terminate_instances</code> is intentionally high risk.</p>
+          <h2>Agent identity</h2>
+          <p>Define who the transient agent is, which workload launched it, and which trust domain it belongs to.</p>
         </div>
         <div class="card">
-          <h2>2. Policy runs first</h2>
-          <p>The adapter calls <code>POST /actions</code> before execution.</p>
+          <h2>Policy before execution</h2>
+          <p>Adapters call <code>POST /actions</code> before a sensitive tool, workflow, or external task runs.</p>
         </div>
         <div class="card">
-          <h2>3. Unsafe work is blocked</h2>
-          <p><span class="danger">Deny</span> means the protected function is skipped.</p>
+          <h2>Signed evidence</h2>
+          <p>Every decision can produce hash-chained audit evidence with KMS-backed signatures in the full MVP.</p>
         </div>
       </section>
       <section class="grid" aria-label="Documentation">
@@ -286,9 +216,47 @@ function landingPage() {
           )
           .join("")}
       </section>
+      <section class="doc callout">
+        <h2>Hello World is the proof path</h2>
+        <p>
+          The public repository includes a small Hello World adapter so developers can see the control point quickly:
+          an agent attempts an unauthorized action, policy denies it, and the protected function is skipped.
+        </p>
+      </section>
     </main>
   </body>
 </html>`;
+}
+
+function demoPage() {
+  return docsShell(
+    "Demo",
+    `<h1>Demo Flow</h1>
+    <p class="lede">The hosted demo separates the human-readable story from the JSON endpoints used by scripts and tests.</p>
+    <section class="grid" aria-label="Demo steps">
+      <div class="card">
+        <h2>1. Agent asks to act</h2>
+        <p>The intentionally unsafe action is <code>aws.ec2.terminate_instances</code>.</p>
+      </div>
+      <div class="card">
+        <h2>2. Adapter checks policy</h2>
+        <p>The adapter calls <code>POST /actions</code> before any protected function runs.</p>
+      </div>
+      <div class="card">
+        <h2>3. Deny skips execution</h2>
+        <p>A deny response means the action is not forwarded or executed.</p>
+      </div>
+    </section>
+    <div class="button-row">
+      <a class="button primary" href="/demo/deny">Open deny JSON</a>
+      <a class="button" href="/demo/allow">Open allow JSON</a>
+      <a class="button" href="/docs/readme">Run locally</a>
+    </div>
+    <p>
+      On Vercel, the JSON demo endpoints need <code>ZT_CONTROL_PLANE_URL</code> to point at a reachable control plane.
+      Without that setting, they return a clear configuration error while the website and docs remain viewable.
+    </p>`,
+  );
 }
 
 function docsIndexPage() {
@@ -321,9 +289,10 @@ function docsShell(title, content) {
     <main>
       <nav class="top-nav" aria-label="Primary">
         <a href="/">Home</a>
+        <a href="/quickstart">Quickstart</a>
         <a href="/docs">Docs</a>
+        <a href="/demo">Demo</a>
         <a href="/demo/deny">Deny JSON</a>
-        <a href="/health">Health</a>
         <a href="https://github.com/oscarmackjr-twg/zt-adapter-hello-world">GitHub</a>
       </nav>
       <article class="doc">
@@ -465,6 +434,9 @@ function sharedStyles() {
     .doc h1 {
       font-size: clamp(2rem, 5vw, 3.4rem);
       margin-bottom: 18px;
+    }
+    .callout {
+      margin-top: 32px;
     }
     .lede { font-size: 1.08rem; }
   `;

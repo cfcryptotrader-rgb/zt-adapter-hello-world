@@ -26,8 +26,8 @@ test("root endpoint returns hello message", async () => {
   const body = JSON.parse(response.body);
   assert.equal(response.statusCode, 200);
   assert.equal(body.ok, true);
-  assert.match(body.message, /Zero Trust adapter/);
-  assert.deepEqual(body.next, ["/docs", "/health", "/demo/deny", "/demo/allow"]);
+  assert.match(body.message, /ZT-Infra developer site/);
+  assert.deepEqual(body.next, ["/quickstart", "/docs", "/demo", "/health", "/demo/deny", "/demo/allow"]);
 });
 
 test("root endpoint returns browser-friendly html", async () => {
@@ -37,9 +37,30 @@ test("root endpoint returns browser-friendly html", async () => {
 
   assert.equal(response.statusCode, 200);
   assert.match(response.headers["content-type"], /text\/html/);
-  assert.match(response.body, /Hello World for governed agent actions/);
-  assert.match(response.body, /Read the docs/);
-  assert.match(response.body, /Unauthorized action/);
+  assert.match(response.body, /Identity, policy, and audit evidence for autonomous agents/);
+  assert.match(response.body, /Start the quickstart/);
+  assert.match(response.body, /Hello World is the proof path/);
+});
+
+test("quickstart page renders readme content", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/quickstart", headers: { accept: "text/html" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /Five-Minute Secure Hello World/);
+  assert.match(response.body, /Deploy To Vercel/);
+});
+
+test("demo page explains json endpoints", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/demo", headers: { accept: "text/html" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /Demo Flow/);
+  assert.match(response.body, /Open deny JSON/);
+  assert.match(response.body, /ZT_CONTROL_PLANE_URL/);
 });
 
 test("docs index lists repository documents", async () => {
