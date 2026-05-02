@@ -10,9 +10,13 @@ A Discord community channel has been created:
 Zero Trust Infrastructure
 ```
 
-Public invite link status: pending.
+Join the Discord:
 
-Add the public invite link here before broad launch so developers have one obvious place to ask questions, report onboarding friction, and coordinate contribution work.
+```text
+https://discord.gg/cDS8MPX6G
+```
+
+Use this channel to ask questions, report onboarding friction, and coordinate contribution work.
 
 ## What To Use The Community For
 

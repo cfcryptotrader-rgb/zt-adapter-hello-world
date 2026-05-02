@@ -11,7 +11,7 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | 90-day roadmap status | Done | [ROADMAP.md](./ROADMAP.md) includes Phase 1 status and a 90-Day Launch Status table. |
 | GitHub Project board | Blocked | `gh project create` requires `project,read:project` token scopes. Run `gh auth refresh -s project,read:project`, then create the board. |
 | Nono role/status | Done | [ROADMAP.md](./ROADMAP.md) and [GOVERNANCE.md](./GOVERNANCE.md) state that Nono is excluded from the public adapter MVP. |
-| Community hub | Partial | Discord channel `Zero Trust Infrastructure` has been created. Public invite link is pending and should be added to [COMMUNITY.md](./COMMUNITY.md) before broad launch. |
+| Community hub | Done | Discord channel `Zero Trust Infrastructure` is linked from [COMMUNITY.md](./COMMUNITY.md), README, and the homepage: https://discord.gg/cDS8MPX6G. |
 
 ## Narrative And Conversion
 

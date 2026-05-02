@@ -45,6 +45,7 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /Apache-2\.0/);
   assert.match(response.body, /Explorer verification/);
   assert.match(response.body, /Zero Trust Infrastructure/);
+  assert.match(response.body, /https:\/\/discord\.gg\/cDS8MPX6G/);
   assert.match(response.body, /Code to architecture/);
   assert.match(response.body, /broad API key/);
   assert.match(response.body, /delete a database/);
@@ -221,6 +222,7 @@ test("community and explorer verification docs render", async () => {
   assert.equal(community.statusCode, 200);
   assert.equal(explorer.statusCode, 200);
   assert.match(community.body, /Zero Trust Infrastructure/);
+  assert.match(community.body, /https:\/\/discord\.gg\/cDS8MPX6G/);
   assert.match(explorer.body, /Explorer verification/);
   assert.match(explorer.body, /Pending/);
   assert.match(explorer.body, /Base Sepolia/);

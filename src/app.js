@@ -106,7 +106,7 @@ const docs = [
     slug: "community",
     title: "Community",
     file: "COMMUNITY.md",
-    summary: "Discord channel status, community expectations, and feedback paths.",
+    summary: "Discord invite, community expectations, and feedback paths.",
   },
   {
     slug: "security",
@@ -327,7 +327,7 @@ function landingPage() {
         </div>
         <div>
           <strong>Community</strong>
-          <span>Discord channel: Zero Trust Infrastructure.</span>
+          <span><a href="https://discord.gg/cDS8MPX6G">Join the Zero Trust Infrastructure Discord.</a></span>
         </div>
       </section>
       <section class="vulnerability-hook" aria-label="Vulnerability example">

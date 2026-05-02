@@ -9,7 +9,7 @@ It is intentionally small: a Node.js Hello World service plus one demo call to t
 ## Launch Trust Signals
 
 - **License:** Apache-2.0, chosen for enterprise-friendly infrastructure adoption and explicit patent grant language.
-- **Community:** Discord channel created: `Zero Trust Infrastructure`. Public invite link is pending.
+- **Community:** Join the `Zero Trust Infrastructure` Discord: <https://discord.gg/cDS8MPX6G>.
 - **Explorer verification:** DAAL smart contract explorer verification is tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Public verification claims remain pending until a testnet contract address and verified explorer link are published.
 
 ## Vision
