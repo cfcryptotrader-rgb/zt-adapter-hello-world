@@ -63,6 +63,7 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /https:\/\/discord\.gg\/cDS8MPX6G/);
   assert.match(response.body, /Phase 1 Ready/);
   assert.match(response.body, /Launch Readiness/);
+  assert.match(response.body, /Interoperability/);
   assert.match(response.body, /Code to architecture/);
   assert.match(response.body, /broad API key/);
   assert.match(response.body, /delete a database/);
@@ -145,6 +146,7 @@ test("docs index lists repository documents", async () => {
   assert.equal(response.statusCode, 200);
   assert.match(response.body, /Documentation/);
   assert.match(response.body, /Identity &amp; Policy/);
+  assert.match(response.body, /Interoperability/);
   assert.match(response.body, /Architecture/);
   assert.match(response.body, /Day 1 Use Cases/);
   assert.match(response.body, /Why IAM Fails Agents/);
@@ -169,6 +171,7 @@ test("docs page renders markdown content", async () => {
 test("all docs routes render markdown content", async () => {
   const slugs = [
     "identity-policy",
+    "interoperability",
     "phase1-ready",
     "threat-model",
     "case-studies",
@@ -203,6 +206,22 @@ test("all docs routes render markdown content", async () => {
     assert.doesNotMatch(response.body, /ENOENT/, slug);
     assert.match(response.body, /<main>/, slug);
   }
+});
+
+test("interoperability inventory renders supported languages and interfaces", async () => {
+  const response = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/docs/interoperability", headers: { accept: "text/html" } }, response);
+
+  assert.equal(response.statusCode, 200);
+  assert.match(response.body, /Interoperability Inventory/);
+  assert.match(response.body, /Primary SDK\/runtime/);
+  assert.match(response.body, /Python/);
+  assert.match(response.body, /JavaScript \/ Node\.js/);
+  assert.match(response.body, /agent\/protocol interfaces: 11/);
+  assert.match(response.body, /Nono CLI Broker/);
+  assert.match(response.body, /infrastructure\/evidence interfaces: 7/);
+  assert.match(response.body, /DAAL remains the main bounded gap/);
 });
 
 test("architecture doc renders reusable diagram", async () => {

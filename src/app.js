@@ -14,6 +14,7 @@ const bundledFiles = new Map([
   ["EXPLORER_VERIFICATION.md", fs.readFileSync(new URL("../EXPLORER_VERIFICATION.md", import.meta.url), "utf8")],
   ["GOVERNANCE.md", fs.readFileSync(new URL("../GOVERNANCE.md", import.meta.url), "utf8")],
   ["IDENTITY_AND_POLICY.md", fs.readFileSync(new URL("../IDENTITY_AND_POLICY.md", import.meta.url), "utf8")],
+  ["INTEROPERABILITY.md", fs.readFileSync(new URL("../INTEROPERABILITY.md", import.meta.url), "utf8")],
   ["INCIDENT_RESPONSE.md", fs.readFileSync(new URL("../INCIDENT_RESPONSE.md", import.meta.url), "utf8")],
   ["ENGAGEMENT_STRATEGY.md", fs.readFileSync(new URL("../ENGAGEMENT_STRATEGY.md", import.meta.url), "utf8")],
   ["LAUNCH_BRIEF.md", fs.readFileSync(new URL("../LAUNCH_BRIEF.md", import.meta.url), "utf8")],
@@ -60,6 +61,12 @@ const docs = [
     title: "Identity & Policy",
     file: "IDENTITY_AND_POLICY.md",
     summary: "Agent identity provisioning and least-privilege ABAC examples.",
+  },
+  {
+    slug: "interoperability",
+    title: "Interoperability",
+    file: "INTEROPERABILITY.md",
+    summary: "Supported languages, agent interfaces, brokers, and infrastructure evidence surfaces.",
   },
   {
     slug: "phase1-ready",
@@ -355,6 +362,7 @@ function landingPage() {
         <a href="/docs">Docs</a>
         <a href="/demo">Demo</a>
         <a href="/launch-readiness">Launch Readiness</a>
+        <a href="/docs/interoperability">Interoperability</a>
         <a href="https://github.com/oscarmackjr-twg/zt-adapter-hello-world">GitHub</a>
       </nav>
       <div class="eyebrow">ZT-Infra</div>
@@ -412,6 +420,7 @@ function landingPage() {
         <a class="button" href="/docs/explorer-verification">Explorer verification</a>
         <a class="button" href="/docs/community">Community</a>
         <a class="button" href="/docs/phase1-ready">Phase 1 Ready</a>
+        <a class="button" href="/docs/interoperability">Interoperability inventory</a>
         <a class="button" href="/launch-readiness">Readiness dashboard</a>
         <a class="button" href="/docs/architecture">Architecture</a>
         <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>

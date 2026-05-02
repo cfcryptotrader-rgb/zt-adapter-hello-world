@@ -25,6 +25,7 @@ This repository is the public on-ramp for contributors who want to help define t
 Start here if you need to understand the security model before writing code:
 
 - [Identity & Policy Spec](./IDENTITY_AND_POLICY.md): how transient agents get unique IDs and how least-privilege ABAC policies are shaped.
+- [Interoperability Inventory](./INTEROPERABILITY.md): supported languages, agent interfaces, brokers, and infrastructure evidence surfaces.
 - [Phase 1 Ready Criteria](./PHASE1_READY.md): explicit MVP completion criteria and current versus planned claims.
 - [Threat Model](./THREAT_MODEL.md): what this system protects against and what remains the application developer's responsibility.
 - [Risk Register](./RISK_REGISTER.md): launch and architecture risks, controls, and mitigations.
