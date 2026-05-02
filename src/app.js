@@ -1,6 +1,7 @@
 import fs from "node:fs";
 
 import { checkAction } from "./adapter.js";
+import { getLaunchReadiness } from "./launch-readiness.js";
 
 const bundledFiles = new Map([
   ["ADAPTER_CONTRACT.md", fs.readFileSync(new URL("../ADAPTER_CONTRACT.md", import.meta.url), "utf8")],
@@ -216,8 +217,16 @@ export async function routeRequest(request, response) {
     return json(response, 200, {
       ok: true,
       message: "ZT-Infra developer site",
-      next: ["/quickstart", "/docs", "/demo", "/health", "/demo/deny", "/demo/allow"],
+      next: ["/quickstart", "/docs", "/demo", "/launch-readiness", "/health", "/demo/deny", "/demo/allow"],
     });
+  }
+
+  if (request.method === "GET" && url.pathname === "/launch-readiness") {
+    const readiness = getLaunchReadiness();
+    if (wantsHtml(request)) {
+      return html(response, 200, launchReadinessPage(readiness));
+    }
+    return json(response, 200, readiness);
   }
 
   if (request.method === "GET" && url.pathname === "/quickstart") {
@@ -345,6 +354,7 @@ function landingPage() {
         <a href="/quickstart">Quickstart</a>
         <a href="/docs">Docs</a>
         <a href="/demo">Demo</a>
+        <a href="/launch-readiness">Launch Readiness</a>
         <a href="https://github.com/oscarmackjr-twg/zt-adapter-hello-world">GitHub</a>
       </nav>
       <div class="eyebrow">ZT-Infra</div>
@@ -402,6 +412,7 @@ function landingPage() {
         <a class="button" href="/docs/explorer-verification">Explorer verification</a>
         <a class="button" href="/docs/community">Community</a>
         <a class="button" href="/docs/phase1-ready">Phase 1 Ready</a>
+        <a class="button" href="/launch-readiness">Readiness dashboard</a>
         <a class="button" href="/docs/architecture">Architecture</a>
         <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>
         <a class="button" href="/demo">View demo flow</a>
@@ -503,6 +514,91 @@ function landingPage() {
     </main>
   </body>
 </html>`;
+}
+
+function launchReadinessPage(readiness) {
+  const status = readiness.status;
+  const grouped = groupByArea(readiness.checklist);
+
+  return docsShell(
+    "Launch Readiness",
+    `<h1>Launch Readiness</h1>
+    <p class="lede">
+      This dashboard turns the PM, marketing, and engineering launch review into a machine-readable status surface.
+      It is intentionally explicit about completed work and bounded gaps.
+    </p>
+    <section class="status-banner" aria-label="Launch readiness status">
+      <div><strong>Verdict:</strong> ${escapeHtml(status.verdict)}</div>
+      <div><strong>Progress:</strong> ${status.done}/${status.total} checklist items done, ${status.pending} pending, ${status.openRisks} open risks.</div>
+      <div><strong>Claim boundary:</strong> ${escapeHtml(status.claimBoundary)}</div>
+    </section>
+    ${Object.entries(grouped)
+      .map(
+        ([area, items]) => `<h2>${escapeHtml(titleCase(area))}</h2>
+      <table>
+        <thead><tr><th>Item</th><th>Status</th><th>Evidence</th></tr></thead>
+        <tbody>
+          ${items
+            .map(
+              (item) => `<tr>
+            <td>${escapeHtml(item.title)}</td>
+            <td>${escapeHtml(item.status)}</td>
+            <td><a href="${escapeHtml(item.evidence)}">${escapeHtml(item.evidence)}</a></td>
+          </tr>`,
+            )
+            .join("")}
+        </tbody>
+      </table>`,
+      )
+      .join("")}
+    <h2>Top Risks</h2>
+    <table>
+      <thead><tr><th>Risk</th><th>Severity</th><th>Status</th><th>Mitigation</th></tr></thead>
+      <tbody>
+        ${readiness.risks
+          .map(
+            (risk) => `<tr>
+          <td>${escapeHtml(risk.title)}</td>
+          <td>${escapeHtml(risk.severity)}</td>
+          <td>${escapeHtml(risk.status)}</td>
+          <td>${escapeHtml(risk.mitigation)}</td>
+        </tr>`,
+          )
+          .join("")}
+      </tbody>
+    </table>
+    <h2>Security Evidence</h2>
+    <table>
+      <thead><tr><th>Artifact</th><th>Status</th><th>Command / Evidence</th></tr></thead>
+      <tbody>
+        ${readiness.security_evidence
+          .map(
+            (artifact) => `<tr>
+          <td>${escapeHtml(artifact.title)}</td>
+          <td>${escapeHtml(artifact.status)}</td>
+          <td><code>${escapeHtml(artifact.command)}</code></td>
+        </tr>`,
+          )
+          .join("")}
+      </tbody>
+    </table>
+    <p>JSON version: <a href="/launch-readiness">/launch-readiness</a></p>`,
+  );
+}
+
+function groupByArea(items) {
+  return items.reduce((grouped, item) => {
+    grouped[item.area] ||= [];
+    grouped[item.area].push(item);
+    return grouped;
+  }, {});
+}
+
+function titleCase(value) {
+  return value
+    .split("-")
+    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+    .join(" ");
 }
 
 function demoPage() {

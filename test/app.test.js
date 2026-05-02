@@ -2,6 +2,13 @@ import assert from "node:assert/strict";
 import { test } from "node:test";
 
 import { routeRequest } from "../src/app.js";
+import {
+  getLaunchReadiness,
+  getLaunchStatus,
+  getReadinessChecklist,
+  getRiskSummary,
+  getSecurityEvidence,
+} from "../src/launch-readiness.js";
 
 function fakeResponse() {
   return {
@@ -27,7 +34,15 @@ test("root endpoint returns hello message", async () => {
   assert.equal(response.statusCode, 200);
   assert.equal(body.ok, true);
   assert.match(body.message, /ZT-Infra developer site/);
-  assert.deepEqual(body.next, ["/quickstart", "/docs", "/demo", "/health", "/demo/deny", "/demo/allow"]);
+  assert.deepEqual(body.next, [
+    "/quickstart",
+    "/docs",
+    "/demo",
+    "/launch-readiness",
+    "/health",
+    "/demo/deny",
+    "/demo/allow",
+  ]);
 });
 
 test("root endpoint returns browser-friendly html", async () => {
@@ -47,6 +62,7 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /Zero Trust Infrastructure/);
   assert.match(response.body, /https:\/\/discord\.gg\/cDS8MPX6G/);
   assert.match(response.body, /Phase 1 Ready/);
+  assert.match(response.body, /Launch Readiness/);
   assert.match(response.body, /Code to architecture/);
   assert.match(response.body, /broad API key/);
   assert.match(response.body, /delete a database/);
@@ -54,6 +70,45 @@ test("root endpoint returns browser-friendly html", async () => {
   assert.match(response.body, /Join the alpha/);
   assert.match(response.body, /buttondown\.com\/api\/emails\/embed-subscribe\/oscarmackjr/);
   assert.match(response.body, /Get updates/);
+});
+
+test("launch readiness functions expose PM marketing and security status", () => {
+  const status = getLaunchStatus();
+  const checklist = getReadinessChecklist();
+  const risks = getRiskSummary();
+  const evidence = getSecurityEvidence();
+  const readiness = getLaunchReadiness();
+
+  assert.equal(status.verdict, "ready-with-bounded-gaps");
+  assert.equal(status.pending, 1);
+  assert.equal(readiness.ok, true);
+  assert.ok(checklist.some((item) => item.id === "phase2-roadmap" && item.status === "done"));
+  assert.ok(checklist.some((item) => item.id === "daal-explorer-verification" && item.status === "pending"));
+  assert.ok(risks.some((risk) => risk.id === "sandbox-leak" && risk.severity === "high"));
+  assert.ok(evidence.some((artifact) => artifact.id === "sbom" && artifact.status === "done"));
+  assert.ok(evidence.some((artifact) => artifact.id === "daal-explorer" && artifact.status === "pending"));
+});
+
+test("launch readiness endpoint returns json and html dashboard", async () => {
+  const jsonResponse = fakeResponse();
+  const htmlResponse = fakeResponse();
+
+  await routeRequest({ method: "GET", url: "/launch-readiness", headers: { accept: "application/json" } }, jsonResponse);
+  await routeRequest({ method: "GET", url: "/launch-readiness", headers: { accept: "text/html" } }, htmlResponse);
+
+  const body = JSON.parse(jsonResponse.body);
+  assert.equal(jsonResponse.statusCode, 200);
+  assert.equal(body.ok, true);
+  assert.equal(body.status.verdict, "ready-with-bounded-gaps");
+  assert.equal(body.status.pending, 1);
+  assert.ok(body.checklist.some((item) => item.id === "secret-management"));
+
+  assert.equal(htmlResponse.statusCode, 200);
+  assert.match(htmlResponse.body, /Launch Readiness/);
+  assert.match(htmlResponse.body, /ready-with-bounded-gaps/);
+  assert.match(htmlResponse.body, /Verified DAAL contract address/);
+  assert.match(htmlResponse.body, /MicroVM or sandbox isolation leak/);
+  assert.match(htmlResponse.body, /CycloneDX SBOM/);
 });
 
 test("quickstart page renders readme content", async () => {
