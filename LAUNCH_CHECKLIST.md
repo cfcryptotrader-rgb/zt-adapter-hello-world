@@ -22,7 +22,7 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | --- | --- | --- |
 | Vulnerability hook | Done | Homepage now shows the broad API key failure mode, names prompt injection as out of scope, and explains deny-before-execute as the mitigation. [CASE_STUDIES.md](./CASE_STUDIES.md) adds concrete examples. |
 | Newsletter / lead capture | Done | Homepage includes a Buttondown-powered "Join the Alpha" form for `oscarmackjr`. |
-| One-sentence pitch | Done | README and [LAUNCH_BRIEF.md](./LAUNCH_BRIEF.md): "Open-source identity, policy, and audit evidence for autonomous AI agents." |
+| One-sentence pitch | Done | README and [LAUNCH_BRIEF.md](./LAUNCH_BRIEF.md): "An open adapter contract and audit envelope for agent action authorization." |
 | Social kit | Done | [SOCIAL_KIT.md](./SOCIAL_KIT.md) includes Hacker News, LinkedIn, X, approved claims, and claims to avoid. [LAUNCH_BRIEF.md](./LAUNCH_BRIEF.md) keeps the narrative brief. |
 | Branding sync | Partial | Website and README share narrative and architecture assets. A reusable wordmark/logo remains planned. |
 | ROI metrics | Done | [ROI_METRICS.md](./ROI_METRICS.md) explains cost avoidance, operational metrics, and business value. |
@@ -34,7 +34,7 @@ This checklist tracks the governance, marketing, and engineering feedback for th
 | Item | Status | Solution / Reference |
 | --- | --- | --- |
 | Five-minute quickstart | Done | [README.md](./README.md) includes Node and Docker Compose paths. `docker compose config` passes. Full Compose runtime needs Docker daemon running. |
-| Decentralized audit integration proof | Partial | `zt-audit verify` exists for local audit-shaped records. Public DAAL testnet proof remains planned. [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md) now defines the explorer verification acceptance criteria and claim boundaries. |
+| Decentralized audit integration proof | Partial | `zt-audit verify` exists for local audit-shaped records. Base Sepolia MVP evidence is published in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md); production reconciliation remains planned. |
 | Apache-2.0 license | Done | [LICENSE](./LICENSE), [NOTICE](./NOTICE), `package.json`, and `package-lock.json` now use Apache-2.0. README and homepage surface the license prominently. |
 | SECURITY.md | Done | [SECURITY.md](./SECURITY.md) exists and GitHub private vulnerability reporting is enabled. |
 | Repo cleanup | Done | Public repo excludes `.env`, `.terraform`, Terraform state, logs, and dependencies. |

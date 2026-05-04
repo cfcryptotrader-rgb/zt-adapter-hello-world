@@ -16,7 +16,7 @@ LangGraph, OpenAI Responses, OpenAI Assistants, OpenAI Agents SDK, MCP, A2A, Doc
 | Primary SDK/runtime | JavaScript / Node.js | Implemented | `provisioner`, public `ZeroTrustClient`, Docker broker, Nono broker, Vercel site |
 | Infrastructure | Terraform / HCL | Implemented | AWS VPC, EC2, IAM, CloudWatch, GuardDuty, KMS, public gateway example |
 | Operations | Bash | Implemented | deploy, preflight, evidence, Tailscale secret, incident freeze scripts |
-| Audit / DAAL | Solidity | Partial | `contracts/DAALog.sol`; public explorer verification remains pending |
+| Audit / DAAL | Solidity | Partial | `contracts/DAALog.sol`; Base Sepolia MVP evidence is published, production reconciliation is planned |
 | Specs and configuration | YAML / JSON / OpenAPI | Implemented | SOC 2 mappings, policies, OpenAPI, audit evidence, package configs |
 
 Summary:
@@ -53,7 +53,7 @@ Summary:
 | Tailscale | Implemented | Zero Trust access and Serve path. |
 | CloudWatch Logs | Implemented | Audit/evidence destination. |
 | KMS signatures | Implemented in MVP path | Signed audit records. |
-| DAAL smart contract | Partial / planned-public-proof | Solidity contract exists; public explorer verification still pending. |
+| DAAL smart contract | Partial / MVP evidence published | Solidity contract exists with Base Sepolia example transactions; production reconciliation remains planned. |
 | Vercel public developer site | Implemented | `zt-infra.org` public adapter docs and demo site. |
 
 Summary:
@@ -64,5 +64,4 @@ Summary:
 
 Implemented means the repository contains code, tests, or deployable examples for the interface. Partial means code or design artifacts exist, but the public claim is intentionally bounded until external proof is available.
 
-DAAL remains the main bounded gap: the contract exists, but the public docs should not claim explorer-verifiable audit anchoring until a verified Base Sepolia or Polygon Amoy contract address and example transaction are published.
-
+DAAL remains bounded by production operations, not by basic proof. The public docs now publish a Base Sepolia contract address and example transactions. The remaining enterprise gap is source-to-contract mapping, reconciliation alerts, delivery-rate monitoring, and a repeatable verifier workflow.

@@ -2,6 +2,8 @@
 
 This repository demonstrates how an adapter asks the Zero Trust Control Plane for authorization before executing a sensitive action. The threat model is intentionally narrow so the demo remains honest and testable.
 
+ZT-Infra is the adapter-contract and audit-envelope layer. It is not the identity provider, policy engine, sandbox, or SIEM.
+
 ## Scope
 
 ZT-Infra protects against unauthorized tool calls.
@@ -20,6 +22,7 @@ ZT-Infra does not prevent LLM prompt injection. Prompt injection prevention is t
 
 Also out of scope for this starter repository:
 
+- replacing SPIFFE/SPIRE, NANDA-style identity, OPA, Cedar, CSA ATF, nono, microVMs, or SIEM tooling;
 - malicious code that runs after an action has already been allowed;
 - compromised developer laptops or CI runners;
 - secrets committed by users outside this repository;
@@ -67,6 +70,7 @@ For the local quickstart, the mock control plane is a developer convenience. It 
 | Overbroad policy allows too much | ABAC examples document least-privilege policy by actor, action, resource, environment, and approval context. |
 | Prompt injection tells an agent to call a dangerous tool | Control plane can deny the resulting tool call, but detecting prompt injection remains the application's responsibility. |
 | Approved action performs harmful logic | ZT-Infra validates authorization, not business correctness of the approved function. |
+| Approved action tries to exceed runtime permissions | Execution containment belongs to the broker layer. The Nono broker can map allowed actions to kernel-enforced Landlock or Seatbelt constraints. |
 
 ## Security Invariants
 
@@ -90,4 +94,3 @@ This starter repository is not a production control plane. It is an onboarding a
 - rate limits and replay protection;
 - policy review workflow;
 - execution broker isolation.
-

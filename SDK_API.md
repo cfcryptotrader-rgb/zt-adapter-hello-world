@@ -88,6 +88,13 @@ Return shape:
       "algorithm": "MOCK_ECDSA_SHA_256",
       "key_id": "mock-key",
       "signature": "mock-signature"
+    },
+    "daal": {
+      "status": "submitted",
+      "attestation_status": "verified",
+      "actionHash": "0xab1347c9b9c95234aafc00921c4610711150ef4e109564c2761fda34b6d9ea80",
+      "txHash": "0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+      "txLink": "https://sepolia.basescan.org/tx/0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9"
     }
   },
   "raw": {}
@@ -193,6 +200,39 @@ When `action` is omitted, the SDK derives:
 a2a.github_agent.send_message
 ```
 
+### `auditEvidence`
+
+Use `auditEvidence(decision)` when an adapter needs a stable summary of signed audit and decentralized attestation fields.
+
+```js
+const decision = await zt.decide({
+  action: "aws.ec2.terminate_instances",
+  resource: "i-demo",
+});
+
+const evidence = zt.auditEvidence(decision);
+```
+
+Return shape:
+
+```json
+{
+  "previousHash": "0000...",
+  "currentHash": "aaaa...",
+  "signatureAlgorithm": "ECDSA_SHA_256",
+  "signatureKeyId": "test",
+  "daalStatus": "submitted",
+  "daalAttestationStatus": "verified",
+  "daalActionHash": "0xab1347c9b9c95234aafc00921c4610711150ef4e109564c2761fda34b6d9ea80",
+  "daalTransactionHash": "0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+  "daalTransactionLink": "https://sepolia.basescan.org/tx/0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9"
+}
+```
+
+The helper throws when `audit` is absent. That is intentional: adapters should fail closed if a protected decision does not include evidence.
+
+DAAL fields are optional in the public quickstart and depend on the deployed control plane. In the AWS MVP, CDP direct mode writes Base Sepolia attestations asynchronously. A single decision may show `attestation_status: "pending"` until a batch flush or reconciliation step writes the transaction hash.
+
 ## Errors
 
 The SDK throws `ZeroTrustClientError` when required local inputs are missing, such as:
@@ -248,4 +288,3 @@ const client = new ZeroTrustClient({
   })
 });
 ```
-

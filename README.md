@@ -4,29 +4,35 @@ This is the public starter repository for developers building adapters against t
 
 It is intentionally small: a Node.js Hello World service plus one demo call to the Zero Trust Control Plane.
 
-**Tagline:** Open-source identity, policy, and audit evidence for autonomous AI agents.
+**Tagline:** An open adapter contract and audit envelope for agent action authorization.
 
 ## Launch Trust Signals
 
 - **License:** Apache-2.0, chosen for enterprise-friendly infrastructure adoption and explicit patent grant language.
 - **Community:** Join the `Zero Trust Infrastructure` Discord: <https://discord.gg/cDS8MPX6G>.
-- **Explorer verification:** DAAL smart contract explorer verification is tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Public verification claims remain pending until a testnet contract address and verified explorer link are published.
+- **Explorer verification:** DAAL smart contract explorer verification is tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Base Sepolia MVP evidence is published, including direct and batched AWS smoke transactions. Production all-log claims remain pending until source mapping, reconciliation, alerting, and repeatable verifier automation are complete.
 
-## Vision
+## Narrow Scope
 
-We are building toward a SPIFFE-like identity, policy, and attestation layer for AI agents.
+ZT-Infra is not trying to be the identity system, policy engine, sandbox, or governance framework for agents.
 
-Autonomous systems are starting to discover tools, call APIs, write code, open tickets, deploy infrastructure, and act across organizational boundaries. The next decade of autonomous system security will need portable agent identity, least-privilege policy, verifiable execution context, and audit records that survive framework churn.
+Instead, it defines the integration contract those layers can meet: request shape, response shape, fail-closed semantics, audit envelope, broker handoff, and conformance tests for agent frameworks.
 
-This repository is the public on-ramp for contributors who want to help define that layer. Start with the five-minute Hello World path, then help harden the standards, adapters, brokers, trust bundles, and conformance tests that make agent actions safe to delegate.
+Use SPIFFE/SPIRE or related systems for workload identity. Use OPA, Cedar, or your governance framework for policy. Use nono, gVisor, Firecracker, Kata, or browser sandboxes for execution containment. Use ZT-Infra to make LangGraph, MCP, A2A, OpenAI wrappers, and custom adapters call those controls consistently before a tool runs and emit the same audit evidence afterward.
+
+This repository is the public on-ramp for contributors who want to help define that adapter contract.
 
 ## Core Security Docs
 
 Start here if you need to understand the security model before writing code:
 
 - [Identity & Policy Spec](./IDENTITY_AND_POLICY.md): how transient agents get unique IDs and how least-privilege ABAC policies are shaped.
+- [Project Scope](./PROJECT_SCOPE.md): what zt-infra is, what it is not, and how it composes with SPIFFE, OPA/Cedar, CSA ATF, nono, and observability tools.
 - [Interoperability Inventory](./INTEROPERABILITY.md): supported languages, agent interfaces, brokers, and infrastructure evidence surfaces.
 - [Phase 1 Ready Criteria](./PHASE1_READY.md): explicit MVP completion criteria and current versus planned claims.
+- [Enterprise Readiness](./ENTERPRISE_READINESS.md): mathematical attestation, non-repudiation, resilience, signer security, and vendor portability.
+- [Life Of A Request](./LIFE_OF_REQUEST.md): exact data flow through identity, policy, broker execution, local audit, and DAAL anchoring.
+- [10-Minute Web3 Integration](./WEB3_INTEGRATION.md): required DAAL environment values and setup checklist.
 - [Threat Model](./THREAT_MODEL.md): what this system protects against and what remains the application developer's responsibility.
 - [Risk Register](./RISK_REGISTER.md): launch and architecture risks, controls, and mitigations.
 - [Incident Response](./INCIDENT_RESPONSE.md): maintainer playbook for vulnerability, secret, package, or demo incidents.
@@ -38,7 +44,7 @@ Start here if you need to understand the security model before writing code:
 - [Security Artifacts](./SECURITY_ARTIFACTS.md): SAST, dependency review, secret scan, SBOM, and audit verification evidence.
 - [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
 - [Engagement Strategy](./ENGAGEMENT_STRATEGY.md): launch channels, package-manager plan, and measurement loops.
-- [Explorer Verification](./EXPLORER_VERIFICATION.md): DAAL contract explorer verification status and claim boundaries.
+- [Explorer Verification](./EXPLORER_VERIFICATION.md): DAAL contract explorer verification status, example transactions, and claim boundaries.
 - [Community](./COMMUNITY.md): Discord channel status, expectations, and feedback paths.
 - [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
 - [Launch Checklist](./LAUNCH_CHECKLIST.md): status of review feedback, completed work, and open launch items.
@@ -332,6 +338,13 @@ await zt.langGraph({ action, nodeName });
 await zt.openAIResponses({ action, responseId });
 await zt.mcpToolCall({ toolName, resource });
 await zt.a2aTask({ externalAgent, resource });
+```
+
+Adapters that need a stable evidence summary can normalize signed audit and DAAL fields:
+
+```js
+const evidence = zt.auditEvidence(decision);
+console.log(evidence.daalTransactionLink);
 ```
 
 See [SDK_REVIEW.md](./SDK_REVIEW.md) for notes on how this differs from the draft first-customer SDK.

@@ -4,15 +4,17 @@ Use this kit when announcing ZT-Infra publicly. Keep the claims narrow, accurate
 
 ## One-Sentence Pitch
 
-Open-source identity, policy, and audit evidence for autonomous AI agents.
+An open adapter contract and audit envelope for agent action authorization.
 
 ## Short Pitch
 
-ZT-Infra helps developers put a policy decision in front of sensitive agent actions, then return audit-shaped evidence for what was allowed or denied.
+ZT-Infra helps agent frameworks call a policy decision before sensitive actions run, fail closed on deny, hand approved work to an execution broker, and return a consistent audit envelope.
 
 ## Longer Pitch
 
-Autonomous agents are moving from chat into action: discovering tools, calling APIs, opening pull requests, and touching cloud resources. ZT-Infra is an early open-source control-plane MVP for those actions. The public adapter demonstrates the smallest useful loop: an agent asks to act, policy decides before execution, the protected function is skipped on deny, and the response includes a consistent audit envelope.
+Autonomous agents are moving from chat into action: discovering tools, calling APIs, opening pull requests, and touching cloud resources. ZT-Infra is an early open-source adapter-contract MVP for those actions. The public adapter demonstrates the smallest useful loop: an agent asks to act, policy decides before execution, the protected function is skipped on deny, and the response includes a consistent audit envelope.
+
+ZT-Infra does not replace OPA, Cedar, SPIFFE/SPIRE, CSA ATF, nono, microVMs, or SIEM tooling. It is the integration layer that makes agent adapters use those controls consistently.
 
 ## Links
 
@@ -28,17 +30,17 @@ Autonomous agents are moving from chat into action: discovering tools, calling A
 Title:
 
 ```text
-Show HN: ZT-Infra, policy-before-execution for AI agents
+Show HN: ZT-Infra, an adapter contract for agent action authorization
 ```
 
 Post:
 
 ```text
-I built a small public adapter that demonstrates one security loop for autonomous agents: an agent attempts a risky action, a control plane denies it before execution, and the adapter returns audit-shaped evidence.
+I built a small public adapter that demonstrates one security loop for autonomous agents: an agent attempts a risky action, a policy decision denies it before execution, and the adapter returns audit-shaped evidence.
 
-The repo includes a Docker Compose quickstart, local mock control plane, Docker broker example, Terraform gateway skeleton, and audit verifier CLI. It is early, and I am looking for feedback from people building agent tools, MCP servers, execution brokers, and security controls.
+The repo includes a Docker Compose quickstart, local mock control plane, Docker and Nono broker examples, Terraform gateway skeleton, and audit verifier CLI. It is early, and I am looking for feedback from people building agent tools, MCP servers, execution brokers, and security controls.
 
-The narrow claim: this does not prevent prompt injection. It blocks unauthorized tool calls that an agent may attempt after prompt injection, bad planning, or overbroad credentials.
+The narrow claim: this is not an identity system, policy engine, sandbox, or prompt-injection detector. It is an adapter contract and audit envelope that can plug into those systems.
 ```
 
 ## LinkedIn Draft
@@ -46,9 +48,9 @@ The narrow claim: this does not prevent prompt injection. It blocks unauthorized
 ```text
 Autonomous agents are moving from chat into action: opening tickets, calling APIs, touching cloud infrastructure, and using tools across organizations.
 
-ZT-Infra is an early open-source effort to define an identity, policy, and audit evidence layer for those actions. The public quickstart shows the core control point in minutes: an agent asks to act, policy decides before execution, and the result leaves verifiable evidence.
+ZT-Infra is an early open-source effort to define the adapter contract and audit envelope for those actions. The public quickstart shows the core control point in minutes: an agent asks to act, policy decides before execution, and the result leaves verifiable evidence.
 
-We are building toward a SPIFFE-like trust layer for AI agents and looking for contributors interested in policy enforcement, execution brokers, MCP/A2A integration, and audit verification.
+It is designed to compose with SPIFFE/SPIRE for identity, OPA or Cedar for policy, and nono or other sandboxes for execution containment. We are looking for contributors interested in LangGraph/MCP/A2A integration, broker handoff, policy templates, and adapter conformance tests.
 ```
 
 ## X Draft
@@ -56,7 +58,7 @@ We are building toward a SPIFFE-like trust layer for AI agents and looking for c
 ```text
 Agents need more than broad API keys.
 
-ZT-Infra is building open-source identity, policy, and audit evidence for autonomous AI agents.
+ZT-Infra is building an open adapter contract and audit envelope for autonomous agent actions.
 
 Quickstart: agent asks to act -> policy denies before execution -> audit-shaped evidence returned.
 
@@ -65,11 +67,11 @@ https://www.zt-infra.org
 
 ## Approved Claims
 
-- ZT-Infra is an early open-source control-plane MVP.
+- ZT-Infra is an early open-source adapter-contract MVP.
 - The public repo demonstrates policy-before-execution.
 - The quickstart can show deny-before-execute and allow-before-execute.
 - The full MVP is building toward signed, hash-chained audit evidence.
-- The roadmap includes mTLS, SPIFFE/SPIRE, attestation, brokers, and conformance tests.
+- The roadmap includes SPIFFE/SPIRE consumption, OPA/Cedar policy templates, broker integrations, and conformance tests.
 - The public adapter is Apache-2.0 licensed.
 
 ## Claims To Avoid
@@ -78,9 +80,11 @@ https://www.zt-infra.org
 - Do not claim SOC 2 readiness.
 - Do not claim prompt-injection prevention.
 - Do not claim every adapter framework version is certified.
-- Do not claim DAAL/blockchain audit proof is complete until the public testnet verifier exists.
+- Do not claim every production audit log is blockchain verified until reconciliation, alerting, and delivery-rate evidence exist.
+- Use "mathematical attestation" or "non-repudiation layer" before "blockchain" in enterprise messaging.
 - Do not claim smart contracts are verified on an explorer until `EXPLORER_VERIFICATION.md` includes a real contract address and verified source link.
 - Do not imply the local mock signatures are production cryptographic proof.
+- Do not claim zt-infra replaces OPA, Cedar, SPIFFE/SPIRE, CSA ATF, nono, microVMs, or SIEM tooling.
 
 ## Audience-Specific Angles
 

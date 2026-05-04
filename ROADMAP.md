@@ -1,10 +1,10 @@
 # Roadmap
 
-This repository is the public adapter starting point for Zero Trust V2.
+This repository is the public adapter-contract starting point for Zero Trust V2.
 
-Product thesis: Zero Trust V2 is trying to become the SPIFFE-like identity and policy layer for AI agents. That means the roadmap must move beyond demo authorization into portable agent identity, verifiable workload attestation, federated trust bundles, and conformance tests that adapter authors can implement consistently.
+Product thesis: ZT-Infra should own the agent-action adapter contract, not every security primitive around it. The contract defines how agent frameworks ask for authorization, fail closed, hand approved work to brokers, and emit audit evidence. Identity can come from SPIFFE/SPIRE or NANDA-style patterns, policy can come from OPA/Cedar and CSA ATF-aligned governance, execution containment can come from nono or microVM/container sandboxes, and observability can come from SIEM/runtime telemetry.
 
-Contributor vision: this project is for people who want to help define the next decade of autonomous system security. The work is not just another SDK wrapper; it is the identity, policy, and evidence substrate that lets humans safely delegate actions to agents across tools, runtimes, clouds, and organizations.
+Contributor vision: this project is for people who want to define the portable authorization contract for agent actions. The goal is intentionally narrow and defensible: one adapter shape, one audit envelope, one conformance suite, many identity/policy/sandbox backends.
 
 ## Phase 1: Hello World Adapter
 
@@ -26,8 +26,8 @@ Status: current
 | GitHub Project board | In Progress | Requires `gh auth refresh -s project,read:project`. |
 | Newsletter / alpha capture | Done | Homepage includes Buttondown alpha signup. |
 | Community hub | Done | Discord channel `Zero Trust Infrastructure` is linked from README, homepage, and COMMUNITY.md. |
-| DAAL public testnet proof | In Progress | Hook planned; full contract-as-a-service example not yet public. Explorer verification requirements are documented in `EXPLORER_VERIFICATION.md`. |
-| Production identity binding | In Progress | Phase 2 mTLS/SPIFFE work. |
+| DAAL public testnet proof | MVP Evidence Published | Base Sepolia contract plus direct and batched AWS smoke transactions are documented. Production reconciliation, alerting, and verifier automation remain planned. |
+| Production identity binding | In Progress | Phase 2 mTLS/SPIFFE consumption and actor binding; zt-infra is not replacing SPIFFE/SPIRE. |
 | Phase 1 ready criteria | Done | `PHASE1_READY.md` defines current, experimental, and non-claimable capabilities. |
 | Risk register | Done | `RISK_REGISTER.md` tracks launch and architecture risks. |
 | Incident response playbook | Done | `INCIDENT_RESPONSE.md` defines freeze and recovery steps. |
@@ -38,13 +38,14 @@ Status: current
 | Workstream | Done | In Progress | Next |
 | --- | --- | --- | --- |
 | Developer onboarding | README quickstart, Docker Compose, docs site, Good First Issues | Improve CLI help and fixtures through public issues | Add SDK API reference |
-| Policy enforcement | Mock `/actions`, deny/allow demos, guarded SDK call | Versioned policy schema | Conformance suite across adapter surfaces |
-| Execution | Docker Local Broker | Cloud broker design | AWS Lambda and Kubernetes Job brokers |
-| Evidence | Audit-shaped responses, hash verifier CLI | KMS signature verification docs | DAAL testnet proof and verifier integration |
+| Adapter contract | `/actions`, deny/allow demos, guarded SDK call, audit envelope | Versioned request/response schema | Conformance suite across adapter surfaces |
+| Policy engine integration | Mock policy evaluator | OPA/Cedar policy templates | Engine-agnostic PDP adapters |
+| Execution | Docker Local Broker, Nono CLI Broker | Cloud broker design | AWS Lambda and Kubernetes Job brokers |
+| Evidence | Audit-shaped responses, hash verifier CLI, Base Sepolia DAAL contract, direct and batched AWS smoke transactions | KMS signature verification docs, DAAL source-to-contract mapping, reconciliation alerts | DAAL verifier integration and reconciliation docs |
 | Infrastructure | Public IAM-authorized gateway skeleton | Full one-command gateway + broker | Hardened production modules |
 | Governance | SECURITY, CONTRIBUTING, branch protection, CodeQL, Dependabot | Project board pending auth scope | Contributor milestones and release cadence |
 
-## Phase 2: Secure Service Identity
+## Phase 2: Workload Identity Consumption
 
 Planned:
 
@@ -61,7 +62,7 @@ Planned:
 
 Why it matters:
 
-Adapters should not rely only on bearer tokens or network location. Workload identity lets the control plane reason about which service, broker, or agent is requesting execution.
+Adapters should not rely only on bearer tokens or network location. Workload identity lets the adapter contract bind `actor` to a real workload identity. ZT-Infra should consume those identities, not replace the system that issues them.
 
 Current gaps:
 
@@ -90,7 +91,7 @@ Planned:
 
 Why it matters:
 
-SPIFFE identifies workloads. AI agents also need explainable runtime context: which model, which tool manifest, which sandbox, which broker, which policy, and which code produced the action.
+SPIFFE identifies workloads. The adapter contract also needs explainable runtime context: which model, which tool manifest, which sandbox, which broker, which policy, and which code produced the action.
 
 Current gaps:
 
@@ -150,6 +151,8 @@ Execution Brokers are responsible for running approved actions after policy allo
 
 Planned:
 
+- OPA and Cedar policy adapter examples.
+- Cedar policy templates for common agent ABAC patterns.
 - ABAC policy schema versioning.
 - Policy decision conformance tests shared across LangGraph, OpenAI Responses, MCP, A2A, and custom SDKs.
 - Golden audit record fixtures.
@@ -158,7 +161,7 @@ Planned:
 
 Why it matters:
 
-SPIFFE succeeded because identity behavior is portable. This project needs the same portability for agent policy decisions and audit evidence.
+OCI succeeded because container behavior became portable across runtimes. This project needs the same kind of portability for agent policy decisions and audit evidence.
 
 Current gaps:
 
@@ -181,7 +184,7 @@ Planned:
 - GitHub Actions evidence bundle.
 - DAAL/blockchain attestation sample integration.
 - Verified DAAL contract source on Base Sepolia or Polygon Amoy explorer.
-- Example `ActionLogged` transaction linked from public docs.
+- Example `ActionLogged` transaction linked from public docs. MVP Base Sepolia direct and batched AWS smoke transactions are published; production readiness still needs source-to-contract mapping, reconciliation, and alerting.
 - Trust-bundle and agent-attestation evidence export.
 - Compliance mapping from identity, policy, and audit controls to SOC 2 evidence.
 - Verifier CLI that checks identity signature, trust bundle, hash chain, and optional DAAL transaction.
@@ -194,6 +197,6 @@ Planned:
 
 ## Nono Status
 
-Nono is part of the public adapter MVP as an optional Execution Broker.
+Nono is part of the public adapter MVP as an optional Execution Broker and the flagship local containment example.
 
-Earlier planning used "Nono" as a possible narrative or assistant persona. The current role is now concrete: the public repository includes a Nono CLI broker that converts approved Zero Trust actions into least-privilege `nono run` capability flags. Contributors should keep the integration focused on policy-before-execution, sandbox spawn safety, and audit evidence.
+Earlier planning used "Nono" as a possible narrative or assistant persona. The current role is now concrete: the public repository includes a Nono CLI broker that converts approved Zero Trust actions into least-privilege `nono run` capability flags. ZT-Infra answers "should this run?" and nono answers "what will the kernel permit if it does run?" Contributors should keep the integration focused on policy-before-execution, sandbox spawn safety, capability mapping, and audit evidence.

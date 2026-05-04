@@ -13,7 +13,9 @@ This page lists the security evidence available in the public repository.
 | npm audit | Done | CI workflow and local `npm audit --omit=dev` |
 | Secret scan | Done | `npm run security:secrets` and GitHub secret scanning guidance |
 | SBOM generation | Done | `npm run sbom` and CI `sbom` artifact |
-| DAAL explorer verification | Pending | [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md) |
+| DAAL explorer verification | Partial | [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md) |
+| Enterprise attestation model | Done | [ENTERPRISE_READINESS.md](./ENTERPRISE_READINESS.md) |
+| Life-of-request data flow | Done | [LIFE_OF_REQUEST.md](./LIFE_OF_REQUEST.md) |
 
 ## Local Security Commands
 
@@ -25,4 +27,3 @@ npm run sbom
 ```
 
 The generated SBOM file is intentionally ignored by git. CI uploads it as an artifact for release review.
-

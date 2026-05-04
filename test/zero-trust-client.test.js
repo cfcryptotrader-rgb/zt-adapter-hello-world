@@ -20,6 +20,14 @@ function fakeFetch({ decision = "deny", requests = [] } = {}) {
             previous_hash: "0".repeat(64),
             current_hash: "a".repeat(64),
             kms_signature: { algorithm: "ECDSA_SHA_256", key_id: "test", signature: "sig" },
+            daal: {
+              status: "submitted",
+              attestation_status: "verified",
+              actionHash: "0xab1347c9b9c95234aafc00921c4610711150ef4e109564c2761fda34b6d9ea80",
+              txHash: "0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+              txLink:
+                "https://sepolia.basescan.org/tx/0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+            },
           },
         };
       },
@@ -50,6 +58,30 @@ test("ZeroTrustClient.decide calls the current MVP /actions endpoint", async () 
   });
   assert.equal(decision.decision, "deny");
   assert.equal(decision.audit.kms_signature.algorithm, "ECDSA_SHA_256");
+});
+
+test("auditEvidence normalizes signed and DAAL fields from a decision", async () => {
+  const client = new ZeroTrustClient({ fetchImpl: fakeFetch() });
+  const decision = await client.decide({ action: "aws.ec2.terminate_instances" });
+
+  assert.deepEqual(client.auditEvidence(decision), {
+    previousHash: "0".repeat(64),
+    currentHash: "a".repeat(64),
+    signatureAlgorithm: "ECDSA_SHA_256",
+    signatureKeyId: "test",
+    daalStatus: "submitted",
+    daalAttestationStatus: "verified",
+    daalActionHash: "0xab1347c9b9c95234aafc00921c4610711150ef4e109564c2761fda34b6d9ea80",
+    daalTransactionHash: "0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+    daalTransactionLink:
+      "https://sepolia.basescan.org/tx/0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+  });
+});
+
+test("auditEvidence fails closed when audit evidence is missing", () => {
+  const client = new ZeroTrustClient({ fetchImpl: fakeFetch() });
+
+  assert.throws(() => client.auditEvidence({ decision: "deny" }), /audit evidence is required/);
 });
 
 test("guardedCall skips execution on deny", async () => {

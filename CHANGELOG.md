@@ -6,7 +6,7 @@
 - Adds health endpoint, demo deny flow, demo allow flow, local mock control plane, and CI test workflow.
 - Adds public security policy, roadmap, and contribution guidance for Execution Brokers.
 - Adds Identity & Policy and Threat Model docs for public adapter authors.
-- Expands the roadmap around the "SPIFFE for AI agents" thesis, including identity issuance, attestation, trust bundles, federation, and conformance gaps.
+- Expands the roadmap around the adapter-contract thesis, including SPIFFE/SPIRE consumption, attestation metadata, trust bundles, federation, and conformance gaps.
 - Makes the contributor-facing vision prominent: defining the next decade of autonomous system security.
 - Adds Vercel deployment support with a browser-friendly homepage.
 - Adds a reusable architecture diagram and public `/docs/architecture` page.

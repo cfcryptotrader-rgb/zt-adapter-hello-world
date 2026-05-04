@@ -100,6 +100,26 @@ export class ZeroTrustClient {
       resource,
     });
   }
+
+  auditEvidence(decision) {
+    const audit = decision?.audit;
+    if (!audit) {
+      throw new ZeroTrustClientError("audit evidence is required");
+    }
+
+    const daal = audit.daal || {};
+    return {
+      previousHash: audit.previous_hash || "",
+      currentHash: audit.current_hash || "",
+      signatureAlgorithm: audit.kms_signature?.algorithm || "",
+      signatureKeyId: audit.kms_signature?.key_id || "",
+      daalStatus: daal.status || "",
+      daalAttestationStatus: daal.attestation_status || "",
+      daalActionHash: daal.actionHash || "",
+      daalTransactionHash: daal.blockchain_tx_hash || daal.txHash || "",
+      daalTransactionLink: daal.txLink || "",
+    };
+  }
 }
 
 function safeSegment(value) {

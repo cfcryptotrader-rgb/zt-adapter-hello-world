@@ -11,6 +11,7 @@ const bundledFiles = new Map([
   ["COMMUNITY.md", fs.readFileSync(new URL("../COMMUNITY.md", import.meta.url), "utf8")],
   ["CONTRIBUTING.md", fs.readFileSync(new URL("../CONTRIBUTING.md", import.meta.url), "utf8")],
   ["ENGINEERING_SPEC.md", fs.readFileSync(new URL("../ENGINEERING_SPEC.md", import.meta.url), "utf8")],
+  ["ENTERPRISE_READINESS.md", fs.readFileSync(new URL("../ENTERPRISE_READINESS.md", import.meta.url), "utf8")],
   ["EXPLORER_VERIFICATION.md", fs.readFileSync(new URL("../EXPLORER_VERIFICATION.md", import.meta.url), "utf8")],
   ["GOVERNANCE.md", fs.readFileSync(new URL("../GOVERNANCE.md", import.meta.url), "utf8")],
   ["IDENTITY_AND_POLICY.md", fs.readFileSync(new URL("../IDENTITY_AND_POLICY.md", import.meta.url), "utf8")],
@@ -19,7 +20,9 @@ const bundledFiles = new Map([
   ["ENGAGEMENT_STRATEGY.md", fs.readFileSync(new URL("../ENGAGEMENT_STRATEGY.md", import.meta.url), "utf8")],
   ["LAUNCH_BRIEF.md", fs.readFileSync(new URL("../LAUNCH_BRIEF.md", import.meta.url), "utf8")],
   ["LAUNCH_CHECKLIST.md", fs.readFileSync(new URL("../LAUNCH_CHECKLIST.md", import.meta.url), "utf8")],
+  ["LIFE_OF_REQUEST.md", fs.readFileSync(new URL("../LIFE_OF_REQUEST.md", import.meta.url), "utf8")],
   ["PHASE1_READY.md", fs.readFileSync(new URL("../PHASE1_READY.md", import.meta.url), "utf8")],
+  ["PROJECT_SCOPE.md", fs.readFileSync(new URL("../PROJECT_SCOPE.md", import.meta.url), "utf8")],
   ["README.md", fs.readFileSync(new URL("../README.md", import.meta.url), "utf8")],
   ["RISK_REGISTER.md", fs.readFileSync(new URL("../RISK_REGISTER.md", import.meta.url), "utf8")],
   ["ROADMAP.md", fs.readFileSync(new URL("../ROADMAP.md", import.meta.url), "utf8")],
@@ -30,6 +33,7 @@ const bundledFiles = new Map([
   ["SECURITY_ARTIFACTS.md", fs.readFileSync(new URL("../SECURITY_ARTIFACTS.md", import.meta.url), "utf8")],
   ["SOCIAL_KIT.md", fs.readFileSync(new URL("../SOCIAL_KIT.md", import.meta.url), "utf8")],
   ["THREAT_MODEL.md", fs.readFileSync(new URL("../THREAT_MODEL.md", import.meta.url), "utf8")],
+  ["WEB3_INTEGRATION.md", fs.readFileSync(new URL("../WEB3_INTEGRATION.md", import.meta.url), "utf8")],
   [
     "WHY_TRADITIONAL_IAM_FAILS.md",
     fs.readFileSync(new URL("../WHY_TRADITIONAL_IAM_FAILS.md", import.meta.url), "utf8"),
@@ -73,6 +77,12 @@ const docs = [
     summary: "Supported languages, agent interfaces, brokers, and infrastructure evidence surfaces.",
   },
   {
+    slug: "project-scope",
+    title: "Project Scope",
+    file: "PROJECT_SCOPE.md",
+    summary: "The narrow adapter-contract role and how zt-infra composes with identity, policy, sandbox, and observability layers.",
+  },
+  {
     slug: "phase1-ready",
     title: "Phase 1 Ready Criteria",
     file: "PHASE1_READY.md",
@@ -83,6 +93,24 @@ const docs = [
     title: "Architecture",
     file: "ARCHITECTURE.md",
     summary: "System diagram for the website, adapters, control plane, AWS runtime, and evidence path.",
+  },
+  {
+    slug: "enterprise-readiness",
+    title: "Enterprise Readiness",
+    file: "ENTERPRISE_READINESS.md",
+    summary: "Mathematical attestation, non-repudiation, provider roles, resilience, and vendor portability.",
+  },
+  {
+    slug: "life-of-request",
+    title: "Life Of A Request",
+    file: "LIFE_OF_REQUEST.md",
+    summary: "Data flow from Tailscale identity through policy, broker execution, local audit, and DAAL anchoring.",
+  },
+  {
+    slug: "web3-integration",
+    title: "10-Minute Web3 Integration",
+    file: "WEB3_INTEGRATION.md",
+    summary: "The five Web3 values, setup checklist, config check, and portability notes for DAAL.",
   },
   {
     slug: "threat-model",
@@ -118,7 +146,7 @@ const docs = [
     slug: "roadmap",
     title: "Roadmap",
     file: "ROADMAP.md",
-    summary: "SPIFFE-for-AI-agents roadmap and future contribution areas.",
+    summary: "Adapter-contract roadmap and future contribution areas.",
   },
   {
     slug: "explorer-verification",
@@ -380,11 +408,14 @@ function landingPage() {
         <a href="https://github.com/oscarmackjr-twg/zt-adapter-hello-world">GitHub</a>
       </nav>
       <div class="eyebrow">ZT-Infra</div>
-      <h1>Identity, policy, and audit evidence for autonomous agents</h1>
+      <h1>Adapter contract and audit envelope for autonomous agent actions</h1>
       <p>
-        ZT-Infra is building toward a SPIFFE-like trust layer for AI agents:
-        portable agent identity, least-privilege policy, pre-execution enforcement,
-        and signed evidence that security teams can verify.
+        ZT-Infra is the integration layer between agent frameworks and the controls security teams already trust:
+        workload identity, policy engines, execution sandboxes, and audit systems.
+      </p>
+      <p>
+        The project defines the agent-side contract: request shape, allow/deny response shape,
+        fail-closed SDK behavior, broker handoff, and a consistent audit envelope.
       </p>
       <p>
         The first proof is deliberately simple: an agent attempts a dangerous action,
@@ -396,8 +427,8 @@ function landingPage() {
           <span>Apache-2.0 for enterprise-friendly adoption.</span>
         </div>
         <div>
-          <strong>Explorer verification</strong>
-          <span>DAAL testnet contract verification is tracked before public claims.</span>
+          <strong>Composes with nono</strong>
+          <span>ZT-Infra decides before execution; nono constrains what the kernel will permit afterward.</span>
         </div>
         <div>
           <strong>Community</strong>
@@ -420,15 +451,19 @@ function landingPage() {
       <section class="status-banner" aria-label="Current versus planned">
         <div>
           <strong>Current:</strong> public Hello World adapter, local mock control plane, deny-before-execute demo,
-          architecture docs, Docker broker example, verifier CLI, and IAM-authorized Terraform gateway example.
+          architecture docs, Docker and Nono broker examples, verifier CLI, DAAL evidence docs, and IAM-authorized Terraform gateway example.
         </div>
         <div>
-          <strong>Planned:</strong> production mTLS/SPIFFE identity binding, KMS-backed public audit verification,
-          hardened cloud brokers, and DAAL testnet anchoring.
+          <strong>Planned:</strong> SPIFFE/SPIRE actor binding, OPA/Cedar policy templates,
+          adapter conformance tests, hardened cloud brokers, and DAAL reconciliation alerts.
         </div>
       </section>
       <div class="button-row">
         <a class="button primary" href="/quickstart">Start the quickstart</a>
+        <a class="button" href="/docs/project-scope">Project scope</a>
+        <a class="button" href="/docs/enterprise-readiness">Enterprise readiness</a>
+        <a class="button" href="/docs/life-of-request">Life of a request</a>
+        <a class="button" href="/docs/web3-integration">10-minute Web3 setup</a>
         <a class="button" href="/docs/case-studies">Use cases</a>
         <a class="button" href="/docs/why-iam-fails">Why IAM fails agents</a>
         <a class="button" href="/docs/explorer-verification">Explorer verification</a>
@@ -442,17 +477,25 @@ function landingPage() {
       </div>
       <section class="grid" aria-label="Product pillars">
         <div class="card">
-          <h2>Agent identity</h2>
-          <p>Define who the transient agent is, which workload launched it, and which trust domain it belongs to.</p>
+          <h2>Adapter contract</h2>
+          <p>Define how LangGraph, MCP, A2A, OpenAI wrappers, and custom agents ask whether an action may run.</p>
         </div>
         <div class="card">
           <h2>Policy before execution</h2>
-          <p>Adapters call <code>POST /actions</code> before a sensitive tool, workflow, or external task runs.</p>
+          <p>Adapters call <code>POST /actions</code> and fail closed before a sensitive tool, workflow, or external task runs.</p>
         </div>
         <div class="card">
-          <h2>Signed evidence</h2>
-          <p>Every decision can produce hash-chained audit evidence with KMS-backed signatures in the full MVP.</p>
+          <h2>Audit envelope</h2>
+          <p>Every adapter returns the same decision, reason, hash-chain, signature, and optional attestation fields.</p>
         </div>
+      </section>
+      <section class="doc callout">
+        <h2>Clear layer boundaries</h2>
+        <p>
+          ZT-Infra is not a policy engine, sandbox, identity system, or governance spec. It is designed to compose
+          with SPIFFE/SPIRE for identity, OPA or Cedar for policy, CSA ATF-style governance, nono or microVMs for
+          containment, and SIEM/runtime telemetry for observability.
+        </p>
       </section>
       <section class="flow" aria-label="Code to architecture flow">
         <h2>Code to architecture</h2>
@@ -530,7 +573,7 @@ function landingPage() {
       <section class="doc callout">
         <h2>Hello World is the proof path</h2>
         <p>
-          The public repository includes a small Hello World adapter so developers can see the control point quickly:
+          The public repository includes a small Hello World adapter so developers can see the contract quickly:
           an agent attempts an unauthorized action, policy denies it, and the protected function is skipped.
         </p>
       </section>
@@ -739,11 +782,22 @@ function architecturePageContent() {
     <ul>
       <li><strong>Agent interfaces:</strong> LangGraph, OpenAI, MCP, A2A, and custom adapters normalize requests into one control-plane contract.</li>
       <li><strong>Public developer path:</strong> <code>zt-infra.org</code> and this repo provide the public quickstart, local mock control plane, and adapter onboarding path.</li>
-      <li><strong>Adapter layer:</strong> SDK wrappers and protocol gateways call policy before execution.</li>
+      <li><strong>Adapter contract layer:</strong> SDK wrappers and protocol gateways call policy before execution and return the same audit envelope.</li>
       <li><strong>Control plane:</strong> the current implemented endpoint is <code>POST /actions</code>.</li>
+      <li><strong>Execution containment layer:</strong> Docker Local and Nono brokers run approved work after policy allows it.</li>
       <li><strong>Private AWS MVP runtime:</strong> the full infrastructure repo runs <code>zt-provisioner</code>, Tailscale access, SSM fallback, Nginx, and verification.</li>
       <li><strong>Evidence systems:</strong> audit records can be hash-chained, KMS-signed, written to CloudWatch, and optionally anchored through DAAL.</li>
     </ul>
+    <h2>Layer Boundaries</h2>
+    <table>
+      <thead><tr><th>Layer</th><th>Example primitives</th><th>ZT-Infra relationship</th></tr></thead>
+      <tbody>
+        <tr><td>Identity</td><td>SPIFFE/SPIRE, NANDA-style agent identity</td><td>Consume identity and bind it into <code>actor</code>.</td></tr>
+        <tr><td>Policy / governance</td><td>CSA ATF, OPA, Cedar</td><td>Wrap policy decisions in an agent-shaped contract.</td></tr>
+        <tr><td>Execution containment</td><td>nono, gVisor, Firecracker, Kata, browser sandboxes</td><td>Handoff approved work to a broker; record evidence.</td></tr>
+        <tr><td>Observability</td><td>SIEM, OpenTelemetry, eBPF/runtime telemetry</td><td>Emit consistent audit records.</td></tr>
+      </tbody>
+    </table>
     <h2>Current Versus Future</h2>
     <h3>Current</h3>
     <ul>
@@ -751,6 +805,7 @@ function architecturePageContent() {
       <li>local mock control plane for onboarding;</li>
       <li><code>POST /actions</code> policy decision contract;</li>
       <li>signed audit record shape;</li>
+      <li>Nono and Docker broker examples;</li>
       <li>framework wrappers for LangGraph, OpenAI, MCP, and A2A in the full MVP.</li>
     </ul>
     <h3>Future</h3>

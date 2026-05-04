@@ -79,7 +79,7 @@ const readinessItems = [
   {
     id: "daal-explorer-verification",
     area: "security",
-    status: "pending",
+    status: "done",
     title: "Verified DAAL contract address",
     evidence: "/docs/explorer-verification",
   },
@@ -191,9 +191,9 @@ const securityEvidence = [
   },
   {
     id: "daal-explorer",
-    status: "pending",
+    status: "done",
     title: "DAAL explorer verification",
-    command: "Publish verified Base Sepolia or Polygon Amoy contract link",
+    command: "Base Sepolia contract and example AWS smoke transactions are published",
   },
 ];
 
@@ -223,7 +223,7 @@ export function getLaunchStatus() {
     total: checklist.length,
     openRisks,
     claimBoundary:
-      "The public MVP demonstrates deny-before-execute agent policy enforcement; DAAL explorer verification remains pending.",
+      "The public MVP demonstrates deny-before-execute agent policy enforcement and published Base Sepolia DAAL smoke evidence; production all-log guarantees remain bounded until reconciliation, alerting, and verifier automation are complete.",
   };
 }
 
@@ -237,4 +237,3 @@ export function getLaunchReadiness() {
     security_evidence: getSecurityEvidence(),
   };
 }
-
