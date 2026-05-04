@@ -24,8 +24,8 @@
     </marker>
   </defs>
   <rect class="bg" x="0" y="0" width="1440" height="980"/>
-  <text class="title" x="48" y="58">ZT-Infra: Identity, Policy, and Audit Evidence for Autonomous Agents</text>
-  <text class="small" x="48" y="84">Current MVP architecture, expanded from the first-customer interoperability diagram.</text>
+  <text class="title" x="48" y="58">ZT-Infra: Adapter Contract and Audit Envelope for Agent Actions</text>
+  <text class="small" x="48" y="84">Public developer architecture for the adapter contract, broker handoff, and evidence path.</text>
 
   <rect class="group" x="40" y="120" width="250" height="360"/>
   <text class="group-title" x="64" y="154">Agent Interfaces</text>

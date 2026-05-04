@@ -47,7 +47,7 @@ test("NonoCliBroker invokes nono with least-privilege capability flags on allow"
   const calls = [];
   const broker = new NonoCliBroker({
     client: new ZeroTrustClient({ actor: "demo-agent", fetchImpl: fakeFetch("allow") }),
-    nonoBin: "/usr/local/bin/nono",
+    nonoBin: "nono",
     runner: async (command, args) => {
       calls.push({ command, args });
       return { command, args, exitCode: 0, stdout: "sandboxed\n", stderr: "" };
@@ -71,7 +71,7 @@ test("NonoCliBroker invokes nono with least-privilege capability flags on allow"
 
   assert.equal(result.decision, "allow");
   assert.equal(result.executionSkipped, false);
-  assert.equal(calls[0].command, "/usr/local/bin/nono");
+  assert.equal(calls[0].command, "nono");
   assert.deepEqual(calls[0].args, [
     "--silent",
     "run",

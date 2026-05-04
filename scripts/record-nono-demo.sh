@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PORT="${MOCK_CONTROL_PLANE_PORT:-3001}"
 BASE_URL="http://127.0.0.1:${PORT}"
-NONO_BIN="${NONO_BIN:-/usr/local/bin/nono}"
+NONO_BIN="${NONO_BIN:-nono}"
 
 cd "${ROOT_DIR}"
 

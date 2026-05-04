@@ -1,6 +1,6 @@
 # ZT-Infra Architecture
 
-This public architecture diagram shows how the developer site, Hello World quickstart, adapters, control plane, execution brokers, private AWS MVP, and evidence systems fit together.
+This public architecture diagram shows how the developer site, Hello World quickstart, adapters, control plane, execution brokers, deployed runtimes, and evidence systems fit together.
 
 ![ZT-Infra current architecture](/architecture.svg)
 
@@ -11,7 +11,7 @@ This public architecture diagram shows how the developer site, Hello World quick
 - **Adapter contract layer**: SDK wrappers and protocol gateways call policy before execution and return the same audit envelope.
 - **Control plane**: the current implemented endpoint is `POST /actions`.
 - **Execution containment layer**: brokers such as Docker Local and Nono run approved work with runtime constraints. ZT-Infra does not replace those sandboxes.
-- **Private AWS MVP runtime**: the full infrastructure repo runs the deployed `zt-provisioner`, Tailscale access, SSM fallback, Nginx, and verification system.
+- **Deployed runtime**: production deployments should expose the control plane only through approved private access paths and keep verification evidence available to operators.
 - **Evidence systems**: audit records can be hash-chained, KMS-signed, written to CloudWatch, and optionally anchored through DAAL in the full MVP.
 
 ## Layer Boundaries

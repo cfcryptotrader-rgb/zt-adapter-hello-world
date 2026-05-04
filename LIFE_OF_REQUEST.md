@@ -5,7 +5,7 @@ This page shows where data moves during a protected agent action.
 ## Sequence
 
 ```text
-1. User or operator reaches the private control plane through Tailscale.
+1. User or operator reaches a deployed control plane through an approved private access path.
 2. Agent adapter prepares an action request.
 3. Adapter calls ZT-Infra POST /actions before tool execution.
 4. Policy returns allow or deny.
@@ -53,7 +53,7 @@ Only the derived hash is anchored. If metadata URIs are used later, they must po
 | thirdweb unavailable | Contract deployment or optional Engine write path is delayed; CDP direct mode can continue if configured. |
 | Base congestion | DAAL submission is delayed; local audit and retry queue remain the immediate evidence. |
 
-## Security ROI
+## Security Value
 
 This architecture gives a CTO three reviewable properties:
 

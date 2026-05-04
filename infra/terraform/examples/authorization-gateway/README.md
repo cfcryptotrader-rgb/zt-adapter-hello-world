@@ -31,7 +31,7 @@ terraform destroy
 
 ## Production Notes
 
-This example is a deployment skeleton, not the full private ZT-Infra control plane.
+This example is a deployment skeleton, not a complete production ZT-Infra control plane.
 
 Before production use, add:
 
@@ -41,4 +41,3 @@ Before production use, add:
 - CloudWatch audit sinks;
 - broker-specific IAM roles;
 - rate limiting and replay protection.
-

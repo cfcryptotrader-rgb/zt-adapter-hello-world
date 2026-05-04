@@ -1,38 +1,30 @@
 import fs from "node:fs";
 
 import { checkAction } from "./adapter.js";
-import { getLaunchReadiness } from "./launch-readiness.js";
 
 const bundledFiles = new Map([
   ["ADAPTER_CONTRACT.md", fs.readFileSync(new URL("../ADAPTER_CONTRACT.md", import.meta.url), "utf8")],
   ["ARCHITECTURE.md", fs.readFileSync(new URL("../ARCHITECTURE.md", import.meta.url), "utf8")],
-  ["CASE_STUDIES.md", fs.readFileSync(new URL("../CASE_STUDIES.md", import.meta.url), "utf8")],
   ["CHANGELOG.md", fs.readFileSync(new URL("../CHANGELOG.md", import.meta.url), "utf8")],
   ["COMMUNITY.md", fs.readFileSync(new URL("../COMMUNITY.md", import.meta.url), "utf8")],
   ["CONTRIBUTING.md", fs.readFileSync(new URL("../CONTRIBUTING.md", import.meta.url), "utf8")],
-  ["ENGINEERING_SPEC.md", fs.readFileSync(new URL("../ENGINEERING_SPEC.md", import.meta.url), "utf8")],
   ["ENTERPRISE_READINESS.md", fs.readFileSync(new URL("../ENTERPRISE_READINESS.md", import.meta.url), "utf8")],
   ["EXPLORER_VERIFICATION.md", fs.readFileSync(new URL("../EXPLORER_VERIFICATION.md", import.meta.url), "utf8")],
   ["GOVERNANCE.md", fs.readFileSync(new URL("../GOVERNANCE.md", import.meta.url), "utf8")],
   ["IDENTITY_AND_POLICY.md", fs.readFileSync(new URL("../IDENTITY_AND_POLICY.md", import.meta.url), "utf8")],
   ["INTEROPERABILITY.md", fs.readFileSync(new URL("../INTEROPERABILITY.md", import.meta.url), "utf8")],
   ["INCIDENT_RESPONSE.md", fs.readFileSync(new URL("../INCIDENT_RESPONSE.md", import.meta.url), "utf8")],
-  ["ENGAGEMENT_STRATEGY.md", fs.readFileSync(new URL("../ENGAGEMENT_STRATEGY.md", import.meta.url), "utf8")],
-  ["LAUNCH_BRIEF.md", fs.readFileSync(new URL("../LAUNCH_BRIEF.md", import.meta.url), "utf8")],
-  ["LAUNCH_CHECKLIST.md", fs.readFileSync(new URL("../LAUNCH_CHECKLIST.md", import.meta.url), "utf8")],
   ["LIFE_OF_REQUEST.md", fs.readFileSync(new URL("../LIFE_OF_REQUEST.md", import.meta.url), "utf8")],
   ["PHASE1_READY.md", fs.readFileSync(new URL("../PHASE1_READY.md", import.meta.url), "utf8")],
   ["PROJECT_SCOPE.md", fs.readFileSync(new URL("../PROJECT_SCOPE.md", import.meta.url), "utf8")],
   ["README.md", fs.readFileSync(new URL("../README.md", import.meta.url), "utf8")],
   ["RISK_REGISTER.md", fs.readFileSync(new URL("../RISK_REGISTER.md", import.meta.url), "utf8")],
   ["ROADMAP.md", fs.readFileSync(new URL("../ROADMAP.md", import.meta.url), "utf8")],
-  ["ROI_METRICS.md", fs.readFileSync(new URL("../ROI_METRICS.md", import.meta.url), "utf8")],
   ["SDK_API.md", fs.readFileSync(new URL("../SDK_API.md", import.meta.url), "utf8")],
-  ["SDK_REVIEW.md", fs.readFileSync(new URL("../SDK_REVIEW.md", import.meta.url), "utf8")],
   ["SECURITY.md", fs.readFileSync(new URL("../SECURITY.md", import.meta.url), "utf8")],
   ["SECURITY_ARTIFACTS.md", fs.readFileSync(new URL("../SECURITY_ARTIFACTS.md", import.meta.url), "utf8")],
-  ["SOCIAL_KIT.md", fs.readFileSync(new URL("../SOCIAL_KIT.md", import.meta.url), "utf8")],
   ["THREAT_MODEL.md", fs.readFileSync(new URL("../THREAT_MODEL.md", import.meta.url), "utf8")],
+  ["USE_CASES.md", fs.readFileSync(new URL("../USE_CASES.md", import.meta.url), "utf8")],
   ["WEB3_INTEGRATION.md", fs.readFileSync(new URL("../WEB3_INTEGRATION.md", import.meta.url), "utf8")],
   [
     "WHY_TRADITIONAL_IAM_FAILS.md",
@@ -104,7 +96,7 @@ const docs = [
     slug: "life-of-request",
     title: "Life Of A Request",
     file: "LIFE_OF_REQUEST.md",
-    summary: "Data flow from Tailscale identity through policy, broker execution, local audit, and DAAL anchoring.",
+    summary: "Data flow from access path through policy, broker execution, local audit, and optional DAAL anchoring.",
   },
   {
     slug: "web3-integration",
@@ -119,16 +111,10 @@ const docs = [
     summary: "What this MVP protects, what it does not protect, and residual risks.",
   },
   {
-    slug: "case-studies",
-    title: "Day 1 Use Cases",
-    file: "CASE_STUDIES.md",
-    summary: "Concrete first-day examples for finance, cloud operations, MCP, and A2A agents.",
-  },
-  {
-    slug: "roi-metrics",
-    title: "ROI Metrics",
-    file: "ROI_METRICS.md",
-    summary: "Cost avoidance and operational metrics for agent security programs.",
+    slug: "use-cases",
+    title: "Use Cases",
+    file: "USE_CASES.md",
+    summary: "Hypothetical developer examples for finance, cloud operations, MCP, A2A, healthcare, and SaaS agents.",
   },
   {
     slug: "why-iam-fails",
@@ -164,7 +150,7 @@ const docs = [
     slug: "community",
     title: "Community",
     file: "COMMUNITY.md",
-    summary: "Discord invite, community expectations, and feedback paths.",
+    summary: "Moderated community access, expectations, and feedback paths.",
   },
   {
     slug: "security",
@@ -182,7 +168,7 @@ const docs = [
     slug: "risk-register",
     title: "Risk Register",
     file: "RISK_REGISTER.md",
-    summary: "Launch and architecture risks, controls, and mitigations.",
+    summary: "Public adapter risks, controls, and mitigations.",
   },
   {
     slug: "incident-response",
@@ -194,43 +180,7 @@ const docs = [
     slug: "governance",
     title: "Governance",
     file: "GOVERNANCE.md",
-    summary: "Launch readiness, stakeholder communication, and rules of engagement.",
-  },
-  {
-    slug: "launch-checklist",
-    title: "Launch Checklist",
-    file: "LAUNCH_CHECKLIST.md",
-    summary: "Reviewer checklist with completed, partial, open, and blocked launch items.",
-  },
-  {
-    slug: "launch-brief",
-    title: "Launch Brief",
-    file: "LAUNCH_BRIEF.md",
-    summary: "Public launch narrative, audience, suggested message, and social-proof policy.",
-  },
-  {
-    slug: "social-kit",
-    title: "Social Kit",
-    file: "SOCIAL_KIT.md",
-    summary: "Approved launch copy, platform-specific posts, claims to use, and claims to avoid.",
-  },
-  {
-    slug: "engagement-strategy",
-    title: "Engagement Strategy",
-    file: "ENGAGEMENT_STRATEGY.md",
-    summary: "Developer hub, Discord, newsletter, Vercel, and package-manager measurement loops.",
-  },
-  {
-    slug: "engineering-spec",
-    title: "Engineering Spec",
-    file: "ENGINEERING_SPEC.md",
-    summary: "Specs for IaC, security scans, DAAL, animation, and repository protection work.",
-  },
-  {
-    slug: "sdk-review",
-    title: "SDK Review",
-    file: "SDK_REVIEW.md",
-    summary: "How the public client differs from the first-customer draft SDK.",
+    summary: "Contributor rules of engagement and public repository governance.",
   },
   {
     slug: "sdk-api",
@@ -256,16 +206,8 @@ export async function routeRequest(request, response) {
     return json(response, 200, {
       ok: true,
       message: "ZT-Infra developer site",
-      next: ["/quickstart", "/docs", "/demo", "/launch-readiness", "/health", "/demo/deny", "/demo/allow"],
+      next: ["/quickstart", "/docs", "/demo", "/health", "/demo/deny", "/demo/allow"],
     });
-  }
-
-  if (request.method === "GET" && url.pathname === "/launch-readiness") {
-    const readiness = getLaunchReadiness();
-    if (wantsHtml(request)) {
-      return html(response, 200, launchReadinessPage(readiness));
-    }
-    return json(response, 200, readiness);
   }
 
   if (request.method === "GET" && url.pathname === "/quickstart") {
@@ -403,7 +345,6 @@ function landingPage() {
         <a href="/quickstart">Quickstart</a>
         <a href="/docs">Docs</a>
         <a href="/demo">Demo</a>
-        <a href="/launch-readiness">Launch Readiness</a>
         <a href="/docs/interoperability">Interoperability</a>
         <a href="https://github.com/oscarmackjr-twg/zt-adapter-hello-world">GitHub</a>
       </nav>
@@ -421,7 +362,7 @@ function landingPage() {
         The first proof is deliberately simple: an agent attempts a dangerous action,
         policy blocks it before execution, and the adapter returns a verifiable audit-shaped response.
       </p>
-      <section class="trust-strip" aria-label="Launch trust signals">
+      <section class="trust-strip" aria-label="Trust signals">
         <div>
           <strong>License</strong>
           <span>Apache-2.0 for enterprise-friendly adoption.</span>
@@ -432,7 +373,7 @@ function landingPage() {
         </div>
         <div>
           <strong>Community</strong>
-          <span><a href="https://discord.gg/cDS8MPX6G">Join the Zero Trust Infrastructure Discord.</a></span>
+          <span>Community invites rotate; use the public repo to request the current moderated channel.</span>
         </div>
       </section>
       <section class="vulnerability-hook" aria-label="Vulnerability example">
@@ -464,13 +405,12 @@ function landingPage() {
         <a class="button" href="/docs/enterprise-readiness">Enterprise readiness</a>
         <a class="button" href="/docs/life-of-request">Life of a request</a>
         <a class="button" href="/docs/web3-integration">10-minute Web3 setup</a>
-        <a class="button" href="/docs/case-studies">Use cases</a>
+        <a class="button" href="/docs/use-cases">Use cases</a>
         <a class="button" href="/docs/why-iam-fails">Why IAM fails agents</a>
-        <a class="button" href="/docs/explorer-verification">Explorer verification</a>
+        <a class="button" href="/docs/explorer-verification">Ledger verification</a>
         <a class="button" href="/docs/community">Community</a>
         <a class="button" href="/docs/phase1-ready">Phase 1 Ready</a>
         <a class="button" href="/docs/interoperability">Interoperability inventory</a>
-        <a class="button" href="/launch-readiness">Readiness dashboard</a>
         <a class="button" href="/docs/architecture">Architecture</a>
         <a class="button" href="/docs/identity-policy">Identity &amp; Policy</a>
         <a class="button" href="/demo">View demo flow</a>
@@ -535,30 +475,6 @@ function landingPage() {
           ZT-Infra makes that decision point explicit and keeps the public starter small enough to verify.
         </p>
       </section>
-      <section class="signup" aria-label="Join the alpha">
-        <div>
-          <h2>Join the alpha</h2>
-          <p>
-            Get occasional updates on the adapter SDK, execution brokers, identity work,
-            and audit verification. No app account or API key is required.
-          </p>
-        </div>
-        <form
-          action="https://buttondown.com/api/emails/embed-subscribe/oscarmackjr"
-          method="post"
-          class="embeddable-buttondown-form"
-        >
-          <label for="bd-email">Email</label>
-          <div class="signup-row">
-            <input type="email" name="email" id="bd-email" placeholder="you@example.com" required>
-            <input type="hidden" value="1" name="embed">
-            <button type="submit">Get updates</button>
-          </div>
-          <p class="fine-print">
-            Powered by <a href="https://buttondown.com/refer/oscarmackjr" target="_blank" rel="noreferrer">Buttondown</a>.
-          </p>
-        </form>
-      </section>
       <section class="grid" aria-label="Documentation">
         ${docs
           .slice(0, 9)
@@ -580,91 +496,6 @@ function landingPage() {
     </main>
   </body>
 </html>`;
-}
-
-function launchReadinessPage(readiness) {
-  const status = readiness.status;
-  const grouped = groupByArea(readiness.checklist);
-
-  return docsShell(
-    "Launch Readiness",
-    `<h1>Launch Readiness</h1>
-    <p class="lede">
-      This dashboard turns the PM, marketing, and engineering launch review into a machine-readable status surface.
-      It is intentionally explicit about completed work and bounded gaps.
-    </p>
-    <section class="status-banner" aria-label="Launch readiness status">
-      <div><strong>Verdict:</strong> ${escapeHtml(status.verdict)}</div>
-      <div><strong>Progress:</strong> ${status.done}/${status.total} checklist items done, ${status.pending} pending, ${status.openRisks} open risks.</div>
-      <div><strong>Claim boundary:</strong> ${escapeHtml(status.claimBoundary)}</div>
-    </section>
-    ${Object.entries(grouped)
-      .map(
-        ([area, items]) => `<h2>${escapeHtml(titleCase(area))}</h2>
-      <table>
-        <thead><tr><th>Item</th><th>Status</th><th>Evidence</th></tr></thead>
-        <tbody>
-          ${items
-            .map(
-              (item) => `<tr>
-            <td>${escapeHtml(item.title)}</td>
-            <td>${escapeHtml(item.status)}</td>
-            <td><a href="${escapeHtml(item.evidence)}">${escapeHtml(item.evidence)}</a></td>
-          </tr>`,
-            )
-            .join("")}
-        </tbody>
-      </table>`,
-      )
-      .join("")}
-    <h2>Top Risks</h2>
-    <table>
-      <thead><tr><th>Risk</th><th>Severity</th><th>Status</th><th>Mitigation</th></tr></thead>
-      <tbody>
-        ${readiness.risks
-          .map(
-            (risk) => `<tr>
-          <td>${escapeHtml(risk.title)}</td>
-          <td>${escapeHtml(risk.severity)}</td>
-          <td>${escapeHtml(risk.status)}</td>
-          <td>${escapeHtml(risk.mitigation)}</td>
-        </tr>`,
-          )
-          .join("")}
-      </tbody>
-    </table>
-    <h2>Security Evidence</h2>
-    <table>
-      <thead><tr><th>Artifact</th><th>Status</th><th>Command / Evidence</th></tr></thead>
-      <tbody>
-        ${readiness.security_evidence
-          .map(
-            (artifact) => `<tr>
-          <td>${escapeHtml(artifact.title)}</td>
-          <td>${escapeHtml(artifact.status)}</td>
-          <td><code>${escapeHtml(artifact.command)}</code></td>
-        </tr>`,
-          )
-          .join("")}
-      </tbody>
-    </table>
-    <p>JSON version: <a href="/launch-readiness">/launch-readiness</a></p>`,
-  );
-}
-
-function groupByArea(items) {
-  return items.reduce((grouped, item) => {
-    grouped[item.area] ||= [];
-    grouped[item.area].push(item);
-    return grouped;
-  }, {});
-}
-
-function titleCase(value) {
-  return value
-    .split("-")
-    .map((part) => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
-    .join(" ");
 }
 
 function demoPage() {
@@ -696,7 +527,7 @@ function demoPage() {
           <h2>Nono sandbox broker</h2>
           <p>
             This terminal recording shows the Nono Execution Broker: the control plane denies a sandbox spawn,
-            then policy allows the same action and the broker invokes <code>/usr/local/bin/nono</code> with network blocked.
+            then policy allows the same action and the broker invokes the configured <code>nono</code> executable with network blocked.
           </p>
         </div>
         <a class="button" href="/nono-sandbox-demo.cast">Open cast file</a>
@@ -775,7 +606,7 @@ function architecturePageContent() {
   return `<h1>ZT-Infra Architecture</h1>
     <p class="lede">
       This public architecture diagram shows how the developer site, Hello World quickstart,
-      adapters, control plane, private AWS MVP, and evidence systems fit together.
+      adapters, control plane, deployed runtimes, and evidence systems fit together.
     </p>
     <p><img src="/architecture.svg" alt="ZT-Infra current architecture"></p>
     <h2>What This Shows</h2>

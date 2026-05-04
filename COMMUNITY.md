@@ -4,21 +4,11 @@ ZT-Infra is intended to become a practical, open adapter contract for agent acti
 
 The community focus is deliberately narrow: request shape, allow/deny response shape, fail-closed SDK behavior, broker handoff, and audit envelope compatibility across agent frameworks. ZT-Infra should compose with identity systems, policy engines, sandboxes, and observability tools rather than replacing them.
 
-## Discord
+## Community Channel
 
-A Discord community channel has been created:
+The project uses a moderated community channel for quick questions and contribution coordination.
 
-```text
-Zero Trust Infrastructure
-```
-
-Join the Discord:
-
-```text
-https://discord.gg/cDS8MPX6G
-```
-
-Use this channel to ask questions, report onboarding friction, and coordinate contribution work.
+Public invite links rotate to reduce spam and impersonation risk. Request the current invite through a GitHub issue or maintainer contact instead of relying on a permanent public invite URL.
 
 ## What To Use The Community For
 

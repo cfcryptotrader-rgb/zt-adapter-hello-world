@@ -23,10 +23,10 @@ function fakeFetch({ decision = "deny", requests = [] } = {}) {
             daal: {
               status: "submitted",
               attestation_status: "verified",
-              actionHash: "0xab1347c9b9c95234aafc00921c4610711150ef4e109564c2761fda34b6d9ea80",
-              txHash: "0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+              actionHash: "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              txHash: "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
               txLink:
-                "https://sepolia.basescan.org/tx/0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+                "https://sepolia.basescan.org/tx/0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
             },
           },
         };
@@ -71,10 +71,10 @@ test("auditEvidence normalizes signed and DAAL fields from a decision", async ()
     signatureKeyId: "test",
     daalStatus: "submitted",
     daalAttestationStatus: "verified",
-    daalActionHash: "0xab1347c9b9c95234aafc00921c4610711150ef4e109564c2761fda34b6d9ea80",
-    daalTransactionHash: "0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+    daalActionHash: "0xaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    daalTransactionHash: "0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
     daalTransactionLink:
-      "https://sepolia.basescan.org/tx/0x9bd34a4656075869f72f4a5a9fb016c4cb4c9cf0db19b27383e787192b6becf9",
+      "https://sepolia.basescan.org/tx/0xbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
   });
 });
 

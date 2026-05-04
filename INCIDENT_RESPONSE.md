@@ -17,16 +17,16 @@ Initial incident roles:
 
 | Role | Owner |
 | --- | --- |
-| Incident Commander | Oscar Mack / project lead |
-| Engineering Lead | TWG Global engineering reviewer or delegated maintainer |
-| Communications Lead | Project lead until another maintainer is assigned |
-| Security Reviewer | External reporter, TWG Global partner, or invited reviewer as appropriate |
+| Incident Commander | Named project maintainer |
+| Engineering Lead | Delegated maintainer |
+| Communications Lead | Project maintainer until another maintainer is assigned |
+| Security Reviewer | External reporter plus invited reviewer when appropriate |
 
 If only one maintainer is available, that maintainer owns all roles and records decisions in the private advisory or issue tracker.
 
 ## First 30 Minutes
 
-1. Move discussion to a private channel: GitHub private advisory, security email, or private maintainer Discord thread.
+1. Move discussion to a private channel: GitHub private advisory, security email, or private maintainer thread.
 2. Confirm whether a secret, package, release, website, or adapter path is affected.
 3. Run local checks:
 
@@ -54,7 +54,7 @@ For the public adapter repo:
 - temporarily remove unsafe docs or demo links;
 - open a private GitHub advisory if the issue is exploitable.
 
-For the full infrastructure MVP:
+For deployed production control planes:
 
 - keep SSM access alive;
 - rotate affected AWS, Tailscale, Alchemy, Thirdweb, Coinbase, or GitHub credentials;
@@ -71,4 +71,3 @@ An incident is ready to close when:
 - affected secrets are rotated and old credentials revoked;
 - release notes or advisory text are prepared;
 - the risk register is updated if the incident exposed a recurring risk.
-

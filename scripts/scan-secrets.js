@@ -5,8 +5,6 @@ import fs from "node:fs";
 
 const allowlist = new Set([
   "package-lock.json",
-  "recordings/agent-blocked-then-authorized.cast",
-  "public/agent-blocked-then-authorized.cast",
 ]);
 
 const patterns = [
@@ -42,6 +40,22 @@ const patterns = [
     name: "Private key block",
     pattern: /-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----/,
   },
+  {
+    name: "private local path",
+    pattern: /\/Users\/[A-Za-z0-9._-]+\//,
+  },
+  {
+    name: "AWS account id",
+    pattern: /\b[0-9]{12}\b/,
+  },
+  {
+    name: "AWS ARN",
+    pattern: /arn:aws:(?!iam::aws:policy\b)[A-Za-z0-9:/._+=,@-]+/,
+  },
+  {
+    name: "AWS EC2 resource id",
+    pattern: /\b(?:i|vpc|subnet|sg|rtb|igw|vol)-[0-9a-f]{8,}\b/,
+  },
 ];
 
 function trackedFiles() {
@@ -53,6 +67,9 @@ const findings = [];
 
 for (const file of trackedFiles()) {
   if (allowlist.has(file)) {
+    continue;
+  }
+  if (!fs.existsSync(file)) {
     continue;
   }
   const buffer = fs.readFileSync(file);

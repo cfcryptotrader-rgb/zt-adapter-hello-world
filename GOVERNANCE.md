@@ -1,6 +1,6 @@
-# Governance And Launch Readiness
+# Governance
 
-This document turns the launch review comments into operating rules for the public repository.
+This document defines operating rules for the public developer repository.
 
 ## Rules Of Engagement
 
@@ -11,7 +11,7 @@ This document turns the launch review comments into operating rules for the publ
 - Public examples must not require cloud credentials in CI.
 - Public docs must clearly label mock behavior versus production MVP behavior.
 
-## Current MVP Retrospective
+## Current Public Adapter Scope
 
 What the current public repo does well:
 
@@ -19,49 +19,35 @@ What the current public repo does well:
 - keeps the local control plane small and understandable;
 - documents identity consumption, policy handoff, threat model, roadmap, and adapter contract;
 - includes a Docker Local Execution Broker example;
-- includes an IAM-authorized Terraform Authorization Gateway example;
+- includes an IAM-authorized Terraform Authorization Gateway skeleton;
 - includes a local audit verifier CLI;
 - includes CI tests for adapter behavior;
 - avoids committed secrets in the public seed.
 
 Phase 1 readiness is defined in [PHASE1_READY.md](./PHASE1_READY.md). Any launch claim should use that document as the source of truth for production-ready, experimental, and planned capabilities.
 
-Known gaps:
+Boundaries:
 
-- production-grade Authorization Gateway IaC remains in the private infrastructure repo; the public Terraform example is a skeleton;
-- cloud execution brokers are documented but not implemented as public examples yet;
-- GitHub branch protection and private vulnerability reporting must be enabled in repository settings;
-- GitHub Advanced Security features must be verified in repository settings;
-- social proof must wait for approved quotes or named references.
+- this repository is the public adapter and quickstart surface;
+- production control planes may be implemented in separate deployments as long as they honor the adapter contract;
+- cloud execution brokers should be added only when they can run in CI without real cloud credentials;
+- repository security settings are managed in GitHub and are not documented here as operational status.
 
 ## Core Maintenance Team
 
 | Role | Current Owner |
 | --- | --- |
-| Project lead | Oscar Mack |
-| Engineering review | TWG Global partners / delegated maintainers |
-| Security review | Security reporter, TWG Global partner, or invited reviewer depending on issue |
-| Community triage | Project lead during alpha |
-| Release owner | Project lead until additional maintainers are named |
+| Project lead | Named project maintainer |
+| Engineering review | Delegated maintainers |
+| Security review | Security reporter plus invited reviewer when needed |
+| Community triage | Maintainers during alpha |
+| Release owner | Named release maintainer |
 
 This is intentionally lightweight for alpha. Add named maintainers only after they accept responsibility for review, security triage, or release ownership.
 
 ## Stakeholder Communication Plan
 
-Notify in this order before broader public promotion:
-
-1. internal project owner and engineering reviewer;
-2. TWG Global partners or advisors who need private context;
-3. early beta testers and design partners;
-4. security reviewers who may validate the threat model;
-5. public developer audience.
-
-Each communication should include:
-
-- the five-minute quickstart link;
-- the architecture link;
-- the threat model link;
-- the clear statement that this is an early public adapter MVP, not a production certification.
+Public communication should link to the quickstart, architecture, threat model, and Phase 1 ready criteria. Avoid publishing internal launch plans, unreleased timelines, private stakeholder lists, or unapproved commercial claims in this repository.
 
 ## Release Checklist
 

@@ -24,6 +24,7 @@
     "demo:record:nono": "bash scripts/record-nono-demo.sh",
     "audit:verify": "node bin/zt-audit.js verify",
     "security:secrets": "node scripts/scan-secrets.js",
+    "security:recordings": "node scripts/audit-public-recordings.js",
     "sbom": "npm sbom --sbom-format cyclonedx > sbom.cdx.json",
     "test": "node --test"
   },

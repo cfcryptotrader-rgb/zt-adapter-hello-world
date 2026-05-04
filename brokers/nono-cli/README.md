@@ -11,7 +11,7 @@ agent request -> ZT Control Plane /actions -> deny  -> skip execution
 
 ## Requirements
 
-- `nono` installed at `/usr/local/bin/nono`, or set `NONO_BIN`.
+- `nono` available on `PATH`, or set `NONO_BIN` to an approved local executable path.
 - Node.js 20 or newer.
 - A reachable ZT-Infra Control Plane or the local mock from this repository.
 

@@ -37,7 +37,7 @@ Summary:
 | A2A | Implemented | JSON-RPC A2A Policy Proxy in `zt_a2a`. |
 | JavaScript SDK Client | Implemented | Public `ZeroTrustClient` in this repo. |
 | Docker Local Broker | Implemented | Public execution broker example. |
-| Nono CLI Broker | Implemented | Wraps `/usr/local/bin/nono` for sandboxed agent execution. |
+| Nono CLI Broker | Implemented | Wraps a configured `nono` executable for sandboxed agent execution. |
 | Audit Verifier CLI | Implemented | `zt-audit verify audit.json`. |
 
 Summary:

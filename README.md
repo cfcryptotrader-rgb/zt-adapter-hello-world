@@ -6,11 +6,11 @@ It is intentionally small: a Node.js Hello World service plus one demo call to t
 
 **Tagline:** An open adapter contract and audit envelope for agent action authorization.
 
-## Launch Trust Signals
+## Trust Signals
 
 - **License:** Apache-2.0, chosen for enterprise-friendly infrastructure adoption and explicit patent grant language.
-- **Community:** Join the `Zero Trust Infrastructure` Discord: <https://discord.gg/cDS8MPX6G>.
-- **Ledger explorer verification:** optional DAAL smart contract explorer verification is tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Base Sepolia MVP evidence is published, including direct and batched AWS smoke transactions. Production all-log claims remain pending until source mapping, reconciliation, alerting, and repeatable verifier automation are complete.
+- **Community:** moderated community invites rotate to reduce spam. Use GitHub issues or discussions to request the current developer channel.
+- **Ledger explorer verification:** optional DAAL smart contract verification criteria are tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Public all-log claims remain pending until source mapping, reconciliation, alerting, and repeatable verifier automation are complete.
 
 ## Narrow Scope
 
@@ -36,24 +36,18 @@ Start here if you need to understand the security model before writing code:
 - [Threat Model](./THREAT_MODEL.md): what this system protects against and what remains the application developer's responsibility.
 - [Risk Register](./RISK_REGISTER.md): launch and architecture risks, controls, and mitigations.
 - [Incident Response](./INCIDENT_RESPONSE.md): maintainer playbook for vulnerability, secret, package, or demo incidents.
-- [Day 1 Use Cases](./CASE_STUDIES.md): concrete examples for finance, cloud operations, MCP, and A2A agents.
-- [ROI Metrics](./ROI_METRICS.md): cost-avoidance story and measurable operational value.
+- [Use Cases](./USE_CASES.md): hypothetical developer examples for finance, cloud operations, MCP, A2A, healthcare, and SaaS agents.
 - [Why Traditional IAM Is Not Enough](./WHY_TRADITIONAL_IAM_FAILS.md): short whitepaper on why human-centric IAM needs an agent action control point.
 - [Adapter Contract](./ADAPTER_CONTRACT.md): the minimum request, response, and fail-closed behavior expected from adapters.
 - [Security Policy](./SECURITY.md): supported versions and private vulnerability reporting.
 - [Security Artifacts](./SECURITY_ARTIFACTS.md): SAST, dependency review, secret scan, SBOM, and audit verification evidence.
 - [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
-- [Engagement Strategy](./ENGAGEMENT_STRATEGY.md): launch channels, package-manager plan, and measurement loops.
 - [Ledger Explorer Verification](./EXPLORER_VERIFICATION.md): optional DAAL contract explorer verification status, example transactions, and claim boundaries.
-- [Community](./COMMUNITY.md): Discord channel status, expectations, and feedback paths.
-- [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
-- [Launch Checklist](./LAUNCH_CHECKLIST.md): status of review feedback, completed work, and open launch items.
-- [Launch Brief](./LAUNCH_BRIEF.md): public narrative, audience, suggested launch message, and social-proof policy.
-- [Social Kit](./SOCIAL_KIT.md): launch-ready copy for Hacker News, LinkedIn, X, and approved public claims.
+- [Community](./COMMUNITY.md): moderated community access, expectations, and feedback paths.
+- [Governance](./GOVERNANCE.md): public repository rules of engagement.
 - [SDK API](./SDK_API.md): `ZeroTrustClient` constructor, decision methods, helper methods, and fail-closed behavior.
-- [Engineering Spec](./ENGINEERING_SPEC.md): required code and infrastructure changes that should be implemented deliberately.
 - [Docker Local Broker](./brokers/docker-local/README.md): first public Execution Broker example.
-- [Nono CLI Broker](./brokers/nono-cli/README.md): wraps `/usr/local/bin/nono` to spawn policy-approved sandboxed agents.
+- [Nono CLI Broker](./brokers/nono-cli/README.md): wraps a configured `nono` executable to spawn policy-approved sandboxed agents.
 - [Authorization Gateway Terraform](./infra/terraform/examples/authorization-gateway/README.md): IAM-authorized public IaC example.
 
 ## Who this is for
@@ -240,8 +234,6 @@ http://127.0.0.1:8080/demo/allow
 
 This repo is Vercel-ready. The browser homepage is served from `/`, and JSON demo endpoints remain available under the same paths.
 
-The homepage includes a Buttondown-powered "Join the Alpha" form. It posts directly to Buttondown and does not store email addresses in this app.
-
 1. Import the GitHub repo into Vercel:
 
 ```text
@@ -262,14 +254,14 @@ Without `ZT_CONTROL_PLANE_URL`, the homepage and `/health` still render, while `
 
 Vercel routing is defined in [vercel.json](./vercel.json), with the serverless entry point in [api/index.js](./api/index.js).
 
-## Real zt-infra
+## Connect A Real Control Plane
 
 The five-minute flow uses `npm run zt:mock`.
 
-To use the real MVP control plane:
+To use a deployed ZT-Infra-compatible control plane:
 
-1. deploy ZT-Infra from the private infrastructure repo;
-2. confirm `zt-provisioner` is reachable through SSM or Tailscale;
+1. deploy or select a control plane that implements the public adapter contract;
+2. confirm it is reachable from the adapter runtime;
 3. set:
 
 ```bash
@@ -277,7 +269,7 @@ ZT_CONTROL_PLANE_URL=http://127.0.0.1:3000
 ZT_ACTOR=hello-world-agent
 ```
 
-The real control plane signs audit records with AWS KMS and writes to the configured audit sink.
+Production control planes should sign audit records with a managed key service and write to a durable audit sink.
 
 ## Demo Endpoints
 
@@ -310,7 +302,7 @@ Denied response shape:
 
 ## SDK-Style Usage
 
-This repo includes a tiny public client inspired by the first-customer SDK draft, adapted to the current MVP `/actions` API.
+This repo includes a tiny public client for the current MVP `/actions` API.
 
 ```js
 import { ZeroTrustClient } from "./src/zero-trust-client.js";
@@ -347,7 +339,7 @@ const evidence = zt.auditEvidence(decision);
 console.log(evidence.daalTransactionLink);
 ```
 
-See [SDK_REVIEW.md](./SDK_REVIEW.md) for notes on how this differs from the draft first-customer SDK.
+See [SDK_API.md](./SDK_API.md) for the public client API.
 
 ## Adapter Contract
 
@@ -365,8 +357,6 @@ Examples planned for this public repo:
 - Nono CLI Execution Broker: [brokers/nono-cli](./brokers/nono-cli)
 - AWS Lambda Execution Broker
 - Kubernetes Job Execution Broker
-
-The current engineering spec for broker IaC and repository hardening is in [ENGINEERING_SPEC.md](./ENGINEERING_SPEC.md).
 
 See [CONTRIBUTING.md](./CONTRIBUTING.md) for the broker contract.
 
@@ -402,7 +392,7 @@ The function URL requires AWS IAM/SigV4 authorization. It is not an anonymous pu
 
 See [ROADMAP.md](./ROADMAP.md).
 
-Phase 2 focuses on secure service identity:
+Phase 2 extends service identity:
 
 - mTLS
 - SPIFFE/SPIRE integration
@@ -426,30 +416,32 @@ See [LICENSE](./LICENSE) and [NOTICE](./NOTICE).
 
 ## Terminal Demo Recording
 
-The repository includes an asciinema recording of the five-minute flow:
-
-```text
-recordings/agent-blocked-then-authorized.cast
-```
-
-It also includes a Nono Execution Broker recording:
-
-```text
-recordings/nono-sandbox-demo.cast
-```
-
-The website embeds both recordings on `/demo` and serves the public player sources from:
+The website includes sanitized asciinema recordings of the five-minute flow and Nono broker flow. Only reviewed files under `public/` are committed.
 
 ```text
 public/agent-blocked-then-authorized.cast
+```
+
+Nono Execution Broker recording:
+
+```text
 public/nono-sandbox-demo.cast
 ```
 
-To regenerate them:
+The website embeds both recordings on `/demo`.
+
+```text
+Raw recordings generated under `recordings/` are ignored by git. Copy a recording into `public/` only after running disclosure checks.
+```
+
+To regenerate them safely, use a clean lab shell with a minimal prompt, no cloud credentials, no real environment variables, and only mock control-plane output. Audit the generated cast before publishing:
 
 ```bash
 asciinema rec --overwrite -c "npm run demo:record" recordings/agent-blocked-then-authorized.cast
 asciinema rec --overwrite -c "npm run demo:record:nono" recordings/nono-sandbox-demo.cast
+cp recordings/agent-blocked-then-authorized.cast public/agent-blocked-then-authorized.cast
+cp recordings/nono-sandbox-demo.cast public/nono-sandbox-demo.cast
+npm run security:recordings
 ```
 
 ## Security

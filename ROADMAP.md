@@ -23,17 +23,16 @@ Status: current
 | Public Authorization Gateway IaC skeleton | Done | IAM-authorized Lambda Function URL Terraform example. |
 | CodeQL, Dependabot, dependency review | Done | GitHub workflows and repository settings. |
 | Good First Issue backlog | Done | Three labeled onboarding issues. |
-| GitHub Project board | In Progress | Requires `gh auth refresh -s project,read:project`. |
-| Newsletter / alpha capture | Done | Homepage includes Buttondown alpha signup. |
-| Community hub | Done | Discord channel `Zero Trust Infrastructure` is linked from README, homepage, and COMMUNITY.md. |
-| DAAL public testnet proof | MVP Evidence Published | Base Sepolia contract plus direct and batched AWS smoke transactions are documented. Production reconciliation, alerting, and verifier automation remain planned. |
-| Production identity binding | In Progress | Phase 2 mTLS/SPIFFE consumption and actor binding; zt-infra is not replacing SPIFFE/SPIRE. |
+| GitHub Project board | Planned | Managed outside the public adapter source tree. |
+| Community feedback path | Done | Moderated community channel and GitHub issue path documented. |
+| DAAL public testnet proof | MVP Evidence Published | Verification criteria are documented. Production reconciliation, alerting, and verifier automation remain planned. |
+| Production identity binding | In Progress | Phase 2 extends service identity with mTLS/SPIFFE consumption and actor binding; zt-infra is not replacing SPIFFE/SPIRE. |
 | Phase 1 ready criteria | Done | `PHASE1_READY.md` defines current, experimental, and non-claimable capabilities. |
 | Risk register | Done | `RISK_REGISTER.md` tracks launch and architecture risks. |
 | Incident response playbook | Done | `INCIDENT_RESPONSE.md` defines freeze and recovery steps. |
 | SBOM and secret-scan CI | Done | CI runs local secret scan and uploads a CycloneDX SBOM artifact. |
 
-## 90-Day Launch Status
+## Adapter Roadmap Status
 
 | Workstream | Done | In Progress | Next |
 | --- | --- | --- | --- |
@@ -41,11 +40,11 @@ Status: current
 | Adapter contract | `/actions`, deny/allow demos, guarded SDK call, audit envelope | Versioned request/response schema | Conformance suite across adapter surfaces |
 | Policy engine integration | Mock policy evaluator | OPA/Cedar policy templates | Engine-agnostic PDP adapters |
 | Execution | Docker Local Broker, Nono CLI Broker | Cloud broker design | AWS Lambda and Kubernetes Job brokers |
-| Evidence | Audit-shaped responses, hash verifier CLI, Base Sepolia DAAL contract, direct and batched AWS smoke transactions | KMS signature verification docs, DAAL source-to-contract mapping, reconciliation alerts | DAAL verifier integration and reconciliation docs |
+| Evidence | Audit-shaped responses and hash verifier CLI | KMS signature verification docs, DAAL source-to-contract mapping, reconciliation alerts | DAAL verifier integration and reconciliation docs |
 | Infrastructure | Public IAM-authorized gateway skeleton | Full one-command gateway + broker | Hardened production modules |
 | Governance | SECURITY, CONTRIBUTING, branch protection, CodeQL, Dependabot | Project board pending auth scope | Contributor milestones and release cadence |
 
-## Phase 2: Workload Identity Consumption
+## Phase 2: Workload Identity Extensions
 
 Planned:
 
@@ -64,13 +63,13 @@ Why it matters:
 
 Adapters should not rely only on bearer tokens or network location. Workload identity lets the adapter contract bind `actor` to a real workload identity. ZT-Infra should consume those identities, not replace the system that issues them.
 
-Current gaps:
+Next requirements:
 
-- `actor` is documented, but no canonical AI-agent identity profile exists yet.
-- The public mock allows `POST /agents` registration without proof of workload identity.
-- There is no agent credential issuance flow equivalent to SPIFFE SVID issuance.
-- There is no trust bundle format for distributing control-plane roots or accepted issuers.
-- There is no revocation story for transient agents that finish a task or become compromised.
+- define the canonical AI-agent identity profile;
+- map local mock actors to workload-bound identity in production examples;
+- document credential issuance patterns equivalent to SPIFFE SVID issuance;
+- define trust bundle shape for control-plane roots and accepted issuers;
+- document revocation for transient agents that finish a task or become compromised.
 
 Exit criteria:
 
@@ -93,11 +92,11 @@ Why it matters:
 
 SPIFFE identifies workloads. The adapter contract also needs explainable runtime context: which model, which tool manifest, which sandbox, which broker, which policy, and which code produced the action.
 
-Current gaps:
+Next requirements:
 
-- Audit records identify actor/action/decision, but do not yet prove the runtime context of the agent.
-- The Hello World mock does not bind an agent to a code digest, model identity, tool manifest, or sandbox.
-- There is no reusable attestation schema that LangGraph, OpenAI Responses, MCP, and A2A adapters can share.
+- extend audit records with runtime-context attestations;
+- bind demo agents to code digest, model identity, tool manifest, and broker context where practical;
+- publish a reusable attestation schema that LangGraph, OpenAI Responses, MCP, and A2A adapters can share.
 
 Exit criteria:
 
@@ -119,12 +118,12 @@ Why it matters:
 
 The SPIFFE analogy only becomes real when identities can cross boundaries safely. Agents will call tools across teams, vendors, SaaS providers, and customer environments.
 
-Current gaps:
+Next requirements:
 
-- There is no trust domain abstraction.
-- There is no signed bundle format for distributing accepted issuers or verification roots.
-- External A2A and MCP identities are treated as policy strings, not federated principals.
-- There is no documented trust negotiation or downgrade path.
+- define a trust-domain abstraction;
+- define a signed bundle format for accepted issuers and verification roots;
+- model external A2A and MCP identities as federated principals;
+- document trust negotiation and downgrade behavior.
 
 Exit criteria:
 
@@ -163,11 +162,11 @@ Why it matters:
 
 OCI succeeded because container behavior became portable across runtimes. This project needs the same kind of portability for agent policy decisions and audit evidence.
 
-Current gaps:
+Next requirements:
 
-- The docs show ABAC examples, but there is no versioned policy schema.
-- There is no official conformance suite for third-party adapter authors.
-- Audit fields are documented, but not published as a machine-readable schema.
+- publish a versioned policy schema;
+- publish a conformance suite for third-party adapter authors;
+- publish audit fields as a machine-readable schema.
 
 Exit criteria:
 
@@ -192,7 +191,7 @@ Planned:
 ## Non-Goals
 
 - This repo will not contain production secrets.
-- This repo will not become the full private infrastructure control plane.
+- This repo will not become a full production control plane implementation.
 - This repo will keep examples small enough for new adapter authors to understand.
 
 ## Nono Status

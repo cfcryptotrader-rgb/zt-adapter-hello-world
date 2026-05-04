@@ -2,7 +2,7 @@ import { spawn } from "node:child_process";
 
 import { ZeroTrustClient } from "../../src/zero-trust-client.js";
 
-const DEFAULT_NONO_BIN = "/usr/local/bin/nono";
+const DEFAULT_NONO_BIN = "nono";
 
 export class NonoCliBroker {
   constructor({

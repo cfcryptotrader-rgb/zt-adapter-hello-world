@@ -4,6 +4,7 @@ node_modules/
 coverage/
 npm-debug.log*
 sbom.cdx.json
+recordings/*.cast
 .terraform/
 **/.terraform/
 *.tfstate
