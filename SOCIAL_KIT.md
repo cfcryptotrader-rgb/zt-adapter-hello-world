@@ -70,7 +70,7 @@ https://www.zt-infra.org
 - ZT-Infra is an early open-source adapter-contract MVP.
 - The public repo demonstrates policy-before-execution.
 - The quickstart can show deny-before-execute and allow-before-execute.
-- The full MVP is building toward signed, hash-chained audit evidence.
+- The full MVP is building toward signed, hash-chained audit evidence with optional DAAL hash anchoring.
 - The roadmap includes SPIFFE/SPIRE consumption, OPA/Cedar policy templates, broker integrations, and conformance tests.
 - The public adapter is Apache-2.0 licensed.
 
@@ -80,8 +80,8 @@ https://www.zt-infra.org
 - Do not claim SOC 2 readiness.
 - Do not claim prompt-injection prevention.
 - Do not claim every adapter framework version is certified.
-- Do not claim every production audit log is blockchain verified until reconciliation, alerting, and delivery-rate evidence exist.
-- Use "mathematical attestation" or "non-repudiation layer" before "blockchain" in enterprise messaging.
+- Do not claim every production audit log is ledger verified until reconciliation, alerting, and delivery-rate evidence exist.
+- Use "mathematical attestation" or "non-repudiation layer" before naming any ledger or provider in enterprise messaging.
 - Do not claim smart contracts are verified on an explorer until `EXPLORER_VERIFICATION.md` includes a real contract address and verified source link.
 - Do not imply the local mock signatures are production cryptographic proof.
 - Do not claim zt-infra replaces OPA, Cedar, SPIFFE/SPIRE, CSA ATF, nono, microVMs, or SIEM tooling.

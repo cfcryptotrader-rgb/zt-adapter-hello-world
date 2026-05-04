@@ -2,7 +2,7 @@
 
 This guide is for the DAAL attestation layer only. The Hello World quickstart does not require Web3 credentials.
 
-Use this when you are deploying the full ZT-Infra control plane and want authorization decisions anchored to Base Sepolia.
+Use this when you are deploying the full ZT-Infra control plane and want authorization-decision hashes anchored to Base Sepolia for non-repudiation.
 
 ## Required Values
 
@@ -61,7 +61,7 @@ The script reports the active signer mode, contract address, expected provider r
 - Do not put CDP, Alchemy, or thirdweb secrets in git.
 - Keep `DAAL_BATCH_SIZE=10` for MVP demos unless you need immediate single-action smoke tests.
 - Use Base Sepolia for pilots and Base mainnet only after cost limits, reconciliation, and alerting are ready.
-- Keep DAAL asynchronous. Do not make policy decisions wait for blockchain finality.
+- Keep DAAL asynchronous. Do not make policy decisions wait for ledger finality.
 
 ## Provider Portability
 

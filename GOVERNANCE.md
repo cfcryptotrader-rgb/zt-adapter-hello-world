@@ -17,7 +17,7 @@ What the current public repo does well:
 
 - demonstrates deny-before-execute and allow-before-execute in minutes;
 - keeps the local control plane small and understandable;
-- documents identity, policy, threat model, roadmap, and adapter contract;
+- documents identity consumption, policy handoff, threat model, roadmap, and adapter contract;
 - includes a Docker Local Execution Broker example;
 - includes an IAM-authorized Terraform Authorization Gateway example;
 - includes a local audit verifier CLI;

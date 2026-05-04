@@ -1,6 +1,8 @@
 # Community
 
-ZT-Infra is intended to become a practical, open standard for agent identity, policy enforcement, execution brokers, and audit evidence.
+ZT-Infra is intended to become a practical, open adapter contract for agent action authorization.
+
+The community focus is deliberately narrow: request shape, allow/deny response shape, fail-closed SDK behavior, broker handoff, and audit envelope compatibility across agent frameworks. ZT-Infra should compose with identity systems, policy engines, sandboxes, and observability tools rather than replacing them.
 
 ## Discord
 
@@ -25,6 +27,7 @@ Use this channel to ask questions, report onboarding friction, and coordinate co
 - policy schema feedback;
 - MCP, A2A, LangGraph, and OpenAI integration feedback;
 - audit verifier and DAAL verification discussions;
+- integration patterns with SPIFFE/SPIRE, OPA, Cedar, nono, and SIEM tooling;
 - Good First Issue coordination.
 
 ## Community Expectations

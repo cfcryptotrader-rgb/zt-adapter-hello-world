@@ -37,7 +37,7 @@ The local audit record remains inside the control-plane environment. The ledger 
 
 | Provider | Role | What It Does Not Receive |
 | --- | --- | --- |
-| Coinbase Developer Platform | Server-wallet signing for DAAL transactions. | Agent chat content, raw prompts, private tool payloads, or app secrets. |
+| Coinbase Developer Platform | Server-wallet signing for optional DAAL transactions. | Agent chat content, raw prompts, private tool payloads, or app secrets. |
 | thirdweb | Contract deployment and optional transaction infrastructure. | Local audit body unless explicitly placed in metadata. |
 | Alchemy | Base RPC reads and receipt verification. | Raw agent context or policy documents. |
 | Base Sepolia | Testnet ledger for MVP evidence anchoring. | Private action details; only hashes and optional metadata URI. |
@@ -50,7 +50,7 @@ External provider documentation to review during procurement:
 
 ## Defense In Depth
 
-ZT-Infra is not a single sandbox claim. It is the adapter and audit layer in a defense-in-depth stack:
+ZT-Infra is not a single sandbox claim. It is the adapter contract and audit envelope in a defense-in-depth stack:
 
 | Layer | Control |
 | --- | --- |
@@ -99,7 +99,7 @@ ZT-Infra anchors hashes of agent authorization decisions to Base Sepolia so loca
 Avoid:
 
 ```text
-Every production audit log is blockchain verified.
+Every production audit log is ledger verified.
 ```
 
 That stronger claim requires production reconciliation, delivery-rate monitoring, alerting, and retention evidence.

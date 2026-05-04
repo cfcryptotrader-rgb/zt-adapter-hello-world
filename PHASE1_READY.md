@@ -49,7 +49,7 @@ Do not claim:
 
 - "Production-certified agent security."
 - "Prompt injection prevention."
-- "Every audit log is blockchain verified."
+- "Every audit log is ledger verified."
 - "Every agent action is cryptographically non-repudiable."
 - "MicroVM isolation is implemented in the public starter repo."
 - "ZT-Infra replaces OPA, Cedar, SPIFFE/SPIRE, nono, or SIEM tooling."

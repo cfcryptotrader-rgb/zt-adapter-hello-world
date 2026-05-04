@@ -13,7 +13,7 @@ This page shows where data moves during a protected agent action.
 6. Allow enters an execution broker such as Docker Local or Nono.
 7. Broker runs the approved command with constrained permissions.
 8. Local audit record is hash-chained and signed.
-9. DAAL asynchronously anchors only the action hash or batch root.
+9. Optional DAAL asynchronously anchors only the action hash or batch root.
 10. Alchemy receipt verification confirms the transaction targets the DAAL contract.
 ```
 
@@ -61,4 +61,4 @@ This architecture gives a CTO three reviewable properties:
 2. **Constrained execution:** allowed actions pass through a broker with explicit permissions.
 3. **Independent evidence:** local audit records can be checked against an external hash anchor.
 
-The blockchain layer is therefore a non-repudiation control, not an execution dependency.
+The ledger attestation path is therefore a non-repudiation control, not an execution dependency.

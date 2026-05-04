@@ -1,6 +1,6 @@
-# Blockchain Explorer Verification
+# Ledger Explorer Verification
 
-This document tracks the public verification status for DAAL smart contracts.
+This document tracks the public verification status for optional DAAL smart contracts.
 
 ## Current Status
 
@@ -80,7 +80,7 @@ The DAAL testnet contract is verified on <Explorer>, and example audit anchors c
 Avoid:
 
 ```text
-Every audit log is blockchain verified.
+Every audit log is ledger verified.
 ```
 
 That claim is only valid after the production control plane writes all relevant audit anchors to a verified deployed contract and monitoring proves the expected delivery rate.

@@ -2,7 +2,9 @@
 
 This repo is designed for junior developers and first-time adapter authors.
 
-The broader mission is to help define the next decade of autonomous system security. If you care about portable agent identity, policy-before-execution, signed audit evidence, secure tool use, or federated trust between agent runtimes, this project is the place to turn those ideas into runnable examples and tests.
+The project mission is to define the integration contract for agent action authorization. If you care about policy-before-execution, fail-closed adapter behavior, broker handoff, signed audit evidence, or framework interoperability, this repo is the place to turn those ideas into runnable examples and tests.
+
+ZT-Infra is not trying to replace SPIFFE/SPIRE, OPA, Cedar, CSA ATF, nono, microVMs, or SIEM tooling. Contributions should make those primitives easier for agent frameworks to use consistently.
 
 ## Local workflow
 

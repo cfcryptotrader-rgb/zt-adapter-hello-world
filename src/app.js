@@ -80,7 +80,7 @@ const docs = [
     slug: "project-scope",
     title: "Project Scope",
     file: "PROJECT_SCOPE.md",
-    summary: "The narrow adapter-contract role and how zt-infra composes with identity, policy, sandbox, and observability layers.",
+    summary: "The narrow adapter-contract role and how zt-infra composes with identity providers, policy engines, sandboxes, and observability layers.",
   },
   {
     slug: "phase1-ready",
@@ -150,9 +150,9 @@ const docs = [
   },
   {
     slug: "explorer-verification",
-    title: "Explorer Verification",
+    title: "Ledger Explorer Verification",
     file: "EXPLORER_VERIFICATION.md",
-    summary: "DAAL smart contract explorer verification status, acceptance criteria, and claim boundaries.",
+    summary: "Optional DAAL smart contract explorer verification status, acceptance criteria, and claim boundaries.",
   },
   {
     slug: "contributing",
@@ -393,7 +393,7 @@ function landingPage() {
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>ZT-Infra | Agent Identity, Policy, and Audit</title>
+    <title>ZT-Infra | Agent Action Authorization Adapter</title>
     <style>${sharedStyles()}</style>
   </head>
   <body>
@@ -411,7 +411,7 @@ function landingPage() {
       <h1>Adapter contract and audit envelope for autonomous agent actions</h1>
       <p>
         ZT-Infra is the integration layer between agent frameworks and the controls security teams already trust:
-        workload identity, policy engines, execution sandboxes, and audit systems.
+        identity providers, policy engines, execution sandboxes, and audit systems.
       </p>
       <p>
         The project defines the agent-side contract: request shape, allow/deny response shape,

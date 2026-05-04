@@ -182,11 +182,11 @@ Planned:
 - OpenTelemetry export examples.
 - SIEM-friendly JSON event format.
 - GitHub Actions evidence bundle.
-- DAAL/blockchain attestation sample integration.
+- Optional DAAL ledger-attestation sample integration.
 - Verified DAAL contract source on Base Sepolia or Polygon Amoy explorer.
 - Example `ActionLogged` transaction linked from public docs. MVP Base Sepolia direct and batched AWS smoke transactions are published; production readiness still needs source-to-contract mapping, reconciliation, and alerting.
 - Trust-bundle and agent-attestation evidence export.
-- Compliance mapping from identity, policy, and audit controls to SOC 2 evidence.
+- Compliance mapping from adapter decisions, broker evidence, and audit controls to SOC 2 evidence.
 - Verifier CLI that checks identity signature, trust bundle, hash chain, and optional DAAL transaction.
 
 ## Non-Goals

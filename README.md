@@ -10,7 +10,7 @@ It is intentionally small: a Node.js Hello World service plus one demo call to t
 
 - **License:** Apache-2.0, chosen for enterprise-friendly infrastructure adoption and explicit patent grant language.
 - **Community:** Join the `Zero Trust Infrastructure` Discord: <https://discord.gg/cDS8MPX6G>.
-- **Explorer verification:** DAAL smart contract explorer verification is tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Base Sepolia MVP evidence is published, including direct and batched AWS smoke transactions. Production all-log claims remain pending until source mapping, reconciliation, alerting, and repeatable verifier automation are complete.
+- **Ledger explorer verification:** optional DAAL smart contract explorer verification is tracked in [EXPLORER_VERIFICATION.md](./EXPLORER_VERIFICATION.md). Base Sepolia MVP evidence is published, including direct and batched AWS smoke transactions. Production all-log claims remain pending until source mapping, reconciliation, alerting, and repeatable verifier automation are complete.
 
 ## Narrow Scope
 
@@ -30,8 +30,8 @@ Start here if you need to understand the security model before writing code:
 - [Project Scope](./PROJECT_SCOPE.md): what zt-infra is, what it is not, and how it composes with SPIFFE, OPA/Cedar, CSA ATF, nono, and observability tools.
 - [Interoperability Inventory](./INTEROPERABILITY.md): supported languages, agent interfaces, brokers, and infrastructure evidence surfaces.
 - [Phase 1 Ready Criteria](./PHASE1_READY.md): explicit MVP completion criteria and current versus planned claims.
-- [Enterprise Readiness](./ENTERPRISE_READINESS.md): mathematical attestation, non-repudiation, resilience, signer security, and vendor portability.
-- [Life Of A Request](./LIFE_OF_REQUEST.md): exact data flow through identity, policy, broker execution, local audit, and DAAL anchoring.
+- [Enterprise Readiness](./ENTERPRISE_READINESS.md): mathematical attestation, non-repudiation, optional ledger anchoring, resilience, signer security, and vendor portability.
+- [Life Of A Request](./LIFE_OF_REQUEST.md): exact data flow through identity consumption, policy decision, broker execution, local audit, and optional DAAL anchoring.
 - [10-Minute Web3 Integration](./WEB3_INTEGRATION.md): required DAAL environment values and setup checklist.
 - [Threat Model](./THREAT_MODEL.md): what this system protects against and what remains the application developer's responsibility.
 - [Risk Register](./RISK_REGISTER.md): launch and architecture risks, controls, and mitigations.
@@ -44,7 +44,7 @@ Start here if you need to understand the security model before writing code:
 - [Security Artifacts](./SECURITY_ARTIFACTS.md): SAST, dependency review, secret scan, SBOM, and audit verification evidence.
 - [Roadmap](./ROADMAP.md): planned Phase 2 work, including mTLS and SPIFFE/SPIRE integration.
 - [Engagement Strategy](./ENGAGEMENT_STRATEGY.md): launch channels, package-manager plan, and measurement loops.
-- [Explorer Verification](./EXPLORER_VERIFICATION.md): DAAL contract explorer verification status, example transactions, and claim boundaries.
+- [Ledger Explorer Verification](./EXPLORER_VERIFICATION.md): optional DAAL contract explorer verification status, example transactions, and claim boundaries.
 - [Community](./COMMUNITY.md): Discord channel status, expectations, and feedback paths.
 - [Governance](./GOVERNANCE.md): rules of engagement, stakeholder communication, and launch checklist.
 - [Launch Checklist](./LAUNCH_CHECKLIST.md): status of review feedback, completed work, and open launch items.

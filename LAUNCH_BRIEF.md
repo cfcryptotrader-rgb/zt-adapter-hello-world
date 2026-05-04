@@ -6,7 +6,7 @@ Use this brief for public website copy, social posts, partner notes, and early a
 
 Agents are moving from chat into action. They discover tools, call APIs, write code, open tickets, and operate across cloud and SaaS boundaries. Existing IAM can authenticate applications and humans, but it does not give teams a portable way to identify a transient agent, check exact action policy, and preserve signed evidence for each attempted action.
 
-ZT-Infra is building an open adapter contract and audit envelope for autonomous agent actions. It is designed to plug into existing identity, policy engine, sandbox, and observability layers instead of replacing them.
+ZT-Infra is building an open adapter contract and audit envelope for autonomous agent actions. It is designed to plug into existing identity providers, policy engines, containment layers, and observability systems instead of replacing them.
 
 One-sentence pitch:
 
@@ -17,7 +17,7 @@ An open adapter contract and audit envelope for agent action authorization.
 - Developers building adapters for agent frameworks and tool protocols.
 - Security engineers who need a clear control point before agent tool execution.
 - Platform teams that want agent actions to follow the same rigor as production workload actions.
-- Early contributors interested in identity, policy, attestation, MCP, A2A, and execution brokers.
+- Early contributors interested in adapter contracts, policy handoff, attestation evidence, MCP, A2A, and execution brokers.
 
 ## Current Public Proof
 
