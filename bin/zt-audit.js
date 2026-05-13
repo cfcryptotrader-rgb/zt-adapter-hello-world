@@ -2,10 +2,41 @@
 
 import { verifyAuditFile } from "../src/audit-verifier.js";
 
+const usage = `Usage:
+  zt-audit verify audit.json
+
+Verifies an audit-shaped JSON response from the demo adapter.
+
+Expected input shape:
+  {
+    "actor": "hello-world-agent",
+    "action": "hello-world.say_hello",
+    "resource": "local-demo",
+    "decision": "allow" | "deny",
+    "reason": "...",
+    "audit": {
+      "timestamp": "2026-05-01T00:00:00.000Z",
+      "previous_hash": "<64 hex chars>",
+      "current_hash": "<64 hex chars>",
+      "kms_signature": {
+        "algorithm": "MOCK_ECDSA_SHA_256",
+        "key_id": "mock-key",
+        "signature": "mock-signature"
+      }
+    }
+  }
+
+Common failures:
+  - missing or unreadable audit file
+  - missing required actor/action/resource/decision/audit fields
+  - current_hash does not match the canonical audit payload
+  - missing KMS signature metadata
+`;
+
 const [, , command, filePath] = process.argv;
 
 if (command !== "verify" || !filePath) {
-  console.error("usage: zt-audit verify audit.json");
+  console.error(usage.trimEnd());
   process.exit(2);
 }
 
@@ -20,4 +51,3 @@ try {
   console.error(JSON.stringify({ ok: false, error: error.message }, null, 2));
   process.exit(1);
 }
-

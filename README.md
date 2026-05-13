@@ -374,7 +374,7 @@ or from a local checkout:
 node bin/zt-audit.js verify audit.json
 ```
 
-The verifier checks required actor/action/decision fields, hash-chain fields, signature metadata, and canonical hash consistency for the public demo record format. Production KMS signature verification is planned work.
+The verifier checks required actor/action/decision fields, hash-chain fields, signature metadata, and canonical hash consistency for the public demo record format. Run `node bin/zt-audit.js` with no arguments to print the expected input shape and common failure messages. Production KMS signature verification is planned work.
 
 ## Public IaC Example
 

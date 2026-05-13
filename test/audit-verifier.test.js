@@ -86,3 +86,17 @@ test("zt-audit verify validates files", async () => {
   assert.equal(result.records, 1);
 });
 
+test("zt-audit prints usage and expected input shape when arguments are missing", async () => {
+  await assert.rejects(
+    execFileAsync(process.execPath, ["bin/zt-audit.js"]),
+    (error) => {
+      assert.equal(error.code, 2);
+      assert.match(error.stderr, /Usage:/);
+      assert.match(error.stderr, /zt-audit verify audit\.json/);
+      assert.match(error.stderr, /Expected input shape:/);
+      assert.match(error.stderr, /Common failures:/);
+      assert.match(error.stderr, /current_hash does not match/);
+      return true;
+    },
+  );
+});
