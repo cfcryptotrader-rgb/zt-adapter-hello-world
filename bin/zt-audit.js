@@ -28,7 +28,7 @@ Expected input shape:
 
 Common failures:
   - missing or unreadable audit file
-  - missing required actor/action/resource/decision/audit fields
+  - missing required actor/action/decision/reason/audit fields
   - current_hash does not match the canonical audit payload
   - missing KMS signature metadata
 `;
