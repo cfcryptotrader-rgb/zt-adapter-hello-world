@@ -7,7 +7,7 @@ const usage = `Usage:
 
 Verifies an audit-shaped JSON response from the demo adapter.
 
-Expected input shape:
+Expected input shape (top-level required fields: actor, action, decision, reason, audit; resource is optional):
   {
     "actor": "hello-world-agent",
     "action": "hello-world.say_hello",
