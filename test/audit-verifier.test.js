@@ -86,3 +86,15 @@ test("zt-audit verify validates files", async () => {
   assert.equal(result.records, 1);
 });
 
+test("zt-audit verify validates denied audit fixture", async () => {
+  const { stdout } = await execFileAsync(process.execPath, [
+    "bin/zt-audit.js",
+    "verify",
+    "test/fixtures/denied-audit.json",
+  ]);
+  const result = JSON.parse(stdout);
+
+  assert.equal(result.ok, true);
+  assert.equal(result.records, 1);
+});
+

@@ -1,0 +1,18 @@
+{
+  "ok": false,
+  "actor": "hello-world-agent",
+  "action": "aws.ec2.terminate_instances",
+  "resource": "i-demo",
+  "decision": "deny",
+  "reason": "Mock policy blocks infrastructure termination.",
+  "audit": {
+    "timestamp": "2026-05-01T00:00:00.000Z",
+    "previous_hash": "0000000000000000000000000000000000000000000000000000000000000000",
+    "current_hash": "4ce56903e183b4541ba69eed97e6bf8cdaa537cbc2e4c774f0a081448a765939",
+    "kms_signature": {
+      "algorithm": "MOCK_ECDSA_SHA_256",
+      "key_id": "mock-key",
+      "signature": "mock-signature"
+    }
+  }
+}
